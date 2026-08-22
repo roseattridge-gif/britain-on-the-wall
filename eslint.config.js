@@ -1,0 +1,2 @@
+import js from '@eslint/js'; import globals from 'globals'; import hooks from 'eslint-plugin-react-hooks'; import refresh from 'eslint-plugin-react-refresh';
+export default [{ignores:['dist','vite.config.js','vite.config.d.ts']},{files:['**/*.{ts,tsx}'],extends:[js.configs.recommended,hooks.configs.flat.recommended,refresh.configs.vite],languageOptions:{ecmaVersion:2022,globals:globals.browser,parserOptions:{ecmaVersion:'latest',sourceType:'module'}},rules:{'no-unused-vars':'off'}}];
