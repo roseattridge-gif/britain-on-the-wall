@@ -1,10 +1,17 @@
 # Product decisions
 
 Date: 2026-08-24
+Decision: Use pounds per £100—not pence per £1—as the primary public proportional unit.
+Why: The larger whole-number framing communicates nationally significant allocations more intuitively while preserving exactly the same proportions.
+Alternatives considered: Retaining pence per £1; showing percentages; removing the proportional mode.
+Implications: The public toggle is `EVERY £100 | £ BILLIONS`; Treasury is framed as a £100 national pool; labels, guide, timeline notes, Health story and inspector use pounds per £100. Geometry and underlying data do not change, and borrowing remains explicitly distinct from receipts raised now.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
 Decision: Make national money mass legible through three redundant signals—square-root-scaled blob area, square-root-scaled ribbon width and a numeric value—with derived top-three source and destination ranks.
 Why: A first-time viewer must see the dominant funding and spending territories within five seconds, without having to compare labels one by one.
 Alternatives considered: Equal nodes, ribbon-only encoding, a ranked side list, a KPI panel and a default Sankey.
-Implications: Size and rank respond to the selected demo year. Treasury retains a 100p convergence ring. Major categories disclose illustrative orbital composition in place; funding language describes receipts associated with a category and does not assert tax incidence. Health remains the sole deeper recursive domain.
+Implications: Size and rank respond to the selected demo year. Treasury retains a £100 convergence ring. Major categories disclose illustrative orbital composition in place; funding language describes receipts associated with a category and does not assert tax incidence. Health remains the sole deeper recursive domain.
 Status: Accepted and implemented.
 
 Date: 2026-08-24

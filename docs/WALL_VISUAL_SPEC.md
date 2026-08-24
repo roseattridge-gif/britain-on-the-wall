@@ -82,9 +82,9 @@ Magnitude is encoded redundantly so the national Wall works at a glance and rema
 - Funding blob diameter: `90 + sqrt(value / maxFunding) × 300px`.
 - Spending blob diameter: `80 + sqrt(value / maxDomain) × 290px`.
 - The minimum diameter preserves a readable target; square-root scaling prevents the largest item consuming the scene.
-- Blob area, connected ribbon width and the displayed `p`/`£bn` value all update from the selected demo year.
+- Blob area, connected ribbon width and the displayed pounds-per-£100/`£bn` value all update from the selected demo year.
 - The three largest funding categories are annotated `#1–#3 SOURCE CATEGORY`; the three largest spending domains are annotated `#1–#3 DESTINATION`. Rank is derived anew for each selected year.
-- Treasury remains the single convergence point. A static dashed `100p / ONE NATIONAL POOL` ring reinforces that each downstream `p` value partitions the same illustrative whole.
+- Treasury remains the single convergence point. A static dashed `£100 / ONE NATIONAL POOL` ring reinforces that each downstream pound-per-£100 value partitions the same illustrative whole. The public unit toggle reads `EVERY £100 | £ BILLIONS`; pence-per-£1 is not exposed.
 
 At shallow semantic zoom, selecting a major source or destination reveals an orbital composition territory in the same world. Satellite area is square-root-scaled by share and each satellite repeats its derived amount and percentage. Funding uses the careful label `RECEIPTS ASSOCIATED WITH`; it does not claim tax incidence. Spending uses `THIS ALLOCATION CONTAINS`. These are explicitly illustrative prototype fixtures. Health retains the existing deeper recursive allocation → delivery → people → outcome example rather than receiving a competing shallow overlay.
 
@@ -106,7 +106,7 @@ All nodes are native buttons with descriptive accessible names. Status is expres
 
 ### Visual reading order
 
-The national scene reads spatially rather than as numbered UI steps: funding receipts at upper left; separately treated borrowing above; convergence through the dominant Treasury; “where every £1 goes” across the spending fan; delivery and people at closer semantic zoom; the shared outcome horizon at right; and losses/committed drags branching downward where they occur. Small world-space chapter numbers support this eye path without becoming navigation cards.
+The national scene reads spatially rather than as numbered UI steps: funding receipts at upper left; separately treated borrowing above; convergence through the dominant Treasury; “where every £100 goes” across the spending fan; delivery and people at closer semantic zoom; the shared outcome horizon at right; and losses/committed drags branching downward where they occur. Small world-space chapter numbers support this eye path without becoming navigation cards.
 
 ### Attention annotations
 
@@ -122,7 +122,7 @@ The compact timeline combines a scrubber with explicit year stops. Changing year
 
 ### Change annotations
 
-After a year change, three temporary world-space notes identify changes in Health’s share of every £1, debt-interest drag and the healthy-lives direction. They remain attached to affected territories rather than forming a dashboard or footer.
+After a year change, three temporary world-space notes identify changes in Health’s pounds per £100, debt-interest drag and the healthy-lives direction. They remain attached to affected territories rather than forming a dashboard or footer.
 
 ### Guided first look
 

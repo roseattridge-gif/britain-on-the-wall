@@ -9,7 +9,7 @@ import type {Year} from '../types';
 import {Icon} from './Icon';
 import {FloatingControls} from './FloatingControls';
 
-type Props={year:Year;setYear:(x:Year)=>void;unit:'pound'|'bn';setUnit:(x:'pound'|'bn')=>void;leaks:boolean;setLeaks:(x:boolean)=>void;receipt:boolean;setReceipt:(x:boolean)=>void;openEvidence:(id:string)=>void};
+type Props={year:Year;setYear:(x:Year)=>void;unit:'hundred'|'bn';setUnit:(x:'hundred'|'bn')=>void;leaks:boolean;setLeaks:(x:boolean)=>void;receipt:boolean;setReceipt:(x:boolean)=>void;openEvidence:(id:string)=>void};
 
 const curve=(a:Point,b:Point)=>`M ${a.x} ${a.y} C ${a.x+(b.x-a.x)*.42} ${a.y}, ${a.x+(b.x-a.x)*.58} ${b.y}, ${b.x} ${b.y}`;
 const maxFunding=(year:Year)=>Math.max(...demoData.funding.map(x=>x.values[year]));
@@ -33,8 +33,8 @@ const outcomeLinks:Record<string,string[]>={
 const guideSteps=[
   {title:'Start here: who funds Britain',body:'Receipts raised now flow in from households, businesses, spending and capital.',point:{x:650,y:260}},
   {title:'Borrowing enters differently',body:'The violet dashed stream is money pulled forward, creating debt rather than a receipt raised now.',point:{x:2200,y:155}},
-  {title:'Money converges here',body:'Treasury is shown as one illustrative pool before every £1 is divided.',point:STATE_POINT},
-  {title:'Follow where every £1 goes',body:'Ribbon width and district size reveal the biggest spending priorities.',point:{x:1570,y:1120}},
+  {title:'Money converges here',body:'Treasury is shown as one illustrative pool before every £100 is divided.',point:STATE_POINT},
+  {title:'Follow where every £100 goes',body:'Ribbon width and district size reveal the biggest spending priorities.',point:{x:1570,y:1120}},
   {title:'What did Britain get back?',body:'The outcome horizon shows direction; red branches below show losses and committed drags.',point:{x:2860,y:890}},
 ];
 
@@ -147,12 +147,12 @@ function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvi
   const stateValue=total>=1000?`£${(total/1000).toFixed(2)}tn`:`£${total}bn`;
   return <button style={{left:node.point.x,top:node.point.y,'--node-size':`${size}px`,'--node-colour':node.colour??'#d7ded8'} as React.CSSProperties} className={`wall-node ${node.id} ${node.kind} ${status??''} ${selected?'selected':''} ${faded?'faded':''} ${node.id==='borrowing'?'borrowing':''}`} onClick={onSelect} onDoubleClick={onEvidence} aria-label={`${node.label}${value?` ${value}`:''}`}>
     <span className="status-field"/>
-    {node.kind==='state'&&<span className="allocation-ring"><b>100p</b><small>ONE NATIONAL POOL</small></span>}
+    {node.kind==='state'&&<span className="allocation-ring"><b>£100</b><small>ONE NATIONAL POOL</small></span>}
     <span className="node-orb"><Icon name={node.icon} size={node.kind==='state'?72:node.kind==='domain'?42:34}/></span>
     {rank&&rank<=3&&<span className="rank-badge">#{rank} {node.kind==='funding'?'SOURCE CATEGORY':'DESTINATION'}</span>}
     <span className="wall-label">
       <strong>{node.kind==='state'?'PUBLIC MONEY':node.label}</strong>
-      {node.kind==='state'?<><b>{stateValue}</b><em>100p in every £1</em></>:value?<b>{value}</b>:null}
+      {node.kind==='state'?<><b>{stateValue}</b><em>EVERY £100 RAISED OR BORROWED</em></>:value?<><b>{value}</b>{node.kind==='domain'&&<em>OF EVERY £100</em>}</>:null}
       {outcome&&<><b className="outcome-direction">{status==='improving'?'↗':status==='mixed'?'→':'↘'} {status}</b><em>{outcome.attribution}</em></>}
       {outcome&&prior&&<span className="spend-outcome-pair"><i>RELATED SPEND</i><b>{spendDirection>=0?'↑':'↓'} {Math.abs(spendDirection)}%</b><small>OUTCOME {status==='improving'?'↑':status==='mixed'?'→':'↓'}</small></span>}
       {node.id==='borrowing'&&<em>ENTERS DIFFERENTLY</em>}
@@ -166,8 +166,8 @@ function WorldRegions(){return <>
   <div className="outcome-horizon"/>
   <div className="region-title funding-title"><i>01</i> WHO FUNDS BRITAIN <small>RECEIPTS RAISED NOW</small></div>
   <div className="region-title state-title"><i>02</i> CONVERGES HERE</div>
-  <div className="treasury-sentence">FOR EVERY £1 BRITAIN RAISES OR BORROWS…</div>
-  <div className="region-title spending-title"><i>03</i> WHERE EVERY £1 GOES</div>
+  <div className="treasury-sentence">FOR EVERY £100 BRITAIN RAISES OR BORROWS, THIS IS WHERE IT GOES.</div>
+  <div className="region-title spending-title"><i>03</i> WHERE EVERY £100 GOES</div>
   <div className="region-title outcome-title"><i>04</i> THIS IS WHAT BRITAIN GOT BACK <small>SPEND TREND ≠ PROOF OF CAUSE</small></div>
   <div className="contour contour-a"/><div className="contour contour-b"/><div className="contour contour-c"/>
 </>}
@@ -181,17 +181,17 @@ const leakGeometry=[
   {id:'interest-drag',kind:'DRAG',from:{x:740,y:1360},to:{x:560,y:1650}},
 ];
 function LeakFlows({year}:{year:Year}){return <>{leakGeometry.map(g=>{const item=demoData.leaks.find(x=>x.id===g.id)!;return <g className="leak-flow" key={g.id}><path className="leak-bed" d={curve(g.from,g.to)} strokeWidth={12+Math.sqrt(item.value[year])*4}/><path className="leak-current" d={curve(g.from,g.to)} strokeWidth={4}/></g>})}</>}
-function LeakLabels({year,unit,total,open}:{year:Year;unit:'pound'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>{g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
+function LeakLabels({year,unit,total,open}:{year:Year;unit:'hundred'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>{g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
 
 const orbitOffsets=[{x:-260,y:-220},{x:290,y:-175},{x:-280,y:230},{x:285,y:225}];
-function CompositionOrbit({parentId,year,unit,total}:{parentId:string;year:Year;unit:'pound'|'bn';total:number}){
+function CompositionOrbit({parentId,year,unit,total}:{parentId:string;year:Year;unit:'hundred'|'bn';total:number}){
   const parent=nodeById(parentId),items=compositionByParent[parentId];
   const isFunding=demoData.funding.some(x=>x.id===parentId);
   const centre={x:parent.point.x-125,y:parent.point.y};
   const parentValue=demoData.funding.find(x=>x.id===parentId)?.values[year]??demoData.domains.find(x=>x.id===parentId)!.values[year];
   return <div className="composition-orbit" aria-label={`${parent.label} illustrative composition`}>
     <div className="composition-territory" style={{left:centre.x,top:centre.y}}><span>{isFunding?'ILLUSTRATIVE COMPOSITION · RECEIPTS ASSOCIATED WITH':'ILLUSTRATIVE COMPOSITION · THIS ALLOCATION CONTAINS'}</span></div>
-    {items.map((item,index)=>{const value=parentValue*item.share;const diameter=80+Math.sqrt(item.share)*125;const offset=orbitOffsets[index]??orbitOffsets[0];return <div className="composition-node" key={item.id} style={{left:centre.x+offset.x,top:centre.y+offset.y,'--composition-size':`${diameter}px`,'--composition-colour':parent.colour??'#8fd3da'} as React.CSSProperties}><span><Icon name={item.icon} size={28}/></span><strong>{item.label}</strong><b>{unit==='bn'?`£${Math.round(value)}bn`:`${Math.round(value/total*100)}p`}</b><small>{Math.round(item.share*100)}% of this category</small></div>})}
+    {items.map((item,index)=>{const value=parentValue*item.share;const diameter=80+Math.sqrt(item.share)*125;const offset=orbitOffsets[index]??orbitOffsets[0];return <div className="composition-node" key={item.id} style={{left:centre.x+offset.x,top:centre.y+offset.y,'--composition-size':`${diameter}px`,'--composition-colour':parent.colour??'#8fd3da'} as React.CSSProperties}><span><Icon name={item.icon} size={28}/></span><strong>{item.label}</strong><b>{formatValue(value,total,unit)}</b><small>{Math.round(item.share*100)}% of this category</small></div>})}
   </div>;
 }
 
@@ -201,7 +201,7 @@ function MetricField({selected,open}:{selected:string;open:(x:string)=>void}){re
 
 function AttentionLayer({year,level}:{year:Year;level:number}){if(level>0)return null;return <div className="attention-layer" aria-label="Illustrative attention markers">{attentionByYear[year].map(marker=>{const n=nodeById(marker.targetId);return <div key={marker.id} className={`attention-pin ${marker.tone}`} style={{left:n.point.x,top:n.point.y}}><i>!</i><span><small>DEMO ATTENTION</small>{marker.label}</span></div>})}</div>}
 
-function HealthStoryChain({year,total}:{year:Year;total:number}){const health=demoData.domains.find(d=>d.id==='health')!;const status=demoData.outcomes.find(o=>o.id==='healthy')!.status[year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'pound')}</b></strong><i>→</i><strong>DELIVERY <b>care systems</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>{status} {status==='improving'?'↗':status==='mixed'?'→':'↘'}</b></strong><small>Related context · not proof of causation</small></div>}
+function HealthStoryChain({year,total}:{year:Year;total:number}){const health=demoData.domains.find(d=>d.id==='health')!;const status=demoData.outcomes.find(o=>o.id==='healthy')!.status[year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'hundred')} of every £100</b></strong><i>→</i><strong>DELIVERY <b>care systems</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>{status} {status==='improving'?'↗':status==='mixed'?'→':'↘'}</b></strong><small>Related context · not proof of causation</small></div>}
 
 function ChangeAnnotations({from,to}:{from:Year;to:Year}){
   const fromTotal=totalFunding(demoData,from),toTotal=totalFunding(demoData,to);
@@ -210,8 +210,8 @@ function ChangeAnnotations({from,to}:{from:Year;to:Year}){
   const interest=share('interest',to,toTotal)-share('interest',from,fromTotal);
   const oldStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[from],newStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[to];
   const notes=[
-    {point:nodeById('health').point,text:`Health ${health>=0?'gained':'lost'} ${Math.abs(health)}p of every £1`},
-    {point:nodeById('interest').point,text:`Debt-interest drag ${interest>=0?'rose':'fell'} ${Math.abs(interest)}p`},
+    {point:nodeById('health').point,text:`Health ${health>=0?'gained':'lost'} £${Math.abs(health)} of every £100`},
+    {point:nodeById('interest').point,text:`Debt-interest drag ${interest>=0?'rose':'fell'} £${Math.abs(interest)} of every £100`},
     {point:nodeById('healthy').point,text:`Healthy lives: ${oldStatus} → ${newStatus}`},
   ];
   return <div className="change-layer" aria-label={`Changes from ${from} to ${to}`}>{notes.map((n,i)=><div className="change-note" key={n.text} style={{left:n.point.x,top:n.point.y,animationDelay:`${i*.16}s`}}><small>{from} → {to}</small><strong>{n.text}</strong></div>)}</div>;
@@ -223,7 +223,7 @@ function Inspector({id,level,year,total,open,clear}:{id:string;level:number;year
   const n=nodeById(id);const domain=demoData.domains.find(d=>d.id===id);const outcome=demoData.outcomes.find(o=>o.id===id);const healthOutcome=demoData.outcomes.find(o=>o.id==='healthy')!;
   const explanation=n.kind==='funding'?(n.id==='borrowing'?'Borrowing is money pulled forward and debt created, not a receipt raised now.':'This receipt is raised now and joins the illustrative public-money pool before allocation.'):
     n.id==='state'?'All receipts and borrowing are shown here as one illustrative funding pool before allocation.':
-    n.id==='health'?`Britain allocates ${formatValue(domain!.values[year],total,'pound')} of every £1 here. Spending rises over the demo period while the selected healthy-lives outcome is ${healthOutcome.status[year]}; this pairing does not prove causation.`:
+    n.id==='health'?`Britain allocates ${formatValue(domain!.values[year],total,'hundred')} of every £100 here. Spending rises over the demo period while the selected healthy-lives outcome is ${healthOutcome.status[year]}; this pairing does not prove causation.`:
     n.id==='hospitals'?'Hospitals converts part of the Health allocation into elective and emergency care for patients. Zoom closer to trace its operating system.':
     outcome?`This indicator is ${outcome.status[year]}. It shows direction in the selected illustrative measure and does not prove what caused the change.`:
     'Connected territory remains bright; the rest of Britain stays visible for orientation.';

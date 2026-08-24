@@ -8,7 +8,7 @@ The accepted spatial Wall now carries a self-explanatory narrative layer without
 
 - Five-step optional first-look guide with world-space spotlights.
 - Explicit national reading order from receipts and borrowing through Treasury, allocation, outcomes and losses.
-- “Where every £1 goes” promoted to a signature annotation and control label.
+- “Where every £100 goes” promoted to a signature annotation and control label.
 - Related-spend change paired with outcome direction under explicit non-causality language.
 - Shared outcome horizon with direction words, arrows and heat.
 - Three to four explicit illustrative attention pins per year.
@@ -19,7 +19,7 @@ The accepted spatial Wall now carries a self-explanatory narrative layer without
 
 ## Verified comprehension
 
-At 1440×900 the opening view answers who funds Britain, the illustrative total, why borrowing differs, where the largest allocations go, what pence-per-pound means, what the outcome colours mean, what Britain gets back, where value is lost, which territories deserve attention and how to explore.
+At 1440×900 the opening view answers who funds Britain, the illustrative total, why borrowing differs, where the largest allocations go, what pounds-per-£100 means, what the outcome colours mean, what Britain gets back, where value is lost, which territories deserve attention and how to explore.
 
 The 2005 → 2025 change visibly alters at least three elements: Health share, debt-interest drag and healthy-lives status, alongside different attention pins and changing flow geometry.
 
