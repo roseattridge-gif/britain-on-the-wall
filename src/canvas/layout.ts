@@ -17,13 +17,13 @@ export const WORLD={width:3200,height:1800};
 export const STATE_POINT={x:1530,y:650};
 
 const fundingPoints:Point[]=[
-  {x:280,y:250},{x:610,y:155},{x:955,y:170},
-  {x:1290,y:250},{x:650,y:470},{x:2200,y:155},
+  {x:430,y:250},{x:900,y:145},{x:1240,y:175},
+  {x:1430,y:300},{x:790,y:490},{x:2200,y:155},
 ];
 const domainPoints:Point[]=[
-  {x:900,y:1030},{x:1250,y:1080},{x:1600,y:1100},{x:1950,y:1040},
-  {x:2290,y:960},{x:2450,y:1190},{x:2170,y:1370},{x:1810,y:1430},
-  {x:1440,y:1450},{x:1080,y:1400},{x:740,y:1360},{x:2580,y:1480},
+  {x:820,y:1040},{x:1320,y:1070},{x:1800,y:1080},{x:2150,y:1010},
+  {x:2410,y:890},{x:2540,y:1160},{x:2290,y:1400},{x:1950,y:1490},
+  {x:1590,y:1500},{x:1250,y:1470},{x:890,y:1430},{x:2640,y:1460},
 ];
 const domainSizes=[280,260,240,230,205,180,185,190,195,180,210,165];
 const domainColours=['#5fae9b','#7aa8c4','#9e91bd','#d0a45e','#6888ad','#b58a79','#9fa56f','#5c9fa6','#789b89','#8d9394','#9b7f9d','#7c8987'];
@@ -51,6 +51,6 @@ export const canvasNodes:CanvasNode[]=[
 
 export const focusTargets:Record<string,{x:number;y:number;scale:number}>={
   britain:{x:1600,y:880,scale:.46},
-  health:{x:900,y:1010,scale:.92},
+  health:{x:980,y:1010,scale:.92},
   hospitals:{x:610,y:820,scale:1.48},
 };

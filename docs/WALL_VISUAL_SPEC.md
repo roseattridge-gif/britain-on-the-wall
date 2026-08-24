@@ -103,6 +103,17 @@ Seven priority aggregates—Workers & Households, Businesses, Consumption, Healt
 - Far hints use three stable authored offsets. Medium labels sit immediately below their pictogram; selected composition uses the established four collision-reviewed offsets.
 - Year changes resize cores and ribbons but do not reposition children, preserving spatial memory.
 
+## National composition rules
+
+- **Hero frame:** the 1440×900 national fit is the authored primary composition. Workers sits fully inside the upper-left funding basin; Treasury anchors the centre; Health, Pensions and Welfare form a separated primary spending arc; smaller domains form a quieter secondary lower/right arc.
+- **Visual hierarchy:** Workers is the unmistakable dominant source. Health, Pensions and Welfare carry their names and values inside their cores at national fit. Secondary-domain saturation, label size and metadata contrast are reduced.
+- **Ribbon ordering:** the largest source and allocation ribbons take the cleanest direct paths. National outcome context uses one representative return thread per outcome; the fuller relationship set returns above national zoom.
+- **Labels:** Tier 1 is Treasury and the largest masses; Tier 2 is major source/destination names and values; Tier 3 is secondary categories; Tier 4 is hints and metadata. Rank annotations are editorial rules, not badges, and disappear above national zoom.
+- **Territory spacing:** major envelopes may overlap softly but their quantitative cores and labels may not collide. Far pictograms sit over the core, use inherited colour, and remain subordinate to mass.
+- **Outcome balance:** the shared horizon retains five vertically spaced outcome fields and one clean national thread into each, balancing the left/centre money story without implying causality.
+- **Leak priority:** leak/drag branches stay attached but use smaller droplets, quieter labels and reduced opacity at national fit.
+- **Chrome hierarchy:** controls, minimap and level readout are deliberately quieter than the Wall. The first-look guide may overlay the scene only until skipped; saved hero QA uses the unobstructed frame.
+
 ## 9. Leak treatment
 
 Leaks are world-space branch paths attached to a parent flow. Each has a burgundy curved stream, downward droplet terminus, name and amount. They never appear as a detached button row.

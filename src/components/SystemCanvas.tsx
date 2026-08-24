@@ -90,7 +90,7 @@ export function SystemCanvas(p:Props){
     return new Set(outcome?[selected,'state',outcome[0],...outcome[1]]:[selected,'state']);
   },[selected]);
 
-  const visible=(n:CanvasNode)=>n.kind==='component'?(selected?related.has(n.id):level>=1):n.kind==='operation'?(selected?selected==='hospitals':level>=2):true;
+  const visible=(n:CanvasNode)=>n.kind==='component'?(selected?related.has(n.id):level>=1):n.kind==='operation'?(selected?selected==='hospitals'||(selected==='health'&&level>=2):level>=2):true;
   const focusNode=(n:CanvasNode,scale=.78)=>{const v=viewport.current;if(!v)return;setCamera({x:v.clientWidth/2-n.point.x*scale,y:v.clientHeight/2-n.point.y*scale,scale})};
   const select=(n:CanvasNode)=>{setGuideStep(null);setSelected(n.id);if(n.id==='health')frame('health');else if(n.id==='hospitals')frame('hospitals');else if(compositionByParent[n.id])focusNode(n)};
   const value=(n:CanvasNode)=>{
@@ -113,7 +113,7 @@ export function SystemCanvas(p:Props){
           </defs>
           {demoData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)}/>) }
           {demoData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)}/>) }
-          {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>domains.map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
+          {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
           {demoData.healthComponents.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+n.share*70} tone="health" faded={false} hidden={level<1}/>) }
           {canvasNodes.filter(n=>n.kind==='operation').map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('hospitals').point,n.point)} width={14} tone="operation" faded={false} hidden={level<2}/>) }
           {p.leaks&&<LeakFlows year={p.year}/>} 
@@ -147,7 +147,7 @@ function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvi
   const spendDirection=priorSpend?Math.round((linkedSpend-priorSpend)/priorSpend*100):0;
   const total=totalFunding(demoData,year);
   const stateValue=total>=1000?`£${(total/1000).toFixed(2)}tn`:`£${total}bn`;
-  return <button style={{left:node.point.x,top:node.point.y,'--node-size':`${size}px`,'--node-colour':node.colour??'#d7ded8'} as React.CSSProperties} className={`wall-node ${node.id} ${node.kind} ${status??''} ${selected?'selected':''} ${faded?'faded':''} ${node.id==='borrowing'?'borrowing':''}`} onClick={onSelect} onDoubleClick={onEvidence} aria-label={`${node.label}${value?` ${value}`:''}`}>
+  return <button style={{left:node.point.x,top:node.point.y,'--node-size':`${size}px`,'--node-colour':node.colour??'#d7ded8'} as React.CSSProperties} className={`wall-node ${node.id} ${node.kind} ${territoryIds.includes(node.id)?'major-territory':'minor-territory'} ${status??''} ${selected?'selected':''} ${faded?'faded':''} ${node.id==='borrowing'?'borrowing':''}`} onClick={onSelect} onDoubleClick={onEvidence} aria-label={`${node.label}${value?` ${value}`:''}`}>
     <span className="status-field"/>
     {node.kind==='state'&&<span className="allocation-ring"><b>£100</b><small>ONE NATIONAL POOL</small></span>}
     <span className="node-orb"><Icon name={node.icon} size={node.kind==='state'?72:node.kind==='domain'?42:34}/></span>

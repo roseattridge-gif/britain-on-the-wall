@@ -1,6 +1,13 @@
 # Product decisions
 
 Date: 2026-08-24
+Decision: Author the national Wall as a primary and secondary spending composition, with only one representative spend-to-outcome thread per outcome at national fit.
+Why: Equal visual weight and dense contextual links obscured the source → Treasury → allocation → outcome sentence.
+Alternatives considered: Preserving the dense fan; a generic collision engine; hiding all secondary categories; retaining every outcome link nationally.
+Implications: Health/Pensions/Welfare form the primary arc with internal labels. Smaller domains form a quieter secondary arc. Full contextual links remain available closer in. National placement is explicitly authored for 1440×900 and verified again at 1920×1080.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
 Decision: Treat major aggregates as illustrated territories: a proportional circular core inside an asymmetric shared field with a capped set of composition hints.
 Why: National mass was legible but remained abstract; composition needed to be inferable before click without turning the Wall into an icon cloud.
 Alternatives considered: Icons scattered around every node; permanent full child bubbles; separate composition panels; replacing the existing Health hierarchy.
