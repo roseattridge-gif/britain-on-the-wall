@@ -1,4 +1,4 @@
-import {demoData} from '../data';
+import {wallData} from '../data';
 
 export type Point={x:number;y:number};
 export type CanvasNode={
@@ -41,11 +41,11 @@ export const operations:CanvasNode[]=[
 ].map(([id,label,icon,x,y])=>({id:String(id),label:String(label),icon:String(icon),point:{x:Number(x),y:Number(y)},size:145,colour:'#c8d9d3',kind:'operation',parentId:'hospitals',evidenceId:'e-hospitals'}));
 
 export const canvasNodes:CanvasNode[]=[
-  ...demoData.funding.map((n,i)=>({id:n.id,label:n.name,icon:n.icon,point:fundingPoints[i],size:n.borrowing?205:220,colour:n.borrowing?'#9a83c9':'#78c8d3',kind:'funding' as const,evidenceId:n.evidenceId})),
+  ...wallData.funding.map((n,i)=>({id:n.id,label:n.name,icon:n.icon,point:fundingPoints[i],size:n.borrowing?205:220,colour:n.borrowing?'#9a83c9':'#78c8d3',kind:'funding' as const,evidenceId:n.evidenceId})),
   {id:'state',label:'The State / Treasury',icon:'Landmark',point:STATE_POINT,size:390,colour:'#f5f0df',kind:'state'},
-  ...demoData.domains.map((n,i)=>({id:n.id,label:n.short,icon:n.icon,point:domainPoints[i],size:domainSizes[i],colour:domainColours[i],kind:'domain' as const,evidenceId:n.evidenceId})),
-  ...demoData.outcomes.map((n,i)=>({id:n.id,label:n.name,icon:['TrendingUp','HeartPulse','ShieldCheck','GraduationCap','Landmark'][i],point:outcomePoints[i],size:[235,260,220,225,240][i],kind:'outcome' as const,evidenceId:n.evidenceId})),
-  ...demoData.healthComponents.map((n,i)=>({id:n.id,label:n.name,icon:n.icon,point:componentPoints[i],size:n.id==='hospitals'?205:165,colour:'#a9d3c4',kind:'component' as const,parentId:'health',evidenceId:n.evidenceId})),
+  ...wallData.domains.map((n,i)=>({id:n.id,label:n.short,icon:n.icon,point:domainPoints[i],size:domainSizes[i],colour:domainColours[i],kind:'domain' as const,evidenceId:n.evidenceId})),
+  ...wallData.outcomes.map((n,i)=>({id:n.id,label:n.name,icon:['TrendingUp','HeartPulse','ShieldCheck','GraduationCap','Landmark'][i],point:outcomePoints[i],size:[235,260,220,225,240][i],kind:'outcome' as const,evidenceId:n.evidenceId})),
+  ...wallData.healthComponents.map((n,i)=>({id:n.id,label:n.name,icon:n.icon,point:componentPoints[i],size:n.id==='hospitals'?205:165,colour:'#a9d3c4',kind:'component' as const,parentId:'health',evidenceId:n.evidenceId})),
   ...operations,
 ];
 

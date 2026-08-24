@@ -1,0 +1,7 @@
+export type SourceRecord={id:string;organisation:string;dataset:string;title:string;url:string;publicationDate?:string;period:string;geography:string;sourceTier:1|2|3|4;revisionStatus?:string;lastChecked:string;notes?:string};
+
+export const sourceRegistry:SourceRecord[]=[
+  {id:'ons-receipts-appendix-d-2026-08',organisation:'Office for National Statistics',dataset:'Public sector current receipts: Appendix D',title:'Public sector receipts, UK, not seasonally adjusted',url:'https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/appendixdpublicsectorcurrentreceipts/current',publicationDate:'2026-08-21',period:'2025-26',geography:'UK public sector',sourceTier:1,revisionStatus:'Latest scheduled revision checked 24 August 2026',lastChecked:'2026-08-24',notes:'Accrued receipts; values do not represent cash collected in-period.'},
+  {id:'hmt-pesa-2026-ch5',organisation:'HM Treasury',dataset:'Public Expenditure Statistical Analyses 2026, Chapter 5, Table 5.2',title:'Public sector expenditure on services by sub-function, 2021-22 to 2025-26',url:'https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026',publicationDate:'2026-07-16',period:'2025-26',geography:'UK public sector',sourceTier:1,revisionStatus:'2025-26 outturn; PESA 2026 publication',lastChecked:'2026-08-24',notes:'Accredited Official Statistics. TME excludes temporary effects of banks classified to the public sector.'},
+];
+export const sourceById=(id:string)=>sourceRegistry.find(source=>source.id===id)!;

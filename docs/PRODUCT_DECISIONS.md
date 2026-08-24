@@ -83,3 +83,9 @@ Why: It proves funding → machinery → output → recipient → outcome at use
 Alternatives considered: Shallow drill-downs across every domain.  
 Implications: Other topics are explicitly marked coming next.  
 Status: Accepted.
+Date: 2026-08-24
+Decision: Use 2025–26 nominal outturn and define the national pool as HM Treasury Total Managed Expenditure, funded by ONS accrued current receipts plus a derived balancing borrowing requirement.
+Why: It is the latest completed period with coherent official receipt and functional-spending coverage and makes “raises or borrows” arithmetically explicit.
+Alternatives considered: Mixing newest forecasts and outturns; using receipts alone as the denominator; showing local-government transfers as another destination; forcing the old demo taxonomy.
+Implications: National data defaults to real. Borrowing remains visually distinct. Local government is not a separate node because functions already include its spending. A visible residual preserves PESA accounting adjustments. Deep Health and outcomes remain labelled illustrative.
+Status: Accepted brief and implemented.

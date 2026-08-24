@@ -2,7 +2,7 @@ import {useEffect,useMemo,useRef,useState} from 'react';
 import {ArrowDownRight,Info,LocateFixed} from 'lucide-react';
 import {canvasNodes,focusTargets,STATE_POINT,WORLD,type CanvasNode,type Point} from '../canvas/layout';
 import {useCamera} from '../canvas/useCamera';
-import {demoData,formatValue,totalFunding} from '../data';
+import {dataMode,wallData,formatValue,totalFunding} from '../data';
 import {attentionByYear,previousYear} from '../data/story';
 import {compositionByParent} from '../data/composition';
 import type {Year} from '../types';
@@ -12,8 +12,8 @@ import {FloatingControls} from './FloatingControls';
 type Props={year:Year;setYear:(x:Year)=>void;unit:'hundred'|'bn';setUnit:(x:'hundred'|'bn')=>void;leaks:boolean;setLeaks:(x:boolean)=>void;receipt:boolean;setReceipt:(x:boolean)=>void;openEvidence:(id:string)=>void};
 
 const curve=(a:Point,b:Point)=>`M ${a.x} ${a.y} C ${a.x+(b.x-a.x)*.42} ${a.y}, ${a.x+(b.x-a.x)*.58} ${b.y}, ${b.x} ${b.y}`;
-const maxFunding=(year:Year)=>Math.max(...demoData.funding.map(x=>x.values[year]));
-const maxDomain=(year:Year)=>Math.max(...demoData.domains.map(x=>x.values[year]));
+const maxFunding=(year:Year)=>Math.max(...wallData.funding.map(x=>x.values[year]));
+const maxDomain=(year:Year)=>Math.max(...wallData.domains.map(x=>x.values[year]));
 const fundingWidth=(value:number,year:Year)=>12+Math.sqrt(value/maxFunding(year))*96;
 const domainWidth=(value:number,year:Year)=>10+Math.sqrt(value/maxDomain(year))*86;
 const fundingDiameter=(value:number,year:Year)=>70+Math.sqrt(value/maxFunding(year))*320;
@@ -21,7 +21,7 @@ const domainDiameter=(value:number,year:Year)=>60+Math.sqrt(value/maxDomain(year
 const nodeById=(id:string)=>canvasNodes.find(x=>x.id===id)!;
 const territoryIds=['income','business','consumer','health','pensions','welfare','education'];
 const rankFor=(node:CanvasNode,year:Year)=>{
-  const collection=node.kind==='funding'?demoData.funding:node.kind==='domain'?demoData.domains:null;
+  const collection=node.kind==='funding'?wallData.funding:node.kind==='domain'?wallData.domains:null;
   if(!collection)return undefined;
   return [...collection].sort((a,b)=>b.values[year]-a.values[year]).findIndex(x=>x.id===node.id)+1;
 };
@@ -34,7 +34,7 @@ const outcomeLinks:Record<string,string[]>={
 const guideSteps=[
   {title:'Start here: who funds Britain',body:'Receipts raised now flow in from households, businesses, spending and capital.',point:{x:650,y:260}},
   {title:'Borrowing enters differently',body:'The violet dashed stream is money pulled forward, creating debt rather than a receipt raised now.',point:{x:2200,y:155}},
-  {title:'Money converges here',body:'Treasury is shown as one illustrative pool before every £100 is divided.',point:STATE_POINT},
+  {title:'Money converges here',body:'Treasury is the 2025–26 public spending pool: receipts plus the borrowing required to reconcile to expenditure.',point:STATE_POINT},
   {title:'Follow where every £100 goes',body:'Ribbon width and district size reveal the biggest spending priorities.',point:{x:1570,y:1120}},
   {title:'What did Britain get back?',body:'The outcome horizon shows direction; red branches below show losses and committed drags.',point:{x:2860,y:890}},
 ];
@@ -45,7 +45,7 @@ export function SystemCanvas(p:Props){
   const [selected,setSelected]=useState<string|null>(null);
   const [guideStep,setGuideStep]=useState<number|null>(0);
   const [changeFrom,setChangeFrom]=useState<Year|null>(null);
-  const total=totalFunding(demoData,p.year);
+  const total=totalFunding(wallData,p.year);
   const level=camera.scale<.72?0:camera.scale<1.24?1:camera.scale<1.85?2:3;
 
   const frame=(id:'britain'|'health'|'hospitals')=>{
@@ -83,9 +83,9 @@ export function SystemCanvas(p:Props){
 
   const related=useMemo(()=>{
     if(!selected)return new Set<string>();
-    const healthIds=['state','health','healthy',...demoData.healthComponents.map(x=>x.id),...canvasNodes.filter(x=>x.kind==='operation').map(x=>x.id)];
+    const healthIds=['state','health','healthy',...wallData.healthComponents.map(x=>x.id),...canvasNodes.filter(x=>x.kind==='operation').map(x=>x.id)];
     if(healthIds.includes(selected))return new Set(healthIds);
-    if(demoData.funding.some(x=>x.id===selected))return new Set([selected,'state',...demoData.domains.map(x=>x.id)]);
+    if(wallData.funding.some(x=>x.id===selected))return new Set([selected,'state',...wallData.domains.map(x=>x.id)]);
     const outcome=Object.entries(outcomeLinks).find(([id,domains])=>id===selected||domains.includes(selected));
     return new Set(outcome?[selected,'state',outcome[0],...outcome[1]]:[selected,'state']);
   },[selected]);
@@ -94,7 +94,7 @@ export function SystemCanvas(p:Props){
   const focusNode=(n:CanvasNode,scale=.78)=>{const v=viewport.current;if(!v)return;setCamera({x:v.clientWidth/2-n.point.x*scale,y:v.clientHeight/2-n.point.y*scale,scale})};
   const select=(n:CanvasNode)=>{setGuideStep(null);setSelected(n.id);if(n.id==='health')frame('health');else if(n.id==='hospitals')frame('hospitals');else if(compositionByParent[n.id])focusNode(n)};
   const value=(n:CanvasNode)=>{
-    const f=demoData.funding.find(x=>x.id===n.id);const d=demoData.domains.find(x=>x.id===n.id);
+    const f=wallData.funding.find(x=>x.id===n.id);const d=wallData.domains.find(x=>x.id===n.id);
     return f?formatValue(f.values[p.year],total,p.unit):d?formatValue(d.values[p.year],total,p.unit):'';
   };
   const changeYear=(next:Year)=>{if(next!==p.year){setChangeFrom(p.year);p.setYear(next)}};
@@ -111,15 +111,15 @@ export function SystemCanvas(p:Props){
             <linearGradient id="fundingGradient" x1="0" x2="1"><stop stopColor="#4b9aaa"/><stop offset="1" stopColor="#a8e3e8"/></linearGradient>
             <linearGradient id="allocationGradient" x1="0" x2="1"><stop stopColor="#f1ecd9"/><stop offset="1" stopColor="#6b9ba1"/></linearGradient>
           </defs>
-          {demoData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)}/>) }
-          {demoData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)}/>) }
-          {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
-          {demoData.healthComponents.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+n.share*70} tone="health" faded={false} hidden={level<1}/>) }
+          {wallData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)}/>) }
+          {wallData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)}/>) }
+          {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).filter(id=>canvasNodes.some(node=>node.id===id)).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
+          {wallData.healthComponents.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+n.share*70} tone="health" faded={false} hidden={level<1}/>) }
           {canvasNodes.filter(n=>n.kind==='operation').map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('hospitals').point,n.point)} width={14} tone="operation" faded={false} hidden={level<2}/>) }
           {p.leaks&&<LeakFlows year={p.year}/>} 
         </svg>
-        {territoryIds.map(id=>{const n=nodeById(id);const size=n.kind==='funding'?fundingDiameter(demoData.funding.find(x=>x.id===id)!.values[p.year],p.year):domainDiameter(demoData.domains.find(x=>x.id===id)!.values[p.year],p.year);return <TerritoryField key={id} node={n} size={size} level={level} selected={selected===id} faded={!!selected&&selected!==id&&!related.has(id)}/>})}
-        {canvasNodes.filter(visible).map(n=><WallNode key={n.id} node={n} size={n.kind==='funding'?fundingDiameter(demoData.funding.find(x=>x.id===n.id)!.values[p.year],p.year):n.kind==='domain'?domainDiameter(demoData.domains.find(x=>x.id===n.id)!.values[p.year],p.year):n.size} rank={rankFor(n,p.year)} value={value(n)} year={p.year} level={level} selected={selected===n.id} faded={!!selected&&!related.has(n.id)&&selected!==n.id} onSelect={()=>select(n)} onEvidence={()=>n.evidenceId&&p.openEvidence(n.evidenceId)}/>) }
+        {territoryIds.map(id=>{const n=nodeById(id);const size=n.kind==='funding'?fundingDiameter(wallData.funding.find(x=>x.id===id)!.values[p.year],p.year):domainDiameter(wallData.domains.find(x=>x.id===id)!.values[p.year],p.year);return <TerritoryField key={id} node={n} size={size} level={level} selected={selected===id} faded={!!selected&&selected!==id&&!related.has(id)}/>})}
+        {canvasNodes.filter(visible).map(n=><WallNode key={n.id} node={n} size={n.kind==='funding'?fundingDiameter(wallData.funding.find(x=>x.id===n.id)!.values[p.year],p.year):n.kind==='domain'?domainDiameter(wallData.domains.find(x=>x.id===n.id)!.values[p.year],p.year):n.size} rank={rankFor(n,p.year)} value={value(n)} year={p.year} level={level} selected={selected===n.id} faded={!!selected&&!related.has(n.id)&&selected!==n.id} onSelect={()=>select(n)} onEvidence={()=>n.evidenceId&&p.openEvidence(n.evidenceId)}/>) }
         {selected&&compositionByParent[selected]&&camera.scale>=.62&&<CompositionOrbit parentId={selected} year={p.year} unit={p.unit} total={total}/>}
         {p.leaks&&<LeakLabels year={p.year} unit={p.unit} total={total} open={p.openEvidence}/>} 
         <AttentionLayer year={p.year} level={level}/>
@@ -140,12 +140,12 @@ export function SystemCanvas(p:Props){
 function MoneyFlow({id,d,width,tone,faded,hidden=false}:{id:string;d:string;width:number;tone:string;faded:boolean;hidden?:boolean}){const cls=`money-flow ${tone} ${faded?'faded':''} ${hidden?'hidden':''}`;return <g className={cls} data-flow={id}><path className="flow-bed" d={d} strokeWidth={width+18}/><path className="flow-body" d={d} strokeWidth={width}/><path className="flow-current" d={d} strokeWidth={Math.max(3,width*.08)}/></g>}
 
 function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvidence}:{node:CanvasNode;size:number;rank?:number;value:string;year:Year;level:number;selected:boolean;faded:boolean;onSelect:()=>void;onEvidence:()=>void}){
-  const outcome=demoData.outcomes.find(x=>x.id===node.id);const status=outcome?.status[year];
+  const outcome=wallData.outcomes.find(x=>x.id===node.id);const status=outcome?.status[year];
   const prior=previousYear(year);
-  const linkedSpend=outcome?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(demoData.domains.find(d=>d.id===id)?.values[year]??0),0):0;
-  const priorSpend=outcome&&prior?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(demoData.domains.find(d=>d.id===id)?.values[prior]??0),0):0;
+  const linkedSpend=outcome?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(wallData.domains.find(d=>d.id===id)?.values[year]??0),0):0;
+  const priorSpend=dataMode==='demo'&&outcome&&prior?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(wallData.domains.find(d=>d.id===id)?.values[prior]??0),0):0;
   const spendDirection=priorSpend?Math.round((linkedSpend-priorSpend)/priorSpend*100):0;
-  const total=totalFunding(demoData,year);
+  const total=totalFunding(wallData,year);
   const stateValue=total>=1000?`£${(total/1000).toFixed(2)}tn`:`£${total}bn`;
   return <button style={{left:node.point.x,top:node.point.y,'--node-size':`${size}px`,'--node-colour':node.colour??'#d7ded8'} as React.CSSProperties} className={`wall-node ${node.id} ${node.kind} ${territoryIds.includes(node.id)?'major-territory':'minor-territory'} ${status??''} ${selected?'selected':''} ${faded?'faded':''} ${node.id==='borrowing'?'borrowing':''}`} onClick={onSelect} onDoubleClick={onEvidence} aria-label={`${node.label}${value?` ${value}`:''}`}>
     <span className="status-field"/>
@@ -156,7 +156,7 @@ function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvi
       <strong>{node.kind==='state'?'PUBLIC MONEY':node.label}</strong>
       {node.kind==='state'?<><b>{stateValue}</b><em>EVERY £100 RAISED OR BORROWED</em></>:value?<><b>{value}</b>{node.kind==='domain'&&<em>OF EVERY £100</em>}</>:null}
       {outcome&&<><b className="outcome-direction">{status==='improving'?'↗':status==='mixed'?'→':'↘'} {status}</b><em>{outcome.attribution}</em></>}
-      {outcome&&prior&&<span className="spend-outcome-pair"><i>RELATED SPEND</i><b>{spendDirection>=0?'↑':'↓'} {Math.abs(spendDirection)}%</b><small>OUTCOME {status==='improving'?'↑':status==='mixed'?'→':'↓'}</small></span>}
+      {outcome&&dataMode==='demo'&&prior&&<span className="spend-outcome-pair"><i>RELATED SPEND</i><b>{spendDirection>=0?'↑':'↓'} {Math.abs(spendDirection)}%</b><small>OUTCOME {status==='improving'?'↑':status==='mixed'?'→':'↓'}</small></span>}
       {node.id==='borrowing'&&<em>ENTERS DIFFERENTLY</em>}
       {node.kind==='operation'&&level>=3&&<em>METRICS AVAILABLE</em>}
     </span>
@@ -174,7 +174,7 @@ function WorldRegions(){return <>
   <div className="contour contour-a"/><div className="contour contour-b"/><div className="contour contour-c"/>
 </>}
 
-function WallChrome({level,frame}:{level:number;frame:(id:'britain'|'health'|'hospitals')=>void}){return <><div className="wall-brand"><span>BRITAIN</span><b>ON THE WALL</b><small>DEMO / ILLUSTRATIVE DATA</small></div><div className="wall-crumbs"><button onClick={()=>frame('britain')}>Britain</button>{level>0&&<><i>/</i><button onClick={()=>frame('health')}>Health</button></>}{level>1&&<><i>/</i><button onClick={()=>frame('hospitals')}>Hospitals</button></>}</div></>}
+function WallChrome({level,frame}:{level:number;frame:(id:'britain'|'health'|'hospitals')=>void}){return <><div className="wall-brand"><span>BRITAIN</span><b>ON THE WALL</b><small>{dataMode==='real'?'OFFICIAL NATIONAL DATA · 2025–26':'DEMO / ILLUSTRATIVE DATA'}</small></div><div className="wall-crumbs"><button onClick={()=>frame('britain')}>Britain</button>{level>0&&<><i>/</i><button onClick={()=>frame('health')}>Health</button></>}{level>1&&<><i>/</i><button onClick={()=>frame('hospitals')}>Hospitals</button></>}</div></>}
 
 const leakGeometry=[
   {id:'fraud',kind:'LOSS',from:{x:1440,y:1450},to:{x:1490,y:1650}},
@@ -182,12 +182,12 @@ const leakGeometry=[
   {id:'backlogs',kind:'LEAK',from:{x:900,y:1030},to:{x:1030,y:1640}},
   {id:'interest-drag',kind:'DRAG',from:{x:740,y:1360},to:{x:560,y:1650}},
 ];
-function LeakFlows({year}:{year:Year}){return <>{leakGeometry.map(g=>{const item=demoData.leaks.find(x=>x.id===g.id)!;return <g className="leak-flow" key={g.id}><path className="leak-bed" d={curve(g.from,g.to)} strokeWidth={12+Math.sqrt(item.value[year])*4}/><path className="leak-current" d={curve(g.from,g.to)} strokeWidth={4}/></g>})}</>}
-function LeakLabels({year,unit,total,open}:{year:Year;unit:'hundred'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>{g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
+function LeakFlows({year}:{year:Year}){return <>{leakGeometry.map(g=>{const item=wallData.leaks.find(x=>x.id===g.id)!;return <g className="leak-flow" key={g.id}><path className="leak-bed" d={curve(g.from,g.to)} strokeWidth={12+Math.sqrt(item.value[year])*4}/><path className="leak-current" d={curve(g.from,g.to)} strokeWidth={4}/></g>})}</>}
+function LeakLabels({year,unit,total,open}:{year:Year;unit:'hundred'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=wallData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>ILLUSTRATIVE {g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
 
 const territoryOffsets=[{x:-.3,y:-.28},{x:.3,y:-.24},{x:.02,y:.34}];
 function TerritoryField({node,size,level,selected,faded}:{node:CanvasNode;size:number;level:number;selected:boolean;faded:boolean}){
-  const items=node.id==='health'?demoData.healthComponents.map(x=>({id:x.id,label:x.name,share:x.share,icon:x.icon})):compositionByParent[node.id];
+  const items=node.id==='health'?wallData.healthComponents.map(x=>({id:x.id,label:x.name,share:x.share,icon:x.icon})):compositionByParent[node.id];
   const hints=[...items].sort((a,b)=>b.share-a.share).slice(0,3);
   const centre={x:node.point.x-125,y:node.point.y};
   return <div className={`territory-field ${node.id} ${selected?'selected':''} ${faded?'faded':''}`} style={{left:centre.x,top:centre.y,'--territory-width':`${size+190}px`,'--territory-height':`${size+145}px`,'--territory-colour':node.colour??'#78c8d3'} as React.CSSProperties} aria-label={`${node.label} territory`}>
@@ -198,11 +198,11 @@ function TerritoryField({node,size,level,selected,faded}:{node:CanvasNode;size:n
 const orbitOffsets=[{x:-260,y:-220},{x:290,y:-175},{x:-280,y:230},{x:285,y:225}];
 function CompositionOrbit({parentId,year,unit,total}:{parentId:string;year:Year;unit:'hundred'|'bn';total:number}){
   const parent=nodeById(parentId),items=compositionByParent[parentId];
-  const isFunding=demoData.funding.some(x=>x.id===parentId);
+  const isFunding=wallData.funding.some(x=>x.id===parentId);
   const centre={x:parent.point.x-125,y:parent.point.y};
-  const parentValue=demoData.funding.find(x=>x.id===parentId)?.values[year]??demoData.domains.find(x=>x.id===parentId)!.values[year];
-  return <div className="composition-orbit" aria-label={`${parent.label} illustrative composition`}>
-    <div className="composition-territory" style={{left:centre.x,top:centre.y}}><span>{isFunding?'ILLUSTRATIVE COMPOSITION · RECEIPTS ASSOCIATED WITH':'ILLUSTRATIVE COMPOSITION · THIS ALLOCATION CONTAINS'}</span></div>
+  const parentValue=wallData.funding.find(x=>x.id===parentId)?.values[year]??wallData.domains.find(x=>x.id===parentId)!.values[year];
+  return <div className="composition-orbit" aria-label={`${parent.label} ${isFunding&&dataMode==='real'?'official':'illustrative'} composition`}>
+    <div className="composition-territory" style={{left:centre.x,top:centre.y}}><span>{isFunding&&dataMode==='real'?'OFFICIAL RECEIPTS · ASSOCIATED WITH':isFunding?'ILLUSTRATIVE COMPOSITION · RECEIPTS ASSOCIATED WITH':'ILLUSTRATIVE COMPOSITION · THIS ALLOCATION CONTAINS'}</span></div>
     {items.map((item,index)=>{const value=parentValue*item.share;const diameter=80+Math.sqrt(item.share)*125;const offset=orbitOffsets[index]??orbitOffsets[0];return <div className="composition-node" key={item.id} style={{left:centre.x+offset.x,top:centre.y+offset.y,'--composition-size':`${diameter}px`,'--composition-colour':parent.colour??'#8fd3da'} as React.CSSProperties}><span><Icon name={item.icon} size={28}/></span><strong>{item.label}</strong><b>{formatValue(value,total,unit)}</b><small>{Math.round(item.share*100)}% of this category</small></div>})}
   </div>;
 }
@@ -213,14 +213,14 @@ function MetricField({selected,open}:{selected:string;open:(x:string)=>void}){re
 
 function AttentionLayer({year,level}:{year:Year;level:number}){if(level>0)return null;return <div className="attention-layer" aria-label="Illustrative attention markers">{attentionByYear[year].map(marker=>{const n=nodeById(marker.targetId);return <div key={marker.id} className={`attention-pin ${marker.tone}`} style={{left:n.point.x,top:n.point.y}}><i>!</i><span><small>DEMO ATTENTION</small>{marker.label}</span></div>})}</div>}
 
-function HealthStoryChain({year,total}:{year:Year;total:number}){const health=demoData.domains.find(d=>d.id==='health')!;const status=demoData.outcomes.find(o=>o.id==='healthy')!.status[year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'hundred')} of every £100</b></strong><i>→</i><strong>DELIVERY <b>care systems</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>{status} {status==='improving'?'↗':status==='mixed'?'→':'↘'}</b></strong><small>Related context · not proof of causation</small></div>}
+function HealthStoryChain({year,total}:{year:Year;total:number}){const health=wallData.domains.find(d=>d.id==='health')!;const status=wallData.outcomes.find(o=>o.id==='healthy')!.status[year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'hundred')} of every £100</b></strong><i>→</i><strong>DELIVERY <b>illustrative care prototype</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>illustrative · {status}</b></strong><small>Official allocation · deeper composition and outcomes remain illustrative</small></div>}
 
 function ChangeAnnotations({from,to}:{from:Year;to:Year}){
-  const fromTotal=totalFunding(demoData,from),toTotal=totalFunding(demoData,to);
-  const share=(id:string,y:Year,total:number)=>Math.round((demoData.domains.find(d=>d.id===id)!.values[y]/total)*100);
+  const fromTotal=totalFunding(wallData,from),toTotal=totalFunding(wallData,to);
+  const share=(id:string,y:Year,total:number)=>Math.round((wallData.domains.find(d=>d.id===id)!.values[y]/total)*100);
   const health=share('health',to,toTotal)-share('health',from,fromTotal);
   const interest=share('interest',to,toTotal)-share('interest',from,fromTotal);
-  const oldStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[from],newStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[to];
+  const oldStatus=wallData.outcomes.find(o=>o.id==='healthy')!.status[from],newStatus=wallData.outcomes.find(o=>o.id==='healthy')!.status[to];
   const notes=[
     {point:nodeById('health').point,text:`Health ${health>=0?'gained':'lost'} £${Math.abs(health)} of every £100`},
     {point:nodeById('interest').point,text:`Debt-interest drag ${interest>=0?'rose':'fell'} £${Math.abs(interest)} of every £100`},
@@ -232,10 +232,10 @@ function ChangeAnnotations({from,to}:{from:Year;to:Year}){
 function FirstLookGuide({step,next,skip}:{step:number;next:()=>void;skip:()=>void}){const item=guideSteps[step];return <aside className="first-look" aria-label="First look guide"><span>{step+1} / {guideSteps.length}</span><strong>{item.title}</strong><p>{item.body}</p><div><button onClick={skip}>Skip</button><button onClick={next}>{step===guideSteps.length-1?'Explore':'Next'}</button></div></aside>}
 
 function Inspector({id,level,year,total,open,clear}:{id:string;level:number;year:Year;total:number;open:(id:string)=>void;clear:()=>void}){
-  const n=nodeById(id);const domain=demoData.domains.find(d=>d.id===id);const outcome=demoData.outcomes.find(o=>o.id===id);const healthOutcome=demoData.outcomes.find(o=>o.id==='healthy')!;
-  const explanation=n.kind==='funding'?(n.id==='borrowing'?'Borrowing is money pulled forward and debt created, not a receipt raised now.':'This receipt is raised now and joins the illustrative public-money pool before allocation.'):
-    n.id==='state'?'All receipts and borrowing are shown here as one illustrative funding pool before allocation.':
-    n.id==='health'?`Britain allocates ${formatValue(domain!.values[year],total,'hundred')} of every £100 here. Spending rises over the demo period while the selected healthy-lives outcome is ${healthOutcome.status[year]}; this pairing does not prove causation.`:
+  const n=nodeById(id);const domain=wallData.domains.find(d=>d.id===id);const outcome=wallData.outcomes.find(o=>o.id===id);const healthOutcome=wallData.outcomes.find(o=>o.id==='healthy')!;
+  const explanation=n.kind==='funding'?(n.id==='borrowing'?'Borrowing is the balancing requirement between 2025–26 receipts and expenditure. It is debt created, not a receipt raised now.':'This is a 2025–26 official-receipts grouping by collection point, not a statement about who ultimately bears the tax.'):
+    n.id==='state'?'The 2025–26 pool is Total Managed Expenditure: accrued current receipts plus the borrowing required to reconcile to spending.':
+    n.id==='health'?`Britain allocated ${formatValue(domain!.values[year],total,'hundred')} of every £100 here in 2025–26. The national allocation is derived from official outturn; the deeper Health composition and ${healthOutcome.status[year]} outcome remain illustrative.`:
     n.id==='hospitals'?'Hospitals converts part of the Health allocation into elective and emergency care for patients. Zoom closer to trace its operating system.':
     outcome?`This indicator is ${outcome.status[year]}. It shows direction in the selected illustrative measure and does not prove what caused the change.`:
     'Connected territory remains bright; the rest of Britain stays visible for orientation.';

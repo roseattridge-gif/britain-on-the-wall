@@ -1,22 +1,22 @@
 export type CompositionItem={id:string;label:string;share:number;icon:string};
 export const compositionByParent:Record<string,CompositionItem[]>={
   income:[
-    {id:'income-tax',label:'Income Tax',share:.55,icon:'BadgePoundSterling'},
-    {id:'employee-ni',label:'Employee NI',share:.25,icon:'Users'},
-    {id:'council-tax',label:'Council Tax',share:.12,icon:'House'},
-    {id:'household-other',label:'Other household receipts',share:.08,icon:'Ellipsis'},
+    {id:'income-tax',label:'Income Tax',share:353.458/610.652,icon:'BadgePoundSterling'},
+    {id:'social-contributions',label:'Social contributions',share:206.746/610.652,icon:'Users'},
+    {id:'council-tax',label:'Council Tax',share:50.448/610.652,icon:'House'},
   ],
   business:[
-    {id:'corporation-tax',label:'Corporation Tax',share:.42,icon:'Building2'},
-    {id:'employer-ni',label:'Employer NI',share:.31,icon:'Users'},
-    {id:'business-rates',label:'Business Rates',share:.18,icon:'Landmark'},
-    {id:'business-other',label:'Other business receipts',share:.09,icon:'Ellipsis'},
+    {id:'corporation-tax',label:'Corporation Tax',share:103.534/133.516,icon:'Building2'},
+    {id:'business-rates',label:'Business Rates',share:29.982/133.516,icon:'Landmark'},
   ],
   consumer:[
-    {id:'vat',label:'VAT',share:.68,icon:'ShoppingBasket'},
-    {id:'fuel-duty',label:'Fuel duties',share:.14,icon:'Gauge'},
-    {id:'excise',label:'Alcohol & tobacco duties',share:.11,icon:'BadgePoundSterling'},
-    {id:'consumption-other',label:'Other consumption receipts',share:.07,icon:'Ellipsis'},
+    {id:'vat',label:'VAT',share:210.826/255.285,icon:'ShoppingBasket'},
+    {id:'fuel-duty',label:'Fuel duties',share:24.559/255.285,icon:'Gauge'},
+    {id:'excise',label:'Alcohol & tobacco duties',share:19.9/255.285,icon:'BadgePoundSterling'},
+  ],
+  capital:[
+    {id:'stamp-land',label:'Stamp Duty Land Tax',share:16.627/21.362,icon:'House'},
+    {id:'stamp-shares',label:'Stamp taxes on shares',share:4.735/21.362,icon:'BadgePoundSterling'},
   ],
   pensions:[
     {id:'state-pension',label:'State pension',share:.82,icon:'PersonStanding'},
