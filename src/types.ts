@@ -1,0 +1,10 @@
+export type Year=2005|2010|2015|2020|2025;
+export type Trend='up'|'flat'|'down'; export type Confidence='high'|'medium'|'low';
+export type Evidence={id:string;metric:string;definition:string;unit:string;period:string;geography:string;basis:string;source:string;url:string;published:string;checked:string;methodology:string;revision:string;confidence:Confidence;limitations:string};
+export type Series=Record<Year,number>;
+export type Funding={id:string;name:string;icon:string;values:Series;trend:Trend;confidence:Confidence;borrowing?:boolean;evidenceId:string};
+export type Domain={id:string;name:string;short:string;icon:string;values:Series;trend:Trend;confidence:Confidence;evidenceId:string};
+export type Outcome={id:string;name:string;status:Record<Year,'improving'|'mixed'|'deteriorating'>;statement:string;attribution:'Measured return'|'Indicative return'|'Context only';evidenceId:string};
+export type Leak={id:string;name:string;value:Series;domainId?:string;evidenceId:string};
+export type Component={id:string;name:string;icon:string;share:number;output:string;recipient:string;outcome:string;evidenceId:string};
+export type WallData={years:Year[];funding:Funding[];domains:Domain[];outcomes:Outcome[];leaks:Leak[];healthComponents:Component[];evidence:Evidence[]};
