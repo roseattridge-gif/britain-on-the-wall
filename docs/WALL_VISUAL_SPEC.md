@@ -88,3 +88,37 @@ Leaks are world-space branch paths attached to a parent flow. Each has a burgund
 ## 11. Accessibility
 
 All nodes are native buttons with descriptive accessible names. Status is expressed with colour, arrow and text. Focus rings are prominent. Core labels meet readable national-fit sizes. Reduced motion is honoured.
+
+## 12. Narrative grammar
+
+### Visual reading order
+
+The national scene reads spatially rather than as numbered UI steps: funding receipts at upper left; separately treated borrowing above; convergence through the dominant Treasury; “where every £1 goes” across the spending fan; delivery and people at closer semantic zoom; the shared outcome horizon at right; and losses/committed drags branching downward where they occur. Small world-space chapter numbers support this eye path without becoming navigation cards.
+
+### Attention annotations
+
+Each demo year has three to four explicitly authored `DEMO ATTENTION` pins. They identify pressure, improvement, spending change or committed drag for storytelling only. They are not algorithmic rankings and disappear at domain zoom so they do not compete with local detail.
+
+### Spend/outcome pairing
+
+Each national outcome shows the change in related spending since the previous demo year beside the outcome direction. Pairings are labelled `MEASURED RETURN`, `INDICATIVE RETURN` or `CONTEXT ONLY`, and the outcome horizon states `SPEND TREND ≠ PROOF OF CAUSE`. Pairing makes comparison visible but never asserts that spending caused the outcome.
+
+### Temporal transitions
+
+The compact timeline combines a scrubber with explicit year stops. Changing year updates ribbon widths, node values, outcome heat, leak/drag scale and attention pins in the same world. Nodes pulse and flows brighten briefly; reduced-motion preference removes these effects.
+
+### Change annotations
+
+After a year change, three temporary world-space notes identify changes in Health’s share of every £1, debt-interest drag and the healthy-lives direction. They remain attached to affected territories rather than forming a dashboard or footer.
+
+### Guided first look
+
+A five-part optional, non-modal guide highlights funding, borrowing, Treasury, allocation and outcomes/leaks in sequence. The Wall remains visible and interactive throughout. Users can advance or skip at any time; selecting a node dismisses it.
+
+### Leak versus drag
+
+`LEAK` describes value lost within a delivery mechanism, `LOSS` labels avoidable delivery or control costs, and `DRAG` describes a committed fiscal outflow such as debt interest. All branch from their relevant world-space source. Debt interest must never share moral language with fraud or abuse.
+
+### Selected-system story
+
+At Health zoom, one editorial trace explicitly reads `allocation → delivery → people → outcome`, while national annotations recede. The inspector explains the selected allocation and outcome direction in plain English and repeats that the pairing does not establish causation.

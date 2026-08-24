@@ -1,8 +1,9 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
-import {ArrowDownRight,Info,LocateFixed,MousePointer2} from 'lucide-react';
+import {ArrowDownRight,Info,LocateFixed} from 'lucide-react';
 import {canvasNodes,focusTargets,STATE_POINT,WORLD,type CanvasNode,type Point} from '../canvas/layout';
 import {useCamera} from '../canvas/useCamera';
 import {demoData,formatValue,totalFunding} from '../data';
+import {attentionByYear,previousYear} from '../data/story';
 import type {Year} from '../types';
 import {Icon} from './Icon';
 import {FloatingControls} from './FloatingControls';
@@ -21,11 +22,20 @@ const outcomeLinks:Record<string,string[]>={
   skilled:['education'],effective:['local','admin','interest','other'],
 };
 
+const guideSteps=[
+  {title:'Start here: who funds Britain',body:'Receipts raised now flow in from households, businesses, spending and capital.',point:{x:650,y:260}},
+  {title:'Borrowing enters differently',body:'The violet dashed stream is money pulled forward, creating debt rather than a receipt raised now.',point:{x:2200,y:155}},
+  {title:'Money converges here',body:'Treasury is shown as one illustrative pool before every £1 is divided.',point:STATE_POINT},
+  {title:'Follow where every £1 goes',body:'Ribbon width and district size reveal the biggest spending priorities.',point:{x:1570,y:1120}},
+  {title:'What did Britain get back?',body:'The outcome horizon shows direction; red branches below show losses and committed drags.',point:{x:2860,y:890}},
+];
+
 export function SystemCanvas(p:Props){
   const viewport=useRef<HTMLDivElement>(null);
   const {camera,setCamera,zoomAt,handlers}=useCamera({x:0,y:0,scale:.46});
   const [selected,setSelected]=useState<string|null>(null);
-  const [hint,setHint]=useState(true);
+  const [guideStep,setGuideStep]=useState<number|null>(0);
+  const [changeFrom,setChangeFrom]=useState<Year|null>(null);
   const total=totalFunding(demoData,p.year);
   const level=camera.scale<.72?0:camera.scale<1.24?1:camera.scale<1.85?2:3;
 
@@ -72,17 +82,19 @@ export function SystemCanvas(p:Props){
   },[selected]);
 
   const visible=(n:CanvasNode)=>n.kind==='component'?(level>=1||related.has(n.id)):n.kind==='operation'?(level>=2||selected==='hospitals'):true;
-  const select=(n:CanvasNode)=>{setHint(false);setSelected(n.id);if(n.id==='health')frame('health');if(n.id==='hospitals')frame('hospitals')};
+  const select=(n:CanvasNode)=>{setGuideStep(null);setSelected(n.id);if(n.id==='health')frame('health');if(n.id==='hospitals')frame('hospitals')};
   const value=(n:CanvasNode)=>{
     const f=demoData.funding.find(x=>x.id===n.id);const d=demoData.domains.find(x=>x.id===n.id);
     return f?formatValue(f.values[p.year],total,p.unit):d?formatValue(d.values[p.year],total,p.unit):'';
   };
+  const changeYear=(next:Year)=>{if(next!==p.year){setChangeFrom(p.year);p.setYear(next)}};
 
   return <main className="wall-shell">
     <WallChrome level={level} frame={frame}/>
     <div ref={viewport} className="wall-camera" {...handlers} onClick={e=>{if(!(e.target as HTMLElement).closest('button'))setSelected(null)}} aria-label="Pannable and zoomable map of Britain's public value system">
-      <div className="wall-world" style={{width:WORLD.width,height:WORLD.height,transform:`translate(${camera.x}px,${camera.y}px) scale(${camera.scale})`}}>
+      <div className={`wall-world level-${level} ${changeFrom?'time-changing':''}`} style={{width:WORLD.width,height:WORLD.height,transform:`translate(${camera.x}px,${camera.y}px) scale(${camera.scale})`}}>
         <WorldRegions/>
+        {guideStep!==null&&<div className="story-spotlight" style={{left:guideSteps[guideStep].point.x,top:guideSteps[guideStep].point.y}}/>}
         <svg className="flow-layer" width={WORLD.width} height={WORLD.height} aria-hidden="true">
           <defs>
             <filter id="moneyGlow"><feGaussianBlur stdDeviation="12"/></filter>
@@ -98,15 +110,18 @@ export function SystemCanvas(p:Props){
         </svg>
         {canvasNodes.filter(visible).map(n=><WallNode key={n.id} node={n} value={value(n)} year={p.year} level={level} selected={selected===n.id} faded={!!selected&&!related.has(n.id)&&selected!==n.id} onSelect={()=>select(n)} onEvidence={()=>n.evidenceId&&p.openEvidence(n.evidenceId)}/>) }
         {p.leaks&&<LeakLabels year={p.year} unit={p.unit} total={total} open={p.openEvidence}/>} 
+        <AttentionLayer year={p.year} level={level}/>
+        {changeFrom&&<ChangeAnnotations from={changeFrom} to={p.year}/>
+        }{selected==='health'&&level>=1&&<HealthStoryChain year={p.year} total={total}/>}
         {p.receipt&&<ContributionLayer/>}
         {level>=3&&selected&&<MetricField selected={selected} open={p.openEvidence}/>} 
       </div>
     </div>
-    {hint&&<div className="explore-hint"><MousePointer2/><span><strong>THIS IS BRITAIN.</strong> Drag the wall. Zoom into what matters.</span><button onClick={()=>setHint(false)}>Got it</button></div>}
-    <FloatingControls {...p} zoomIn={()=>zoomAt(1.25,viewport.current!.clientWidth/2,viewport.current!.clientHeight/2)} zoomOut={()=>zoomAt(.8,viewport.current!.clientWidth/2,viewport.current!.clientHeight/2)} fit={()=>frame('britain')}/>
+    {guideStep!==null&&<FirstLookGuide step={guideStep} next={()=>guideStep===guideSteps.length-1?setGuideStep(null):setGuideStep(guideStep+1)} skip={()=>setGuideStep(null)}/>}
+    <FloatingControls {...p} setYear={changeYear} zoomIn={()=>zoomAt(1.25,viewport.current!.clientWidth/2,viewport.current!.clientHeight/2)} zoomOut={()=>zoomAt(.8,viewport.current!.clientWidth/2,viewport.current!.clientHeight/2)} fit={()=>frame('britain')}/>
     <WallMinimap camera={camera}/>
     <div className="level-readout"><LocateFixed/> {level===0?'BRITAIN':level===1?'BRITAIN / HEALTH':level===2?'BRITAIN / HEALTH / HOSPITALS':'EVIDENCE DEPTH'}</div>
-    {selected&&<Inspector id={selected} level={level} open={p.openEvidence} clear={()=>setSelected(null)}/>} 
+    {selected&&<Inspector id={selected} level={level} year={p.year} total={total} open={p.openEvidence} clear={()=>setSelected(null)}/>}
   </main>;
 }
 
@@ -114,6 +129,10 @@ function MoneyFlow({id,d,width,tone,faded,hidden=false}:{id:string;d:string;widt
 
 function WallNode({node,value,year,level,selected,faded,onSelect,onEvidence}:{node:CanvasNode;value:string;year:Year;level:number;selected:boolean;faded:boolean;onSelect:()=>void;onEvidence:()=>void}){
   const outcome=demoData.outcomes.find(x=>x.id===node.id);const status=outcome?.status[year];
+  const prior=previousYear(year);
+  const linkedSpend=outcome?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(demoData.domains.find(d=>d.id===id)?.values[year]??0),0):0;
+  const priorSpend=outcome&&prior?outcomeLinks[outcome.id].reduce((sum,id)=>sum+(demoData.domains.find(d=>d.id===id)?.values[prior]??0),0):0;
+  const spendDirection=priorSpend?Math.round((linkedSpend-priorSpend)/priorSpend*100):0;
   const total=totalFunding(demoData,year);
   const stateValue=total>=1000?`£${(total/1000).toFixed(2)}tn`:`£${total}bn`;
   return <button style={{left:node.point.x,top:node.point.y,'--node-size':`${node.size}px`,'--node-colour':node.colour??'#d7ded8'} as React.CSSProperties} className={`wall-node ${node.id} ${node.kind} ${status??''} ${selected?'selected':''} ${faded?'faded':''} ${node.id==='borrowing'?'borrowing':''}`} onClick={onSelect} onDoubleClick={onEvidence} aria-label={`${node.label}${value?` ${value}`:''}`}>
@@ -123,6 +142,7 @@ function WallNode({node,value,year,level,selected,faded,onSelect,onEvidence}:{no
       <strong>{node.kind==='state'?'PUBLIC MONEY':node.label}</strong>
       {node.kind==='state'?<><b>{stateValue}</b><em>100p in every £1</em></>:value?<b>{value}</b>:null}
       {outcome&&<><b className="outcome-direction">{status==='improving'?'↗':status==='mixed'?'→':'↘'} {status}</b><em>{outcome.attribution}</em></>}
+      {outcome&&prior&&<span className="spend-outcome-pair"><i>RELATED SPEND</i><b>{spendDirection>=0?'↑':'↓'} {Math.abs(spendDirection)}%</b><small>OUTCOME {status==='improving'?'↑':status==='mixed'?'→':'↓'}</small></span>}
       {node.id==='borrowing'&&<em>ENTERS DIFFERENTLY</em>}
       {node.kind==='operation'&&level>=3&&<em>METRICS AVAILABLE</em>}
     </span>
@@ -131,28 +151,59 @@ function WallNode({node,value,year,level,selected,faded,onSelect,onEvidence}:{no
 }
 
 function WorldRegions(){return <>
-  <div className="region-title funding-title">WHO FUNDS BRITAIN</div>
-  <div className="region-title state-title">CONVERGES HERE</div>
-  <div className="region-title spending-title">WHERE PUBLIC MONEY GOES</div>
-  <div className="region-title outcome-title">WHAT BRITAIN GETS BACK</div>
+  <div className="outcome-horizon"/>
+  <div className="region-title funding-title"><i>01</i> WHO FUNDS BRITAIN <small>RECEIPTS RAISED NOW</small></div>
+  <div className="region-title state-title"><i>02</i> CONVERGES HERE</div>
+  <div className="treasury-sentence">FOR EVERY £1 BRITAIN RAISES OR BORROWS…</div>
+  <div className="region-title spending-title"><i>03</i> WHERE EVERY £1 GOES</div>
+  <div className="region-title outcome-title"><i>04</i> THIS IS WHAT BRITAIN GOT BACK <small>SPEND TREND ≠ PROOF OF CAUSE</small></div>
   <div className="contour contour-a"/><div className="contour contour-b"/><div className="contour contour-c"/>
 </>}
 
 function WallChrome({level,frame}:{level:number;frame:(id:'britain'|'health'|'hospitals')=>void}){return <><div className="wall-brand"><span>BRITAIN</span><b>ON THE WALL</b><small>DEMO / ILLUSTRATIVE DATA</small></div><div className="wall-crumbs"><button onClick={()=>frame('britain')}>Britain</button>{level>0&&<><i>/</i><button onClick={()=>frame('health')}>Health</button></>}{level>1&&<><i>/</i><button onClick={()=>frame('hospitals')}>Hospitals</button></>}</div></>}
 
 const leakGeometry=[
-  {id:'fraud',from:{x:1530,y:650},to:{x:1490,y:1650}},
-  {id:'overruns',from:{x:1810,y:1430},to:{x:2050,y:1690}},
-  {id:'backlogs',from:{x:900,y:1030},to:{x:1030,y:1640}},
-  {id:'interest-drag',from:{x:740,y:1360},to:{x:560,y:1650}},
+  {id:'fraud',kind:'LOSS',from:{x:1440,y:1450},to:{x:1490,y:1650}},
+  {id:'overruns',kind:'LOSS',from:{x:1810,y:1430},to:{x:2050,y:1690}},
+  {id:'backlogs',kind:'LEAK',from:{x:900,y:1030},to:{x:1030,y:1640}},
+  {id:'interest-drag',kind:'DRAG',from:{x:740,y:1360},to:{x:560,y:1650}},
 ];
 function LeakFlows({year}:{year:Year}){return <>{leakGeometry.map(g=>{const item=demoData.leaks.find(x=>x.id===g.id)!;return <g className="leak-flow" key={g.id}><path className="leak-bed" d={curve(g.from,g.to)} strokeWidth={12+Math.sqrt(item.value[year])*4}/><path className="leak-current" d={curve(g.from,g.to)} strokeWidth={4}/></g>})}</>}
-function LeakLabels({year,unit,total,open}:{year:Year;unit:'pound'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className="leak-label" key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
+function LeakLabels({year,unit,total,open}:{year:Year;unit:'pound'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>{g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
 
 function ContributionLayer(){return <div className="contribution-layer"><strong>CONTRIBUTION & RECEIPT</strong><div><span>Annual cash flow</span><span>Service use</span><span>Life course</span></div><p>Receipt is not exploitation. Fiscal position is not moral worth.</p></div>}
 
 function MetricField({selected,open}:{selected:string;open:(x:string)=>void}){return <div className="metric-field"><span>ZOOM 3 · METRIC & EVIDENCE</span><div><button onClick={()=>open(selected==='hospitals'?'e-hospitals':'e-health')}><strong>Expenditure</strong><b>Inspect basis</b><Info/></button><button><strong>Activity</strong><b>Illustrative series ↗</b></button><button><strong>Unit cost</strong><b>Definition pending</b></button><button><strong>Waiting list</strong><b className="under-pressure">UNDER PRESSURE ↘</b></button></div></div>}
 
-function Inspector({id,level,open,clear}:{id:string;level:number;open:(id:string)=>void;clear:()=>void}){const n=nodeById(id);return <aside className="wall-inspector"><button className="inspector-close" onClick={clear}>×</button><span>SELECTED · LEVEL {level}</span><h2>{n.label}</h2><p>{n.kind==='funding'?'This stream joins the public-money pool before allocation. Follow its highlighted path into Treasury.':n.id==='health'?'Health stays inside the national territory while delivery systems emerge around it.':n.id==='hospitals'?'Hospitals opens into workforce, estates, procurement, diagnostics and care operations.':'Connected territory remains bright; the rest of Britain stays visible for orientation.'}</p>{n.evidenceId&&<button className="inspect-evidence" onClick={()=>open(n.evidenceId!)}>Inspect evidence <Info/></button>}</aside>}
+function AttentionLayer({year,level}:{year:Year;level:number}){if(level>0)return null;return <div className="attention-layer" aria-label="Illustrative attention markers">{attentionByYear[year].map(marker=>{const n=nodeById(marker.targetId);return <div key={marker.id} className={`attention-pin ${marker.tone}`} style={{left:n.point.x,top:n.point.y}}><i>!</i><span><small>DEMO ATTENTION</small>{marker.label}</span></div>})}</div>}
+
+function HealthStoryChain({year,total}:{year:Year;total:number}){const health=demoData.domains.find(d=>d.id==='health')!;const status=demoData.outcomes.find(o=>o.id==='healthy')!.status[year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'pound')}</b></strong><i>→</i><strong>DELIVERY <b>care systems</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>{status} {status==='improving'?'↗':status==='mixed'?'→':'↘'}</b></strong><small>Related context · not proof of causation</small></div>}
+
+function ChangeAnnotations({from,to}:{from:Year;to:Year}){
+  const fromTotal=totalFunding(demoData,from),toTotal=totalFunding(demoData,to);
+  const share=(id:string,y:Year,total:number)=>Math.round((demoData.domains.find(d=>d.id===id)!.values[y]/total)*100);
+  const health=share('health',to,toTotal)-share('health',from,fromTotal);
+  const interest=share('interest',to,toTotal)-share('interest',from,fromTotal);
+  const oldStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[from],newStatus=demoData.outcomes.find(o=>o.id==='healthy')!.status[to];
+  const notes=[
+    {point:nodeById('health').point,text:`Health ${health>=0?'gained':'lost'} ${Math.abs(health)}p of every £1`},
+    {point:nodeById('interest').point,text:`Debt-interest drag ${interest>=0?'rose':'fell'} ${Math.abs(interest)}p`},
+    {point:nodeById('healthy').point,text:`Healthy lives: ${oldStatus} → ${newStatus}`},
+  ];
+  return <div className="change-layer" aria-label={`Changes from ${from} to ${to}`}>{notes.map((n,i)=><div className="change-note" key={n.text} style={{left:n.point.x,top:n.point.y,animationDelay:`${i*.16}s`}}><small>{from} → {to}</small><strong>{n.text}</strong></div>)}</div>;
+}
+
+function FirstLookGuide({step,next,skip}:{step:number;next:()=>void;skip:()=>void}){const item=guideSteps[step];return <aside className="first-look" aria-label="First look guide"><span>{step+1} / {guideSteps.length}</span><strong>{item.title}</strong><p>{item.body}</p><div><button onClick={skip}>Skip</button><button onClick={next}>{step===guideSteps.length-1?'Explore':'Next'}</button></div></aside>}
+
+function Inspector({id,level,year,total,open,clear}:{id:string;level:number;year:Year;total:number;open:(id:string)=>void;clear:()=>void}){
+  const n=nodeById(id);const domain=demoData.domains.find(d=>d.id===id);const outcome=demoData.outcomes.find(o=>o.id===id);const healthOutcome=demoData.outcomes.find(o=>o.id==='healthy')!;
+  const explanation=n.kind==='funding'?(n.id==='borrowing'?'Borrowing is money pulled forward and debt created, not a receipt raised now.':'This receipt is raised now and joins the illustrative public-money pool before allocation.'):
+    n.id==='state'?'All receipts and borrowing are shown here as one illustrative funding pool before allocation.':
+    n.id==='health'?`Britain allocates ${formatValue(domain!.values[year],total,'pound')} of every £1 here. Spending rises over the demo period while the selected healthy-lives outcome is ${healthOutcome.status[year]}; this pairing does not prove causation.`:
+    n.id==='hospitals'?'Hospitals converts part of the Health allocation into elective and emergency care for patients. Zoom closer to trace its operating system.':
+    outcome?`This indicator is ${outcome.status[year]}. It shows direction in the selected illustrative measure and does not prove what caused the change.`:
+    'Connected territory remains bright; the rest of Britain stays visible for orientation.';
+  return <aside className="wall-inspector"><button className="inspector-close" onClick={clear}>×</button><span>EXPLAIN THIS · LEVEL {level}</span><h2>{n.label}</h2><p>{explanation}</p>{n.evidenceId&&<button className="inspect-evidence" onClick={()=>open(n.evidenceId!)}>Inspect evidence <Info/></button>}</aside>;
+}
 
 function WallMinimap({camera}:{camera:{x:number;y:number;scale:number}}){return <div className="wall-minimap"><span>WHOLE WALL</span><div><i className="mini-funding"/><i className="mini-state"/><i className="mini-spending"/><i className="mini-outcomes"/><b style={{left:`${Math.max(0,Math.min(82,-camera.x/camera.scale/WORLD.width*100))}%`,top:`${Math.max(0,Math.min(72,-camera.y/camera.scale/WORLD.height*100))}%`,width:`${Math.min(72,100/camera.scale*.22)}%`}}/></div></div>}
