@@ -53,7 +53,7 @@ No source-data or evidence model was expanded. Existing typed illustrative fixtu
 - Browser QA completed at 1440×900, 1920×1080 and 390×844.
 - Verified real pointer drag changes the world transform and Fit Britain restores framing.
 - Verified Health and Hospitals camera flights, semantic disclosure, compact controls, Escape/Back step-out and mobile reframing.
-- Saved QA evidence: `docs/qa/2026-08-24-wall-1440x900.png`, `docs/qa/2026-08-24-wall-1920x1080.png`, `docs/qa/2026-08-24-wall-390x844.png` and `docs/qa/2026-08-24-wall-health-focus-1440x900.png`.
+- Saved QA evidence: `docs/qa/2026-08-24-wall-1440x900.jpg`, `docs/qa/2026-08-24-wall-1920x1080.jpg`, `docs/qa/2026-08-24-wall-390x844.jpg` and `docs/qa/2026-08-24-wall-health-focus-1440x900.jpg`.
 
 Product Management acceptance answers:
 

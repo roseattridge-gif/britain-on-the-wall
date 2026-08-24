@@ -33,10 +33,10 @@ The current illustrative year visibly uses amber and red outcome states. Green i
 
 ## QA evidence
 
-- `docs/qa/2026-08-24-wall-1440x900.png`
-- `docs/qa/2026-08-24-wall-1920x1080.png`
-- `docs/qa/2026-08-24-wall-390x844.png`
-- `docs/qa/2026-08-24-wall-health-focus-1440x900.png`
+- `docs/qa/2026-08-24-wall-1440x900.jpg`
+- `docs/qa/2026-08-24-wall-1920x1080.jpg`
+- `docs/qa/2026-08-24-wall-390x844.jpg`
+- `docs/qa/2026-08-24-wall-health-focus-1440x900.jpg`
 
 Vitest passed 8/8 tests. TypeScript and the production Vite build passed. All displayed figures remain explicitly demo/illustrative.
 
