@@ -1,5 +1,12 @@
 # Product decisions
 
+Date: 2026-08-24  
+Decision: The persistent spatial Wall is the primary product surface. Detail is revealed through semantic camera zoom, not page/view replacement.  
+Why: The product object is physical exploration of one national money system; replacing the scene destroys orientation and weakens causal comprehension.  
+Alternatives considered: Domain pages, modal diagrams, conditional national/domain components and dashboard drill-downs.  
+Implications: Visual refinement, camera choreography and spatial depth remain the priority. Official-data work does not begin merely because the interaction prototype runs.  
+Status: Accepted, implemented and reaffirmed for Product Management review.
+
 Date: 2026-08-22  
 Decision: The primary product is one connected spatial value stream, with additive overlays and in-place zoom.  
 Why: Orientation and causal order are the product's central comprehension advantages.  

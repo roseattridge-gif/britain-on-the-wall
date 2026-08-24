@@ -4,6 +4,8 @@
 
 Completed the visual reset of Britain on the Wall. The product now opens directly onto one dark, spatial, high-density Wall rather than a webpage, dashboard or diagram embedded in a page.
 
+Reviewed implementation commit: `ac92cf0` (`Complete persistent visual Wall`).
+
 ## 2. Product outcome
 
 The 3200×1800 logical world is the interface. Funding sources converge on a dominant Treasury, broad money ribbons fan into unequal public-service districts, contextual returns radiate heat, and leakage leaves attached burgundy branches. Users pan the real scene and zoom deeper without replacing it.
@@ -50,7 +52,21 @@ No source-data or evidence model was expanded. Existing typed illustrative fixtu
 - Production Vite build passed.
 - Browser QA completed at 1440×900, 1920×1080 and 390×844.
 - Verified real pointer drag changes the world transform and Fit Britain restores framing.
-- Verified Health and Hospitals camera flights, semantic disclosure, compact controls and mobile reframing.
+- Verified Health and Hospitals camera flights, semantic disclosure, compact controls, Escape/Back step-out and mobile reframing.
+- Saved QA evidence: `docs/qa/2026-08-24-wall-1440x900.png`, `docs/qa/2026-08-24-wall-1920x1080.png`, `docs/qa/2026-08-24-wall-390x844.png` and `docs/qa/2026-08-24-wall-health-focus-1440x900.png`.
+
+Product Management acceptance answers:
+
+- Does the latest build still resemble a dashboard? **NO**
+- Does Health exist spatially within Britain rather than replacing Britain? **YES**
+- Can the user pan? **YES**
+- Can the user continuously zoom? **YES**
+- Does detail change based on zoom level? **YES**
+- Are major financial flows proportional? **YES**
+- Are leaks spatially attached to relevant flows? **YES**
+- Is red/amber/green performance obvious at national zoom? **YES** — the illustrative current year contains amber and red outcome states; the green encoding is implemented and appears when the selected year contains an improving status.
+- Are primary labels comfortably readable? **YES**
+- Is the Wall the dominant visual object? **YES**
 
 Failure-condition audit:
 
@@ -72,11 +88,11 @@ All figures and outcome signals remain illustrative. Positions are editorially a
 
 ## 10. Product questions / decisions needed
 
-No decision blocks this increment. Before official publication, determine the authoritative data adapter and evidence standards for every displayed figure.
+No decision blocks the next visual increment. Data infrastructure and official-data ingestion remain explicitly out of scope.
 
 ## 11. Recommended next task
 
-Run first-impression comprehension testing with five to eight people. Measure whether they can identify the funding source, Treasury, largest service domains, outcome heat and leaks within five seconds; refine only from observed failures.
+Run first-impression comprehension testing with five to eight people, then refine visual density, money-flow joins, semantic zoom choreography and timeline transformation from observed failures. Do not begin official-data ingestion yet.
 
 ## 12. How to run/view it
 
@@ -84,4 +100,4 @@ From the repository root run `pnpm dev` and open the printed localhost URL. If t
 
 ## 13. Git state
 
-Branch: `main`. No commit exists. The implementation and documentation remain uncommitted.
+Branch: `main`. The completed implementation is committed at `ac92cf0`. This handoff update is committed separately so it can cite the immutable implementation SHA. Verify both commits on `origin/main` before Product Management review.
