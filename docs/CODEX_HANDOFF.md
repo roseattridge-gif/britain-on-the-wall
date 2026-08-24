@@ -2,7 +2,7 @@
 
 Date: 2026-08-24
 Increment: Real national money-in / money-out backbone
-Implementation commit: pending final verification
+Implementation commit: `9734ce6`
 
 ## Product Management answers
 

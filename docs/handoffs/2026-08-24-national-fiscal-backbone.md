@@ -6,4 +6,4 @@ Implemented one 2025–26 official national snapshot using ONS accrued current r
 
 Architecture: source registry → raw official values → normalised fiscal flows → Wall presentation adapter. Default mode is real; `VITE_DATA_MODE=demo` retains the prior fixture. Local government is excluded as a standalone destination to prevent double counting. No visual information architecture changed.
 
-Automated verification and the browser-QA limitation are recorded in `docs/CODEX_HANDOFF.md`. The immutable commit SHA is added after commit.
+Automated verification and the browser-QA limitation are recorded in `docs/CODEX_HANDOFF.md`. Implementation commit: `9734ce6`.
