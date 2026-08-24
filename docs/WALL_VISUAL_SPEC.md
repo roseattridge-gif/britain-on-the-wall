@@ -88,6 +88,21 @@ Magnitude is encoded redundantly so the national Wall works at a glance and rema
 
 At shallow semantic zoom, selecting a major source or destination reveals an orbital composition territory in the same world. Satellite area is square-root-scaled by share and each satellite repeats its derived amount and percentage. Funding uses the careful label `RECEIPTS ASSOCIATED WITH`; it does not claim tax incidence. Spending uses `THIS ALLOCATION CONTAINS`. These are explicitly illustrative prototype fixtures. Health retains the existing deeper recursive allocation → delivery → people → outcome example rather than receiving a competing shallow overlay.
 
+## Territory & illustration grammar
+
+Seven priority aggregates—Workers & Households, Businesses, Consumption, Health, Pensions, Welfare and Education—are quantitative cores inside asymmetric territory envelopes. The core preserves exact mass; the surrounding field adds meaning without becoming another measure.
+
+- **Far / national (`scale < 0.72`):** the envelope shows at most the three largest or most explanatory child pictograms. Names and child values remain hidden.
+- **Medium (`0.72–1.24`):** the same stable pictograms gain concise labels. Selecting a non-Health territory resolves them into the existing proportional composition masses.
+- **Close / selected:** child share and pounds-per-£100 or £bn amount appear. Health instead resolves into its existing Hospitals, primary care, community care, medicines and administration nodes.
+- **Deep Health:** Hospitals retains the existing operational system. Far Health hints are generated from the same `healthComponents` objects, not a duplicate taxonomy.
+- Child pictograms inherit the parent colour and sit inside an organic, translucent field with restrained borders and radial colour integration.
+- The quantitative core remains circular; territory envelopes use asymmetric radii and overlapping sub-masses to reduce perfect-circle repetition.
+- Major core diameters use `70 + sqrt(value / maxFunding) × 320px` for funding and `60 + sqrt(value / maxDomain) × 330px` for spending. Lower minima strengthen the long tail while maintaining usable targets.
+- Layered ribbons pass underneath the field and meet the enlarged receiving basin/halo, so flows read as entering territories rather than terminating at pins.
+- Far hints use three stable authored offsets. Medium labels sit immediately below their pictogram; selected composition uses the established four collision-reviewed offsets.
+- Year changes resize cores and ribbons but do not reposition children, preserving spatial memory.
+
 ## 9. Leak treatment
 
 Leaks are world-space branch paths attached to a parent flow. Each has a burgundy curved stream, downward droplet terminus, name and amount. They never appear as a detached button row.

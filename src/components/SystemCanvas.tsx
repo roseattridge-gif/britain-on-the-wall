@@ -16,9 +16,10 @@ const maxFunding=(year:Year)=>Math.max(...demoData.funding.map(x=>x.values[year]
 const maxDomain=(year:Year)=>Math.max(...demoData.domains.map(x=>x.values[year]));
 const fundingWidth=(value:number,year:Year)=>12+Math.sqrt(value/maxFunding(year))*96;
 const domainWidth=(value:number,year:Year)=>10+Math.sqrt(value/maxDomain(year))*86;
-const fundingDiameter=(value:number,year:Year)=>90+Math.sqrt(value/maxFunding(year))*300;
-const domainDiameter=(value:number,year:Year)=>80+Math.sqrt(value/maxDomain(year))*290;
+const fundingDiameter=(value:number,year:Year)=>70+Math.sqrt(value/maxFunding(year))*320;
+const domainDiameter=(value:number,year:Year)=>60+Math.sqrt(value/maxDomain(year))*330;
 const nodeById=(id:string)=>canvasNodes.find(x=>x.id===id)!;
+const territoryIds=['income','business','consumer','health','pensions','welfare','education'];
 const rankFor=(node:CanvasNode,year:Year)=>{
   const collection=node.kind==='funding'?demoData.funding:node.kind==='domain'?demoData.domains:null;
   if(!collection)return undefined;
@@ -117,6 +118,7 @@ export function SystemCanvas(p:Props){
           {canvasNodes.filter(n=>n.kind==='operation').map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('hospitals').point,n.point)} width={14} tone="operation" faded={false} hidden={level<2}/>) }
           {p.leaks&&<LeakFlows year={p.year}/>} 
         </svg>
+        {territoryIds.map(id=>{const n=nodeById(id);const size=n.kind==='funding'?fundingDiameter(demoData.funding.find(x=>x.id===id)!.values[p.year],p.year):domainDiameter(demoData.domains.find(x=>x.id===id)!.values[p.year],p.year);return <TerritoryField key={id} node={n} size={size} level={level} selected={selected===id} faded={!!selected&&selected!==id&&!related.has(id)}/>})}
         {canvasNodes.filter(visible).map(n=><WallNode key={n.id} node={n} size={n.kind==='funding'?fundingDiameter(demoData.funding.find(x=>x.id===n.id)!.values[p.year],p.year):n.kind==='domain'?domainDiameter(demoData.domains.find(x=>x.id===n.id)!.values[p.year],p.year):n.size} rank={rankFor(n,p.year)} value={value(n)} year={p.year} level={level} selected={selected===n.id} faded={!!selected&&!related.has(n.id)&&selected!==n.id} onSelect={()=>select(n)} onEvidence={()=>n.evidenceId&&p.openEvidence(n.evidenceId)}/>) }
         {selected&&compositionByParent[selected]&&camera.scale>=.62&&<CompositionOrbit parentId={selected} year={p.year} unit={p.unit} total={total}/>}
         {p.leaks&&<LeakLabels year={p.year} unit={p.unit} total={total} open={p.openEvidence}/>} 
@@ -149,7 +151,7 @@ function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvi
     <span className="status-field"/>
     {node.kind==='state'&&<span className="allocation-ring"><b>£100</b><small>ONE NATIONAL POOL</small></span>}
     <span className="node-orb"><Icon name={node.icon} size={node.kind==='state'?72:node.kind==='domain'?42:34}/></span>
-    {rank&&rank<=3&&<span className="rank-badge">#{rank} {node.kind==='funding'?'SOURCE CATEGORY':'DESTINATION'}</span>}
+    {rank===1&&<span className="rank-badge">LARGEST {node.kind==='funding'?'SOURCE':'DESTINATION'}</span>}
     <span className="wall-label">
       <strong>{node.kind==='state'?'PUBLIC MONEY':node.label}</strong>
       {node.kind==='state'?<><b>{stateValue}</b><em>EVERY £100 RAISED OR BORROWED</em></>:value?<><b>{value}</b>{node.kind==='domain'&&<em>OF EVERY £100</em>}</>:null}
@@ -182,6 +184,16 @@ const leakGeometry=[
 ];
 function LeakFlows({year}:{year:Year}){return <>{leakGeometry.map(g=>{const item=demoData.leaks.find(x=>x.id===g.id)!;return <g className="leak-flow" key={g.id}><path className="leak-bed" d={curve(g.from,g.to)} strokeWidth={12+Math.sqrt(item.value[year])*4}/><path className="leak-current" d={curve(g.from,g.to)} strokeWidth={4}/></g>})}</>}
 function LeakLabels({year,unit,total,open}:{year:Year;unit:'hundred'|'bn';total:number;open:(id:string)=>void}){return <>{leakGeometry.map(g=>{const x=demoData.leaks.find(l=>l.id===g.id)!;return <button className={`leak-label ${g.kind.toLowerCase()}`} key={g.id} style={{left:g.to.x,top:g.to.y}} onClick={()=>open(x.evidenceId)}><i>↓</i><span><em>{g.kind} · OCCURS HERE</em><strong>{x.name}</strong><b>{formatValue(x.value[year],total,unit)}</b></span></button>})}</>}
+
+const territoryOffsets=[{x:-.3,y:-.28},{x:.3,y:-.24},{x:.02,y:.34}];
+function TerritoryField({node,size,level,selected,faded}:{node:CanvasNode;size:number;level:number;selected:boolean;faded:boolean}){
+  const items=node.id==='health'?demoData.healthComponents.map(x=>({id:x.id,label:x.name,share:x.share,icon:x.icon})):compositionByParent[node.id];
+  const hints=[...items].sort((a,b)=>b.share-a.share).slice(0,3);
+  const centre={x:node.point.x-125,y:node.point.y};
+  return <div className={`territory-field ${node.id} ${selected?'selected':''} ${faded?'faded':''}`} style={{left:centre.x,top:centre.y,'--territory-width':`${size+190}px`,'--territory-height':`${size+145}px`,'--territory-colour':node.colour??'#78c8d3'} as React.CSSProperties} aria-label={`${node.label} territory`}>
+    {level<=1&&!selected&&hints.map((item,index)=>{const o=territoryOffsets[index];const child=36+Math.sqrt(item.share)*54;return <span className="territory-hint" key={item.id} aria-label={item.label} style={{left:`${50+o.x*70}%`,top:`${50+o.y*70}%`,'--hint-size':`${child}px`} as React.CSSProperties}><Icon name={item.icon} size={22}/><small>{item.label}</small></span>})}
+  </div>;
+}
 
 const orbitOffsets=[{x:-260,y:-220},{x:290,y:-175},{x:-280,y:230},{x:285,y:225}];
 function CompositionOrbit({parentId,year,unit,total}:{parentId:string;year:Year;unit:'hundred'|'bn';total:number}){

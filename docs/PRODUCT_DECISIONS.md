@@ -1,6 +1,13 @@
 # Product decisions
 
 Date: 2026-08-24
+Decision: Treat major aggregates as illustrated territories: a proportional circular core inside an asymmetric shared field with a capped set of composition hints.
+Why: National mass was legible but remained abstract; composition needed to be inferable before click without turning the Wall into an icon cloud.
+Alternatives considered: Icons scattered around every node; permanent full child bubbles; separate composition panels; replacing the existing Health hierarchy.
+Implications: Only seven priority territories receive far-view hints, capped at three. Medium zoom adds labels; selection adds quantitative composition. Health reuses its existing children. Funding and spending scale minima are reduced to strengthen hierarchy, while Treasury remains circular.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
 Decision: Use pounds per £100—not pence per £1—as the primary public proportional unit.
 Why: The larger whole-number framing communicates nationally significant allocations more intuitively while preserving exactly the same proportions.
 Alternatives considered: Retaining pence per £1; showing percentages; removing the proportional mode.
