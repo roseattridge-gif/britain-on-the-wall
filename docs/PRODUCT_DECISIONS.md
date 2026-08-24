@@ -1,6 +1,20 @@
 # Product decisions
 
-Date: 2026-08-24  
+Date: 2026-08-24
+Decision: The Wall must explain its national money story through world-space narrative grammar, explicit demo attention markers, non-causal spend/outcome pairing and visible temporal transformation.
+Why: Exploration alone does not ensure first-time comprehension; users must understand receipts → Treasury → allocation → delivery → outcomes → losses without a presenter.
+Alternatives considered: Editorial pages, dashboard summaries, blocking modal tours and algorithmic “top issue” rankings.
+Implications: Story cues remain spatial and recede with semantic zoom. Attention is explicitly authored and illustrative. Spend/outcome adjacency always carries a non-causality qualifier.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
+Decision: Complement the year buttons with a compact timeline scrubber rather than replacing them.
+Why: Scrubbing communicates continuous transformation, while explicit stops remain reliable, accessible and easy to compare in browser and keyboard use.
+Alternatives considered: Buttons only; scrubber only; automatic playback.
+Implications: Both controls update the same year state. Playback remains a possible later refinement after observed usability testing.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
 Decision: The persistent spatial Wall is the primary product surface. Detail is revealed through semantic camera zoom, not page/view replacement.  
 Why: The product object is physical exploration of one national money system; replacing the scene destroys orientation and weakens causal comprehension.  
 Alternatives considered: Domain pages, modal diagrams, conditional national/domain components and dashboard drill-downs.  

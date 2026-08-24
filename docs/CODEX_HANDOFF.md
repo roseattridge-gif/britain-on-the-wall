@@ -1,103 +1,107 @@
 # CODEX HANDOFF
 
-## 1. Task completed
+Date: 2026-08-24
+Increment: Make the Wall explain itself
+Reviewed implementation commit: `511ad8d`
 
-Completed the visual reset of Britain on the Wall. The product now opens directly onto one dark, spatial, high-density Wall rather than a webpage, dashboard or diagram embedded in a page.
+## 1. What a first-time user can now understand
 
-Reviewed implementation commit: `ac92cf0` (`Complete persistent visual Wall`).
+The opening scene teaches the product grammar without leaving or blocking the Wall. A new user can identify who funds Britain, distinguish receipts raised now from borrowing, see the illustrative £1.27tn pool, read where every £1 goes, compare related spending direction with outcome direction, identify losses versus committed fiscal drag, see authored attention priorities and understand how to explore deeper.
 
-## 2. Product outcome
+The optional five-step first-look guide highlights those regions in sequence and can be skipped at any time.
 
-The 3200×1800 logical world is the interface. Funding sources converge on a dominant Treasury, broad money ribbons fan into unequal public-service districts, contextual returns radiate heat, and leakage leaves attached burgundy branches. Users pan the real scene and zoom deeper without replacing it.
+## 2. National reading order
 
-## 3. What changed
+The world reads:
 
-- Re-authored the national composition around one large Treasury and an asymmetric fan of domains.
-- Replaced thin connector lines with layered, animated, square-root-scaled money ribbons.
-- Added outcome heat fields, attached leak branches, large world-space labels and compact fixed chrome.
-- Rebuilt Health and Hospitals as progressively revealed spatial territories inside the same world.
-- Added responsive reframing, a minimap, semantic breadcrumbs and contextual evidence inspection.
-- Wrote the governing visual specification before implementation.
+1. upper-left receipts raised now;
+2. spatially separate violet borrowing;
+3. convergence through the dominant Treasury;
+4. the proportional “where every £1 goes” spending fan;
+5. delivery and people revealed through semantic zoom;
+6. the shared outcome horizon;
+7. losses, leaks and committed drags branching downward where they occur.
 
-## 4. Files changed
+Small world-space chapter markers support this eye path. They are not navigation cards.
 
-- `docs/WALL_VISUAL_SPEC.md`: authoritative visual and interaction specification.
-- `src/canvas/layout.ts`: 3200×1800 geography, authored districts and focus targets.
-- `src/components/SystemCanvas.tsx`: persistent scene, ribbons, heat, leaks, semantic zoom and minimap.
-- `src/styles.css`: dark physical-canvas language, hierarchy, animation and responsive rules.
-- `src/App.test.tsx`: interaction coverage aligned to the persistent Wall.
-- `docs/PRODUCT_DECISIONS.md`: visual-backbone decision.
+## 3. Spend and outcome pairing without causal claims
 
-## 5. Architecture / design decisions
+Each outcome pairs its direction with the change in related spending since the preceding demo year. Attribution remains visible as `MEASURED RETURN`, `INDICATIVE RETURN` or `CONTEXT ONLY`. The outcome horizon states `SPEND TREND ≠ PROOF OF CAUSE`, and inspectors repeat that the pairing does not establish causation.
 
-World geometry, camera state, data and rendering remain separate. Accessible HTML nodes and labels sit over an SVG money-flow field. Camera transforms move the entire world; zoom thresholds reveal more of the same scene. No generic graph or dashboard library controls the result.
+## 4. How time transforms the Wall
 
-## 6. Data/model changes
+The years are presented as a compact timeline scrubber with explicit year stops. A year change updates ribbon widths, amounts, outcome heat, attention pins and leak/drag magnitude in the same scene. Nodes pulse and flows brighten briefly. Three spatial change notes identify Health’s changing share of every £1, debt-interest drag and the healthy-lives status transition.
 
-No source-data or evidence model was expanded. Existing typed illustrative fixtures and evidence IDs remain intact. Ribbon widths use square-root scaling so differences are meaningful without allowing the largest value to erase the scene.
+The 2005 → 2025 QA visibly produced:
 
-## 7. UX behaviour
+- Health gained 3p of every £1;
+- debt-interest drag rose 3p;
+- healthy lives moved from improving to deteriorating;
+- attention priorities changed from improvement-led signals to pressure, spending growth and delivery friction.
 
-- National view: sources → Treasury → services → contextual outcomes, with leaks attached.
-- Health view: Hospitals, primary care, community care, medicines and administration emerge around Health.
-- Hospitals view: workforce, estates, procurement, diagnostics, emergency and elective care emerge around Hospitals.
-- Deep view: metric context appears without replacing the scene.
-- Drag pans; wheel/trackpad and +/- zoom; Fit Britain reframes; breadcrumbs fly back spatially.
-- £1 and £bn alter the value language; time and additive layers update the same wall.
+Reduced-motion preference removes animated effects.
 
-## 8. Tests and verification
+## 5. Attention signals
 
+Three to four explicit `DEMO ATTENTION` pins are authored per demo year in `src/data/story.ts`. Their types are pressure, watch, improving and drag. These are editorial prototype fixtures—not an algorithm or objective ranking—and disappear once the camera enters Health.
+
+## 6. Leaks versus drags
+
+- `LEAK`: loss within a delivery mechanism, such as backlog costs.
+- `LOSS`: avoidable delivery/control costs, such as fraud/error or overruns.
+- `DRAG`: a committed fiscal outflow, specifically debt interest.
+
+Fraud/error is attached to administration, backlog cost to Health delivery, project overruns to infrastructure, and debt-interest drag to the debt-interest territory. Debt interest is not described as abuse or waste.
+
+## 7. Health story
+
+Selecting Health dims unrelated Britain and reveals one concise world-space trace:
+
+`allocation → delivery → people → outcome`
+
+The trace shows 19p of every £1 → care systems → patients and communities → deteriorating healthy-lives context, with a visible non-causality qualifier. National chapter labels and attention pins recede. Hospitals then reveals its operational territory while remaining inside Health and Britain.
+
+## 8. 30-second comprehension review at 1440×900
+
+1. Who funds Britain? **Clear:** workers/households, businesses, consumption, property/capital and other receipts.
+2. How much enters? **Clear:** £1.27tn illustrative public-money pool.
+3. What is borrowing? **Clear:** separate dashed violet money pulled forward/debt created.
+4. Where does most money go? **Clear:** Health, pensions and welfare dominate.
+5. What does 19p mean? **Clear:** 19p of every illustrative £1 raised or borrowed.
+6. What do green/amber/red mean? **Clear:** improving, mixed and deteriorating, with arrows and words.
+7. What does Britain get back? **Clear:** the shared outcome horizon.
+8. Where is value lost? **Clear:** attached downward leak/loss/drag branches.
+9. What deserves attention? **Clear:** year-specific `DEMO ATTENTION` pins.
+10. How is detail explored? **Clear:** guide, Health callout, pan/zoom and semantic zoom.
+
+## 9. Verification and QA evidence
+
+- Vitest: 2 files, 12 tests passed.
 - TypeScript passed.
-- Vitest: 2 files, 7 tests passed.
 - Production Vite build passed.
-- Browser QA completed at 1440×900, 1920×1080 and 390×844.
-- Verified real pointer drag changes the world transform and Fit Britain restores framing.
-- Verified Health and Hospitals camera flights, semantic disclosure, compact controls, Escape/Back step-out and mobile reframing.
-- Saved QA evidence: `docs/qa/2026-08-24-wall-1440x900.jpg`, `docs/qa/2026-08-24-wall-1920x1080.jpg`, `docs/qa/2026-08-24-wall-390x844.jpg` and `docs/qa/2026-08-24-wall-health-focus-1440x900.jpg`.
+- `git diff --check` passed.
+- Browser-tested guide, 2005 → 2025 change, Health story, Hospitals depth and mobile layout.
 
-Product Management acceptance answers:
+Saved evidence:
 
-- Does the latest build still resemble a dashboard? **NO**
-- Does Health exist spatially within Britain rather than replacing Britain? **YES**
-- Can the user pan? **YES**
-- Can the user continuously zoom? **YES**
-- Does detail change based on zoom level? **YES**
-- Are major financial flows proportional? **YES**
-- Are leaks spatially attached to relevant flows? **YES**
-- Is red/amber/green performance obvious at national zoom? **YES** — the illustrative current year contains amber and red outcome states; the green encoding is implemented and appears when the selected year contains an improving status.
-- Are primary labels comfortably readable? **YES**
-- Is the Wall the dominant visual object? **YES**
+- `docs/qa/2026-08-24-story-first-look-1440x900.jpg`
+- `docs/qa/2026-08-24-story-time-change-1440x900.jpg`
+- `docs/qa/2026-08-24-story-health-1440x900.jpg`
+- `docs/qa/2026-08-24-story-hospitals-1440x900.jpg`
+- `docs/qa/2026-08-24-story-mobile-390x844.jpg`
 
-Failure-condition audit:
+## 10. What still feels visually unclear
 
-- Five-column/page composition eliminated: confirmed.
-- Repeated cards and arrow-chain grammar eliminated: confirmed.
-- Organisation-chart/tree appearance eliminated: confirmed.
-- Sankey, React Flow, Power BI, dashboard and process-diagram defaults eliminated: confirmed.
-- Canvas is larger than the screen: confirmed at 3200×1800.
-- Pan is genuine world translation: confirmed in-browser.
-- Zoom preserves the same scene: confirmed.
-- Health remains inside Britain and Hospitals remains inside Health: confirmed.
-- Primary labels and values are readable at their intended semantic level: confirmed at all required viewports.
-- Money flow is visibly encoded by broad proportional ribbons: confirmed.
-- Outcome heat is spatially obvious: confirmed.
+The national lower spending arc remains intentionally dense at 1440px, and temporary year-change notes overlap nearby context for several seconds. Outcome pairing is comparative illustrative context rather than a full long-term trend explanation. Mobile remains a pannable crop rather than a complete national overview. These are refinement limits, not blockers.
 
-## 9. Known limitations
+## 11. Next product/visual increment
 
-All figures and outcome signals remain illustrative. Positions are editorially authored. Only Health/Hospitals has deep semantic content. The minimap is indicative rather than interactive, and the smallest mobile view deliberately crops the national world's outer districts so the central money system remains legible and pannable.
+Run observed first-time comprehension sessions and refine where people hesitate. Likely next work is timeline playback/pacing, annotation collision avoidance and clearer long-term versus one-interval trends. Do not begin official-data ingestion yet.
 
-## 10. Product questions / decisions needed
+## 12. Architecture and data boundary
 
-No decision blocks the next visual increment. Data infrastructure and official-data ingestion remain explicitly out of scope.
-
-## 11. Recommended next task
-
-Run first-impression comprehension testing with five to eight people, then refine visual density, money-flow joins, semantic zoom choreography and timeline transformation from observed failures. Do not begin official-data ingestion yet.
-
-## 12. How to run/view it
-
-From the repository root run `pnpm dev` and open the printed localhost URL. If that port is occupied, Vite selects the next one. The only route is `/` and the Wall fills the viewport immediately.
+The accepted 3200×1800 world, camera, semantic thresholds, Health/Hospitals hierarchy, evidence drawer and additive layers remain intact. No replacement view or additional deep domain was added. Everything remains `DEMO / ILLUSTRATIVE DATA`.
 
 ## 13. Git state
 
-Branch: `main`. The completed implementation is committed at `ac92cf0`. This handoff update is committed separately so it can cite the immutable implementation SHA. Verify both commits on `origin/main` before Product Management review.
+Branch: `main`. Implementation commit: `511ad8d`. This handoff is committed separately so it can cite that immutable SHA. Verify both commits on `origin/main` before review.
