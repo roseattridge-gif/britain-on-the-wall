@@ -1,6 +1,13 @@
 # Product decisions
 
 Date: 2026-08-24
+Decision: Make national money mass legible through three redundant signals—square-root-scaled blob area, square-root-scaled ribbon width and a numeric value—with derived top-three source and destination ranks.
+Why: A first-time viewer must see the dominant funding and spending territories within five seconds, without having to compare labels one by one.
+Alternatives considered: Equal nodes, ribbon-only encoding, a ranked side list, a KPI panel and a default Sankey.
+Implications: Size and rank respond to the selected demo year. Treasury retains a 100p convergence ring. Major categories disclose illustrative orbital composition in place; funding language describes receipts associated with a category and does not assert tax incidence. Health remains the sole deeper recursive domain.
+Status: Accepted and implemented.
+
+Date: 2026-08-24
 Decision: The Wall must explain its national money story through world-space narrative grammar, explicit demo attention markers, non-causal spend/outcome pairing and visible temporal transformation.
 Why: Exploration alone does not ensure first-time comprehension; users must understand receipts → Treasury → allocation → delivery → outcomes → losses without a presenter.
 Alternatives considered: Editorial pages, dashboard summaries, blocking modal tours and algorithmic “top issue” rankings.

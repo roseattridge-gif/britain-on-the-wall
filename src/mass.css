@@ -1,0 +1,9 @@
+/* Final authority for the magnitude and composition grammar. */
+.allocation-ring {
+  animation: none;
+}
+
+.composition-node > span,
+.domain.selected ~ .composition-orbit .composition-node > span {
+  background: var(--composition-colour, #8fd3da);
+}

@@ -75,6 +75,19 @@ World-space ribbon width uses a square-root scale to preserve distinction withou
 - Double click / evidence action: contextual inspector opens over the still-visible wall.
 - Reduced motion removes camera/ribbon animation.
 
+## Mass and composition grammar
+
+Magnitude is encoded redundantly so the national Wall works at a glance and remains interpretable for users who cannot rely on colour alone.
+
+- Funding blob diameter: `90 + sqrt(value / maxFunding) × 300px`.
+- Spending blob diameter: `80 + sqrt(value / maxDomain) × 290px`.
+- The minimum diameter preserves a readable target; square-root scaling prevents the largest item consuming the scene.
+- Blob area, connected ribbon width and the displayed `p`/`£bn` value all update from the selected demo year.
+- The three largest funding categories are annotated `#1–#3 SOURCE CATEGORY`; the three largest spending domains are annotated `#1–#3 DESTINATION`. Rank is derived anew for each selected year.
+- Treasury remains the single convergence point. A static dashed `100p / ONE NATIONAL POOL` ring reinforces that each downstream `p` value partitions the same illustrative whole.
+
+At shallow semantic zoom, selecting a major source or destination reveals an orbital composition territory in the same world. Satellite area is square-root-scaled by share and each satellite repeats its derived amount and percentage. Funding uses the careful label `RECEIPTS ASSOCIATED WITH`; it does not claim tax incidence. Spending uses `THIS ALLOCATION CONTAINS`. These are explicitly illustrative prototype fixtures. Health retains the existing deeper recursive allocation → delivery → people → outcome example rather than receiving a competing shallow overlay.
+
 ## 9. Leak treatment
 
 Leaks are world-space branch paths attached to a parent flow. Each has a burgundy curved stream, downward droplet terminus, name and amount. They never appear as a detached button row.
