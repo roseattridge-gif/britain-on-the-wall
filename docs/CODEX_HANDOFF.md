@@ -1,54 +1,63 @@
 # CODEX HANDOFF
 
 Date: 2026-08-24
-Increment: Illustrated territory grammar
-Reviewed implementation commit: `90087ed`
+Increment: National Wall visual composition and polish
+Reviewed implementation commit: `68492bd`
 
 ## Product review — ten explicit answers
 
-### 1. Can composition be understood before click?
+### 1. What changed in the national composition?
 
-Yes. Seven priority aggregates show an organic shared field and up to three composition pictograms at national fit. Workers visibly contains tax/workforce/home cues; Health contains Hospitals, primary-care and community-care cues. Detail remains restrained: no far-view child values or labels.
+The authored funding arc was shifted inward so Workers is fully framed and visually dominant. Health, Pensions and Welfare now form a separated primary spending arc; the remaining domains form a lower-contrast secondary arc. The result reads left/top → Treasury → lower/right → outcomes → attached losses.
 
-### 2. What does Workers & Households now look like?
+### 2. What collisions were fixed?
 
-It remains the dominant proportional funding core, now inside a cool-cyan asymmetric territory. Income Tax is the largest internal pictogram, with Employee NI and Council Tax cues. At medium zoom the cues gain names; selection resolves the full four-part illustrative composition with `RECEIPTS ASSOCIATED WITH` language.
+Workers no longer clips the viewport or collides with Business. Business, Consumption and Property have clearer spacing. Health/Pensions/Welfare labels moved inside their cores. Rank rules disappear above national zoom, far territory hints render above cores, attention pins collapse to small marks nationally, and medium Workers/Health rank-to-child collisions were removed.
 
-### 3. What does Health now look like?
+### 3. How were Health/Pensions/Welfare repositioned?
 
-Health is a large receiving basin with pictorial clues for Hospitals, primary care and community care already visible nationally. These are derived from the existing Health children. Medium/Health focus reveals the named five-part delivery composition; Hospitals still opens the operational system.
+They are horizontally staggered at x 820/1320/1800 with breathing room and internal values. Education starts the transition to the secondary/right arc. Smaller domains form a quieter lower sweep rather than competing with the primary three.
 
-### 4. Does aggregate smoothly resolve into composition?
+### 4. How is Treasury clearer?
 
-Yes. Far shows a mass plus three stable hints; medium adds names; selection supplies proportional masses, shares and active-unit amounts. The parent core, field and child positions stay anchored during year changes.
+Treasury remains the brightest circular pivot with incoming cyan and violet streams and outgoing ivory allocation ribbons. Cleaner surrounding whitespace, reduced attention noise and one uninterrupted explanatory sentence make pooling and splitting unambiguous.
 
-### 5. How were the current orbital components changed or reused?
+### 5. How were outcome relationships simplified?
 
-The selected orbital composition remains the close quantitative state. A lighter territory-field state now precedes it at far and medium distance. Health does not use a duplicate orbit: its hints and focused nodes share `healthComponents`.
+National fit now shows one representative contextual return thread per outcome. The complete contextual set returns above national zoom. The outcome horizon keeps five evenly spaced heat fields and explicit non-causality language.
 
-### 6. Did blob scaling change?
+### 6. How were far-view territory hints refined?
 
-Yes, after perceptual review. Funding is `70 + sqrt(value/maxFunding) × 320px`; spending is `60 + sqrt(value/maxDomain) × 330px`. Lower minima and wider ranges strengthen the dominant source, three major destinations and long tail while preserving usable small targets. Ribbon formulas and underlying values are unchanged.
+Hints now sit above their cores, inherit a quieter parent colour and use a pale editorial treatment. Territory borders were reduced from hard rings to faint asymmetric fields. National hints remain pictorial; medium labels remain collision-reviewed.
 
-### 7. How do ribbons visually feed territories?
+### 7. Did the biggest source/top three destinations become more obvious?
 
-Major cores now have enlarged colour-integrated receiving halos, while layered ribbons pass under the translucent field. The join reads as flow entering a basin rather than terminating at a pin, especially for Workers, Health, Pensions and Welfare.
+Yes. In the 1440×900 squint test Workers is the unmistakable source mass. Health, Pensions and Welfare read as the primary expenditure bulk without relying on badges or scanning labels.
 
-### 8. Does the Wall still resemble a bubble chart?
+### 8. What still feels visually imperfect?
 
-Less so. Quantitative cores remain circular for honest area comparison, but the major objects now read as compound asymmetric territories containing internal meaning. Treasury remains deliberately circular as the pooling mechanism.
+The national frame remains information-dense by design. Some minor labels approach outcome or lower-edge territory at 1440px, and the Treasury annotation crosses a busy ribbon area. These are readable and materially improved, but could receive microscopic typography refinement after Product Management review.
 
-### 9. What remains visually weak?
+### 9. Are current screenshots available?
 
-The exact 1440×900 screenshot could not be refreshed because the in-app browser rejected local-page inspection in this environment. The composition placement is covered structurally and by tests, but Product Management should visually inspect national label/ribbon collisions before accepting the sprint. No pre-£100 screenshot has been mislabelled as current.
+Yes. Current post-£100 screenshots are saved for national Every £100, national £bn, 1920×1080, Workers medium, Health medium and Health deep states.
 
-### 10. What should Product Management review next?
+### 10. Is Product Management ready to consider real-data work next?
 
-Review the four five-second questions at 1440×900: largest source, top three destinations, broad Workers composition and broad Health composition. Then review medium Workers, Consumption, Health and Pensions plus deep Health. Only placement refinements identified there should follow; official-data ingestion remains out of scope.
+The visual grammar is now coherent enough for a Product Management acceptance decision. Real-data work should begin only if this national screenshot and its medium/deep companions are accepted; no official-data work was started here.
 
-## Preserved product boundary
+## Self-critique of the national screenshot
 
-`EVERY £100 | £ BILLIONS`, proportional ribbons, Treasury pool, persistent 3200×1800 camera, semantic zoom, Health/Hospitals hierarchy, outcomes, leaks/drags and evidence architecture remain intact. All composition is illustrative.
+1. Biggest source obvious: **Yes**.
+2. Biggest three destinations obvious: **Yes**.
+3. Treasury clearly pools and splits: **Yes**.
+4. Workers composition understandable before click: **Yes—tax, people/NI and home cues**.
+5. Health composition understandable before click: **Yes—hospital, primary-care and community cues**.
+6. Major flows easy to trace: **Yes**.
+7. Spending fan clean: **Yes, with primary and secondary arcs**.
+8. Outcome horizon part of the same story: **Yes**.
+9. Leaks attached and understandable: **Yes, but deliberately subordinate**.
+10. Premium/editorial rather than dashboard-like: **Yes**.
 
 ## Verification
 
@@ -56,8 +65,17 @@ Review the four five-second questions at 1440×900: largest source, top three de
 - TypeScript: `tsc --noEmit` passed.
 - Production Vite build passed.
 - `git diff --check` passed.
-- Screenshot refresh pending because local in-app-browser inspection was rejected; required views remain explicitly outstanding.
+- Browser QA completed at 1440×900 and 1920×1080.
+
+Saved evidence:
+
+- `docs/qa/2026-08-24-national-1440x900-every100.png`
+- `docs/qa/2026-08-24-national-1440x900-bn.png`
+- `docs/qa/2026-08-24-national-1920x1080.png`
+- `docs/qa/2026-08-24-workers-medium.png`
+- `docs/qa/2026-08-24-health-medium.png`
+- `docs/qa/2026-08-24-health-deep.png`
 
 ## Git state
 
-Branch: `main`. Implementation commit: `90087ed`. This handoff is committed separately so it cites the immutable reviewed implementation.
+Branch: `main`. Implementation commit: `68492bd`. This handoff is committed separately so it cites the immutable reviewed implementation.
