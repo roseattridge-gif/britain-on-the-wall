@@ -11,6 +11,7 @@
 7. **Medium comparability:** A neutral selected-node indicator and evidence limitation explain Education, Debt, technical, and Economy in exceptional 2022–23.
 8. **Technical reconciliation:** Grey/hatched/dashed, `RECONCILIATION · NOT A SERVICE`; annotations say `TECHNICAL RECONCILIATION CHANGE`.
 9. **Real/illustrative boundary:** Demo attention/history is suppressed. National fiscal data and Health's PESA composition are real. The deeper England operational lens is real but does not reconcile to the UK allocation. The national outcome horizon and leaks remain static and explicitly illustrative.
+10. **National clarity:** Primary cores have a tested >100-world-pixel boundary gap at 2025–26 national fit. Percentages remain visible in both units; all use the full TME-aligned pool. Far hints are capped at two and leak fixtures default off.
 10. **Health context:** Five £100/£bn values plus direction explanation; share falls £1.57 while nominal cash rises £57.313bn.
 11. **Remaining weakness:** Mobile secondary chrome scrolls horizontally; outcomes remain illustrative rather than official history.
 12. **Next build:** A focused mobile/chrome usability pass, then evidence-led outcome history only if an authoritative, non-causal method is approved.

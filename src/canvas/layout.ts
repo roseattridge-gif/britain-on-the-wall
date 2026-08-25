@@ -17,17 +17,17 @@ export const WORLD={width:3200,height:1800};
 export const STATE_POINT={x:1530,y:650};
 
 const fundingPoints:Point[]=[
-  {x:430,y:250},{x:900,y:145},{x:1240,y:175},
-  {x:1430,y:300},{x:790,y:490},{x:2200,y:155},
+  {x:320,y:270},{x:830,y:150},{x:1300,y:165},
+  {x:1710,y:210},{x:690,y:570},{x:2230,y:190},
 ];
 const domainLayout:Record<string,{point:Point;size:number;colour:string}>={
-  health:{point:{x:700,y:1030},size:280,colour:'#5fae9b'},pensions:{point:{x:1120,y:1060},size:260,colour:'#7aa8c4'},welfare:{point:{x:1530,y:1080},size:240,colour:'#9e91bd'},education:{point:{x:1940,y:1020},size:230,colour:'#d0a45e'},
-  defence:{point:{x:2310,y:900},size:205,colour:'#6888ad'},justice:{point:{x:2520,y:1120},size:180,colour:'#b58a79'},housing:{point:{x:2430,y:1370},size:185,colour:'#9fa56f'},transport:{point:{x:2140,y:1490},size:190,colour:'#5c9fa6'},
-  admin:{point:{x:1770,y:1510},size:180,colour:'#789b89'},interest:{point:{x:1370,y:1480},size:210,colour:'#8d9394'},economy:{point:{x:1010,y:1450},size:180,colour:'#a88d65'},environment:{point:{x:670,y:1390},size:155,colour:'#6d9b78'},
-  culture:{point:{x:2350,y:1640},size:145,colour:'#987c9d'},technical:{point:{x:320,y:1550},size:190,colour:'#6f7778'},
+  health:{point:{x:430,y:1050},size:280,colour:'#5fae9b'},pensions:{point:{x:960,y:1040},size:260,colour:'#7aa8c4'},welfare:{point:{x:1490,y:1070},size:240,colour:'#9e91bd'},education:{point:{x:2010,y:1030},size:230,colour:'#d0a45e'},
+  defence:{point:{x:2440,y:800},size:205,colour:'#6888ad'},justice:{point:{x:2300,y:1150},size:180,colour:'#b58a79'},housing:{point:{x:2350,y:1450},size:185,colour:'#9fa56f'},transport:{point:{x:2050,y:1570},size:190,colour:'#5c9fa6'},
+  admin:{point:{x:1370,y:1510},size:180,colour:'#789b89'},interest:{point:{x:1010,y:1500},size:210,colour:'#8d9394'},economy:{point:{x:650,y:1490},size:180,colour:'#a88d65'},environment:{point:{x:300,y:1460},size:155,colour:'#6d9b78'},
+  culture:{point:{x:2500,y:1700},size:145,colour:'#987c9d'},technical:{point:{x:1710,y:1460},size:190,colour:'#6f7778'},
 };
 const outcomePoints:Point[]=[
-  {x:2860,y:470},{x:2920,y:710},{x:2870,y:950},{x:2940,y:1190},{x:2820,y:1430},
+  {x:2800,y:320},{x:2800,y:590},{x:2800,y:860},{x:2800,y:1130},{x:2800,y:1400},
 ];
 const componentPoints:Point[]=[
   {x:610,y:820},{x:940,y:750},{x:1190,y:880},{x:1180,y:1120},{x:900,y:1280},

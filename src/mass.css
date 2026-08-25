@@ -32,6 +32,7 @@
 }
 
 .territory-field.faded { opacity: .12; filter: saturate(.2); }
+.level-0 .territory-field { opacity: .48; box-shadow: none; }
 .wall-node { z-index: 5; }
 .wall-node:hover, .wall-node.selected { z-index: 8; }
 
@@ -71,9 +72,11 @@
   box-shadow: inset 0 0 0 2px #07101188, 0 18px 34px #0007, 0 0 0 18px color-mix(in srgb, var(--node-colour) 11%, transparent);
 }
 
-.level-0 .wall-node.minor-territory.domain .wall-label strong { font-size: 21px; opacity: .82; }
-.level-0 .wall-node.minor-territory.domain .wall-label b { font-size: 31px; opacity: .9; }
-.level-0 .wall-node.minor-territory.domain .wall-label em { font-size: 9px; opacity: .6; }
+.level-0 .wall-node.minor-territory.domain { width: calc(var(--node-size) + 175px); gap: 14px; }
+.level-0 .wall-node.minor-territory.domain .wall-label { max-width: 150px; }
+.level-0 .wall-node.minor-territory.domain .wall-label strong { font-size: 18px; opacity: .86; }
+.level-0 .wall-node.minor-territory.domain .wall-label b { font-size: 24px; opacity: .94; margin-top: 7px; }
+.level-0 .wall-node.minor-territory.domain .wall-label em { font-size: 10px; opacity: .72; }
 .level-0 .wall-node.minor-territory.domain .node-orb { filter: saturate(.72) brightness(.88); }
 
 .level-0 .attention-pin { gap: 6px; transform: translate(-25%,-165%); }
@@ -94,7 +97,8 @@
 
 .level-0 .wall-node.health .wall-label,
 .level-0 .wall-node.pensions .wall-label,
-.level-0 .wall-node.welfare .wall-label {
+.level-0 .wall-node.welfare .wall-label,
+.level-0 .wall-node.education .wall-label {
   position: absolute;
   left: calc(var(--node-size) / 2);
   top: 61%;
@@ -104,16 +108,24 @@
 }
 .level-0 .wall-node.health .node-orb > svg,
 .level-0 .wall-node.pensions .node-orb > svg,
-.level-0 .wall-node.welfare .node-orb > svg { transform: translateY(-48px); }
+.level-0 .wall-node.welfare .node-orb > svg,
+.level-0 .wall-node.education .node-orb > svg { transform: translateY(-45px); }
 .level-0 .wall-node.health .wall-label strong,
 .level-0 .wall-node.pensions .wall-label strong,
-.level-0 .wall-node.welfare .wall-label strong { font-size: 24px; }
+.level-0 .wall-node.welfare .wall-label strong,
+.level-0 .wall-node.education .wall-label strong { font-size: 22px; }
 .level-0 .wall-node.health .wall-label b,
 .level-0 .wall-node.pensions .wall-label b,
-.level-0 .wall-node.welfare .wall-label b { font-size: 42px; }
+.level-0 .wall-node.welfare .wall-label b,
+.level-0 .wall-node.education .wall-label b { font-size: 34px; margin-top: 7px; }
 .level-0 .wall-node.health .wall-label em,
 .level-0 .wall-node.pensions .wall-label em,
-.level-0 .wall-node.welfare .wall-label em { font-size: 9px; color: #eff7f4; }
+.level-0 .wall-node.welfare .wall-label em,
+.level-0 .wall-node.education .wall-label em { font-size: 12px; color: #eff7f4; margin-top: 6px; }
+
+.national-share { white-space: nowrap; font-weight: 600!important; }
+.level-0 .wall-node.major-territory .wall-label .national-share { font-size: 16px!important; opacity: .94; }
+.level-0 .state .wall-label { background: #101819e8; padding: 10px 16px; margin: 18px auto 0; width: max-content; }
 
 /* Technical reconciliation is part of TME, but not a service or a leak. */
 .wall-node.technical .node-orb {

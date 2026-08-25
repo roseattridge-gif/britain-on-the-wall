@@ -18,7 +18,7 @@ const realDomainMeta:Record<string,{short:string;icon:string}>={economy:{short:'
 export const nationalData:WallData={
   ...demoData,years:[...realYears],
   funding:moneyIn.map(flow=>({...fundingMeta[flow.id],name:flow.label,values:historicalSeries(flow.id,'in'),confidence:flow.confidence,dataStatus:flow.dataStatus,borrowing:flow.id==='borrowing',evidenceId:`e-${flow.id}`})),
-  domains:moneyOut.filter(flow=>flow.id!=='local').map(flow=>{const meta=domainMeta[flow.id]??realDomainMeta[flow.id];return {...meta,id:flow.id,name:flow.label,short:flow.id==='interest'?'Debt':meta.short,values:historicalSeries(flow.id,'out'),confidence:flow.confidence,dataStatus:flow.dataStatus,evidenceId:`e-${flow.id}`}}),
+  domains:moneyOut.filter(flow=>flow.id!=='local').map(flow=>{const meta=domainMeta[flow.id]??realDomainMeta[flow.id];return {...meta,id:flow.id,name:flow.label,short:flow.id==='health'?'Health & social care':flow.id==='interest'?'Debt':meta.short,values:historicalSeries(flow.id,'out'),confidence:flow.confidence,dataStatus:flow.dataStatus,evidenceId:`e-${flow.id}`}}),
   healthComponents,
   evidence:[...moneyIn,...moneyOut.filter(x=>x.id!=='local')].map(evidence).concat(healthComponentEvidence,healthMetricEvidence,demoData.evidence.filter(item=>!moneyIn.some(x=>x.evidenceIds.includes(item.id))&&!moneyOut.some(x=>x.evidenceIds.includes(item.id))&&!item.id.startsWith('e-health-')&&!['e-hospitals','e-primary','e-community','e-medicines','e-admin-health'].includes(item.id))),
 };

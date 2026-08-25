@@ -116,6 +116,17 @@ Seven priority aggregates—Workers & Households, Businesses, Consumption, Healt
 ## National composition rules
 
 - **Hero frame:** the 1440×900 national fit is the authored primary composition. Workers sits fully inside the upper-left funding basin; Treasury anchors the centre; Health, Pensions and Welfare form a separated primary spending arc; smaller domains form a quieter secondary lower/right arc.
+
+## National collision and value-label grammar
+
+- National core diameter uses a square-root transform so circle area, rather than diameter, represents relative value. Funding is capped at 340 world pixels (`80 + √relative value × 260`); spending is capped at 320 (`75 + √relative value × 245`). Technical reconciliation is capped separately at 205 at national fit.
+- The authored national coordinates enforce a tested gap of more than 100 world pixels between every primary core boundary. Primary spending has four dedicated positions; secondary spending occupies a separate lower/right arc; the outcome column begins beyond a visible service-to-outcome gap.
+- Percentages use the full TME-aligned national pool. Funding labels therefore say `% of total funding`, not `% of taxes`; destination labels say `% of total spend`.
+- In `EVERY £100`, the primary line is `£x / £100` and the persistent secondary line is `x%`. In `£ BILLIONS`, the primary line is `£x.xbn` and the same percentage remains visible. Treasury uses `£1.36tn` with `100% · £100 total`.
+- Primary spending labels sit inside their cores. Secondary labels use a compact external treatment (`£ amount` plus percentage) and retain the inspector for full context. Technical reconciliation remains striped, capped and labelled `RECONCILIATION · NOT A SERVICE`.
+- Far-view territory envelopes add only 80 pixels horizontally and 60 vertically, render at reduced opacity without an extra shadow, and may aesthetically approach but must not merge primary ownership. Medium zoom restores the fuller envelope.
+- National fit shows at most two composition pictograms per priority territory. A third is deferred until medium zoom.
+- Leaks and drags remain available as an optional layer but default off so illustrative fixtures do not compete with the real national hierarchy.
 - **Visual hierarchy:** Workers is the unmistakable dominant source. Health, Pensions and Welfare carry their names and values inside their cores at national fit. Secondary-domain saturation, label size and metadata contrast are reduced.
 - **Ribbon ordering:** the largest source and allocation ribbons take the cleanest direct paths. National outcome context uses one representative return thread per outcome; the fuller relationship set returns above national zoom.
 - **Labels:** Tier 1 is Treasury and the largest masses; Tier 2 is major source/destination names and values; Tier 3 is secondary categories; Tier 4 is hints and metadata. Rank annotations are editorial rules, not badges, and disappear above national zoom.
