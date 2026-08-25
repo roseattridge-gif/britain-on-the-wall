@@ -2,7 +2,7 @@
 
 An interactive visual prototype that makes Britain's public-value system legible as one connected flow: who pays in, where funding goes, what machinery delivers, who receives value, what outcomes result, and where value is lost.
 
-> **Important:** all values are illustrative demo data. They are not official statistics and must not be quoted as fact.
+> **Data boundary:** the default national fiscal Wall and Health allocation are official/derived official data. The deeper Health operational lens is official England data and is not a UK reconciliation. Remaining outcome-horizon and leak fixtures are explicitly labelled illustrative.
 
 ## Run locally
 
@@ -17,7 +17,7 @@ Checks: `pnpm test`, `pnpm lint`, `pnpm typecheck`, `pnpm build`.
 
 ## Architecture
 
-- `src/data/demo.ts` is the replaceable demo-data adapter. UI components never embed numeric values.
+- `src/data/real/` contains the default national and Health evidence adapters; `src/data/demo.ts` remains the optional demo fixture.
 - `src/types.ts` defines stable entities and evidence relationships.
 - `src/canvas/layout.ts` defines the stable logical world, graph nodes and focus targets.
 - `src/canvas/useCamera.ts` owns pan, pointer-relative zoom and camera state.

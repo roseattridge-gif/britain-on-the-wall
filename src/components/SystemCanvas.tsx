@@ -10,6 +10,7 @@ import {Icon} from './Icon';
 import {FloatingControls} from './FloatingControls';
 import {displayPeriod,realFundingComponentValues,realYears,type RealYear} from '../data/real/adapter';
 import {historicalChanges,isRealYear,majorHistoricalChanges,periodLabel} from '../data/real/timeline';
+import {healthComponentShare,healthComponentValue,healthMetrics,metricStatus} from '../data/real/health';
 
 type Props={year:Year;setYear:(x:Year)=>void;unit:'hundred'|'bn';setUnit:(x:'hundred'|'bn')=>void;leaks:boolean;setLeaks:(x:boolean)=>void;receipt:boolean;setReceipt:(x:boolean)=>void;openEvidence:(id:string)=>void};
 
@@ -101,7 +102,8 @@ export function SystemCanvas(p:Props){
   const select=(n:CanvasNode)=>{setGuideStep(null);setSelected(n.id);if(n.id==='health')frame('health');else if(n.id==='hospitals')frame('hospitals');else if(compositionByParent[n.id])focusNode(n)};
   const value=(n:CanvasNode)=>{
     const f=wallData.funding.find(x=>x.id===n.id);const d=wallData.domains.find(x=>x.id===n.id);
-    return f?formatValue(f.values[p.year],total,p.unit):d?formatValue(d.values[p.year],total,p.unit):'';
+    const component=dataMode==='real'?healthComponentValue(n.id,p.year):undefined;
+    return f?formatValue(f.values[p.year],total,p.unit):d?formatValue(d.values[p.year],total,p.unit):component!==undefined?formatValue(component,total,p.unit):'';
   };
   const changeYear=(next:Year)=>{if(next!==p.year){setChangeFrom(p.year);p.setYear(next)}};
 
@@ -120,7 +122,7 @@ export function SystemCanvas(p:Props){
           {wallData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)}/>) }
           {wallData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)}/>) }
           {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).filter(id=>canvasNodes.some(node=>node.id===id)).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
-          {wallData.healthComponents.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+n.share*70} tone="health" faded={false} hidden={level<1}/>) }
+          {wallData.healthComponents.map(n=>{const parent=wallData.domains.find(x=>x.id==='health')!.values[p.year];const share=dataMode==='real'?healthComponentShare(n.id,p.year,parent):n.share;return <MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+share*70} tone="health" faded={false} hidden={level<1}/>}) }
           {canvasNodes.filter(n=>n.kind==='operation').map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('hospitals').point,n.point)} width={14} tone="operation" faded={false} hidden={level<2}/>) }
           {p.leaks&&<LeakFlows year={p.year}/>} 
         </svg>
@@ -195,7 +197,8 @@ function LeakLabels({year,unit,total,open}:{year:Year;unit:'hundred'|'bn';total:
 
 const territoryOffsets=[{x:-.3,y:-.28},{x:.3,y:-.24},{x:.02,y:.34}];
 function TerritoryField({node,size,level,selected,faded}:{node:CanvasNode;size:number;level:number;selected:boolean;faded:boolean}){
-  const items=node.id==='health'?wallData.healthComponents.map(x=>({id:x.id,label:x.name,share:x.share,icon:x.icon})):compositionByParent[node.id];
+  const healthParent=wallData.domains.find(x=>x.id==='health')?.values[2025]??1;
+  const items=node.id==='health'?wallData.healthComponents.map(x=>({id:x.id,label:x.name,share:dataMode==='real'?healthComponentShare(x.id,2025,healthParent):x.share,icon:x.icon})):compositionByParent[node.id];
   const hints=[...items].sort((a,b)=>b.share-a.share).slice(0,3);
   const centre={x:node.point.x-125,y:node.point.y};
   return <div className={`territory-field ${node.id} ${selected?'selected':''} ${faded?'faded':''}`} style={{left:centre.x,top:centre.y,'--territory-width':`${size+190}px`,'--territory-height':`${size+145}px`,'--territory-colour':node.colour??'#78c8d3'} as React.CSSProperties} aria-label={`${node.label} territory`}>
@@ -218,11 +221,11 @@ function CompositionOrbit({parentId,year,unit,total}:{parentId:string;year:Year;
 
 function ContributionLayer(){return <div className="contribution-layer"><strong>CONTRIBUTION & RECEIPT</strong><div><span>Annual cash flow</span><span>Service use</span><span>Life course</span></div><p>Receipt is not exploitation. Fiscal position is not moral worth.</p></div>}
 
-function MetricField({selected,open}:{selected:string;open:(x:string)=>void}){return <div className="metric-field"><span>ZOOM 3 · METRIC & EVIDENCE</span><div><button onClick={()=>open(selected==='hospitals'?'e-hospitals':'e-health')}><strong>Expenditure</strong><b>Inspect basis</b><Info/></button><button><strong>Activity</strong><b>Illustrative series ↗</b></button><button><strong>Unit cost</strong><b>Definition pending</b></button><button><strong>Waiting list</strong><b className="under-pressure">UNDER PRESSURE ↘</b></button></div></div>}
+function MetricField({selected,open}:{selected:string;open:(x:string)=>void}){const metric=healthMetrics.find(x=>x.id===selected);const year=2025 as RealYear;const status=metric?metricStatus(metric,year):'unavailable';return <div className="metric-field"><span>ENGLAND OPERATIONAL LENS · NOT UK RECONCILIATION</span><div>{metric?<><button onClick={()=>open(metric.evidenceId)}><strong>{metric.kind.toUpperCase()}</strong><b>{metric.values[year]} {metric.unit}</b><Info/></button><button><strong>PERIOD</strong><b>{metric.periods[year]}</b></button><button><strong>RETURN TYPE</strong><b>{metric.returnType}</b></button><button><strong>TREND STATUS</strong><b className={status==='deteriorating'?'under-pressure':''}>{status.toUpperCase()}</b></button></>:<button onClick={()=>open('e-health-medical')}><strong>Medical services</strong><b>Inspect UK allocation basis</b><Info/></button>}</div></div>}
 
 function AttentionLayer({year,level}:{year:Year;level:number}){if(level>0||dataMode==='real')return null;return <div className="attention-layer" aria-label="Illustrative attention markers">{(attentionByYear[year]??[]).map(marker=>{const n=nodeById(marker.targetId);return <div key={marker.id} className={`attention-pin ${marker.tone}`} style={{left:n.point.x,top:n.point.y}}><i>!</i><span><small>DEMO ATTENTION</small>{marker.label}</span></div>})}</div>}
 
-function HealthStoryChain({year,total}:{year:Year;total:number}){const health=wallData.domains.find(d=>d.id==='health')!;const status=wallData.outcomes.find(o=>o.id==='healthy')!.status[dataMode==='real'?2025:year];return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE SYSTEM</span><strong>ALLOCATION <b>{formatValue(health.values[year],total,'hundred')} of every £100</b></strong><i>→</i><strong>DELIVERY <b>illustrative care prototype</b></strong><i>→</i><strong>PEOPLE <b>patients & communities</b></strong><i>→</i><strong>OUTCOME <b>illustrative · {status}</b></strong><small>Official allocation changes with period · deeper composition and outcomes stay static and illustrative</small></div>}
+function HealthStoryChain({year,total}:{year:Year;total:number}){const health=wallData.domains.find(d=>d.id==='health')!;const metric=healthMetrics.find(x=>x.id==='rtt-18-weeks')!;const status=isRealYear(year)?metricStatus(metric,year):'unavailable';return <div className="health-story-chain" style={{top:1290}}><span>TRACE THE REAL SYSTEM</span><strong>UK ALLOCATION <b>{formatValue(health.values[year],total,'hundred')} of every £100</b></strong><i>→</i><strong>DELIVERY <b>PESA functional spend</b></strong><i>→</i><strong>OUTPUT <b>{isRealYear(year)&&healthMetrics[0].values[year]!==undefined?`${healthMetrics[0].values[year]}m GP appointments`:'period unavailable'}</b></strong><i>→</i><strong>OUTCOME <b>18-week access · {status}</b></strong><small>UK fiscal allocation · England operational lens · shown together, not claimed as causal</small></div>}
 
 function ChangeAnnotations({from,to}:{from:Year;to:Year}){
   if(dataMode==='real'&&isRealYear(from)&&isRealYear(to)){const notes=majorHistoricalChanges(from,to);return <div className="change-layer" aria-label={`Largest fiscal changes from ${periodLabel(from)} to ${periodLabel(to)}`}>{notes.map((change,i)=>{const point=nodeById(change.id).point;const prefix=change.technical?'TECHNICAL RECONCILIATION CHANGE':change.label.toUpperCase();return <div className="change-note" key={change.id} style={{left:point.x,top:point.y,animationDelay:`${i*.16}s`}}><small>{periodLabel(from)} → {periodLabel(to)} · {prefix}</small><strong>{change.perHundredDelta>=0?'+':'−'}£{Math.abs(change.perHundredDelta).toFixed(2)} per £100</strong></div>})}</div>}
@@ -243,11 +246,13 @@ function FirstLookGuide({step,next,skip}:{step:number;next:()=>void;skip:()=>voi
 
 function Inspector({id,level,year,total,open,clear}:{id:string;level:number;year:Year;total:number;open:(id:string)=>void;clear:()=>void}){
   const n=nodeById(id);const domain=wallData.domains.find(d=>d.id===id);const outcome=wallData.outcomes.find(o=>o.id===id);const healthOutcome=wallData.outcomes.find(o=>o.id==='healthy')!;
+  const healthMetric=healthMetrics.find(x=>x.id===id);const metricValue=isRealYear(year)?healthMetric?.values[year]:undefined;
   const selectedPeriod=dataMode==='real'?displayPeriod(year):String(year);
   const explanation=n.kind==='funding'?(n.id==='borrowing'?`Borrowing is the balancing requirement between ${selectedPeriod} receipts and expenditure. It is debt created, not a receipt raised now.`:`This is a ${selectedPeriod} official-receipts grouping by collection point, not a statement about who ultimately bears the tax.`):
     n.id==='state'?`The ${selectedPeriod} pool is Total Managed Expenditure: accrued current receipts plus the borrowing required to reconcile to spending.`:
-    n.id==='health'?`Britain allocated ${formatValue(domain!.values[year],total,'hundred')} of every £100 here in ${selectedPeriod}. The national allocation is official; deeper Health composition and outcomes remain illustrative.`:
-    n.id==='hospitals'?'Hospitals converts part of the Health allocation into elective and emergency care for patients. Zoom closer to trace its operating system.':
+    n.id==='health'?`Britain allocated ${formatValue(domain!.values[year],total,'hundred')} of every £100 here in ${selectedPeriod}. The UK total reconciles to medical services, personal social services, central and other health services, and medical research. England operational measures are a separate supporting lens.`:
+    n.id==='hospitals'?'Medical services is the largest UK functional allocation. Zoom closer for an explicitly England-only operational lens; it does not reconcile to this UK total.':
+    healthMetric?`${healthMetric.kind==='output'?'Activity/output':'Outcome/context'}: ${metricValue===undefined?'No observation stored for this selected fiscal point':`${metricValue} ${healthMetric.unit}, ${healthMetric.periods[year as RealYear]}`}. Geography: ${healthMetric.geography}. ${healthMetric.returnType}; shown with spend without a causal claim.`:
     outcome?`This indicator is ${outcome.status[year]}. It shows direction in the selected illustrative measure and does not prove what caused the change.`:
     'Connected territory remains bright; the rest of Britain stays visible for orientation.';
   const changes=dataMode==='real'&&isRealYear(year)&&(domain||n.kind==='funding')?historicalChanges(2021,year,n.kind==='funding'?'in':'out').find(x=>x.id===id):undefined;

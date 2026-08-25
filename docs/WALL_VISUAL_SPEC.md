@@ -105,7 +105,7 @@ Seven priority aggregates—Workers & Households, Businesses, Consumption, Healt
 - **Far / national (`scale < 0.72`):** the envelope shows at most the three largest or most explanatory child pictograms. Names and child values remain hidden.
 - **Medium (`0.72–1.24`):** the same stable pictograms gain concise labels. Selecting a non-Health territory resolves them into the existing proportional composition masses.
 - **Close / selected:** child share and pounds-per-£100 or £bn amount appear. Health instead resolves into its existing Hospitals, primary care, community care, medicines and administration nodes.
-- **Deep Health:** Hospitals retains the existing operational system. Far Health hints are generated from the same `healthComponents` objects, not a duplicate taxonomy.
+- **Deep Health:** the territory resolves into the four real PESA sub-functions. Medical services is the doorway to a separately labelled England operational lens containing real output, access and experience measures. It is not presented as a UK hospital reconciliation. Far Health hints are generated from the same `healthComponents` objects, not a duplicate taxonomy.
 - Child pictograms inherit the parent colour and sit inside an organic, translucent field with restrained borders and radial colour integration.
 - The quantitative core remains circular; territory envelopes use asymmetric radii and overlapping sub-masses to reduce perfect-circle repetition.
 - Major core diameters use `70 + sqrt(value / maxFunding) × 320px` for funding and `60 + sqrt(value / maxDomain) × 330px` for spending. Lower minima strengthen the long tail while maintaining usable targets.

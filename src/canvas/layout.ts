@@ -34,10 +34,10 @@ const componentPoints:Point[]=[
 ];
 
 export const operations:CanvasNode[]=[
-  ['workforce','Workforce','Users',300,600],['estates','Estates','Building2',520,520],
-  ['procurement','Procurement','ShoppingBasket',755,610],['emergency','Emergency care','Ambulance',360,1030],
-  ['elective','Elective care','Activity',610,1120],['diagnostics','Diagnostics','ScanLine',810,970],
-].map(([id,label,icon,x,y])=>({id:String(id),label:String(label),icon:String(icon),point:{x:Number(x),y:Number(y)},size:145,colour:'#c8d9d3',kind:'operation',parentId:'hospitals',evidenceId:'e-hospitals'}));
+  ['gp-appointments','GP appointments','Users',300,600],['cdc-tests','Diagnostic tests','ScanLine',520,520],
+  ['ae-attendances','A&E attendances','Ambulance',755,610],['rtt-list','Elective waiting list','Activity',360,1030],
+  ['rtt-18-weeks','18-week access','Timer',610,1120],['gp-experience','GP experience','HeartPulse',810,970],
+].map(([id,label,icon,x,y])=>({id:String(id),label:String(label),icon:String(icon),point:{x:Number(x),y:Number(y)},size:145,colour:'#c8d9d3',kind:'operation',parentId:'hospitals',evidenceId:`e-health-${id}`}));
 
 export const canvasNodes:CanvasNode[]=[
   ...wallData.funding.map((n,i)=>({id:n.id,label:n.name,icon:n.icon,point:fundingPoints[i],size:n.borrowing?205:220,colour:n.borrowing?'#9a83c9':'#78c8d3',kind:'funding' as const,evidenceId:n.evidenceId})),

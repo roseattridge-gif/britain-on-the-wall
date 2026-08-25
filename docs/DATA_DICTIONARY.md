@@ -31,3 +31,18 @@ Evidence fields include metric, definition, value, unit, period, geography, acco
 No unexplained expenditure residual remains. Each output owns explicit mapping tokens, tested for uniqueness. The technical category is reconstructed from each year's published accounting-adjustment and EU-transaction lines. A separately recorded source-rounding adjustment of at most £0.001bn makes the displayed component rows agree exactly with displayed TME; it is not an unexplained residual or service allocation.
 
 Historical comparability: `economy`, `environment`, and `culture` are **HIGH**; `technical` is **MEDIUM** because the published reconciliation lines are reproducible but their composition can change. No new category is rated LOW for the proposed PESA history.
+
+## Real Health domain
+
+All fiscal composition measures are UK public-sector, financial-year, nominal current-price £bn, official/high confidence, and sourced from PESA 2026 Table 5.2. `medical-services`, `personal-social-services`, `central-other-health`, and `medical-research` use direct published lines; higher/lower polarity is neutral because spend is not itself an outcome. Comparability is high on the frozen PESA 2026 basis, subject to published rounding.
+
+| Measure | Kind | Definition / unit | Geography and period | Polarity | Status / confidence | Comparability and source |
+|---|---|---|---|---|---|---|
+| GP appointments booked | Output | Estimated booked appointments, million | England; rolling 12 months to March | Neutral | Official / high | 2024–25 pair high; DHSC ARA Performance Report |
+| A&E attendances | Output | Annualised average monthly attendances, million | England; financial year | Neutral | Derived from official / medium | Rounded monthly average × 12; DHSC ARA |
+| CDC tests | Output | Tests delivered, million | England; 2024–25 | Neutral | Official / high | Single-year only; DHSC ARA |
+| Elective waiting list | Outcome | Incomplete RTT pathways, million | England; March snapshot | Lower is better | Official / high | Patient pathways, not people; DHSC ARA |
+| Waiting no longer than 18 weeks | Outcome | Percent of incomplete RTT pathways | England; March snapshot | Higher is better | Official / high | Comparable 2024–2025; DHSC ARA |
+| Diagnostic waits over six weeks | Outcome | Percent of DM01 waiting list | England; March snapshot | Lower is better | Official / high | DM01 covers 15 tests; DHSC ARA |
+| A&E attendances over 12 hours | Outcome | Percent of attendances | England; financial year | Lower is better | Official / high | Annual measure; DHSC ARA |
+| Positive GP practice experience | Context | Percent of survey respondents | England; survey year | Higher is better | Official / high | 2024–2025 comparable; pre-2024 methodology differs; DHSC ARA |

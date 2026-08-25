@@ -7,5 +7,5 @@ export type Funding={id:string;name:string;icon:string;values:Series;trend:Trend
 export type Domain={id:string;name:string;short:string;icon:string;values:Series;trend:Trend;confidence:Confidence;evidenceId:string;dataStatus?:DataStatus};
 export type Outcome={id:string;name:string;status:Partial<Record<Year,'improving'|'mixed'|'deteriorating'>>;statement:string;attribution:'Measured return'|'Indicative return'|'Context only';evidenceId:string};
 export type Leak={id:string;name:string;value:Series;domainId?:string;evidenceId:string};
-export type Component={id:string;name:string;icon:string;share:number;output:string;recipient:string;outcome:string;evidenceId:string};
+export type Component={id:string;name:string;icon:string;share:number;values?:Series;output:string;recipient:string;outcome:string;evidenceId:string;dataStatus?:DataStatus};
 export type WallData={years:Year[];funding:Funding[];domains:Domain[];outcomes:Outcome[];leaks:Leak[];healthComponents:Component[];evidence:Evidence[]};

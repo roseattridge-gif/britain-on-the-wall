@@ -102,6 +102,14 @@ Decision: Use 2025–26 nominal outturn and define the national pool as HM Treas
 Why: It is the latest completed period with coherent official receipt and functional-spending coverage and makes “raises or borrows” arithmetically explicit.
 Alternatives considered: Mixing newest forecasts and outturns; using receipts alone as the denominator; showing local-government transfers as another destination; forcing the old demo taxonomy.
 Implications: National data defaults to real. Borrowing remains visually distinct. Local government is not a separate node because functions already include its spending. A visible residual preserves PESA accounting adjustments. Deep Health and outcomes remain labelled illustrative.
+
+## 2026-08-25 — Health boundary and operational lens
+
+Decision: Preserve the UK Health plus personal social services parent and reconcile it using PESA sub-functions. Present NHS/DHSC activity as a separate, explicitly England-only operational lens.
+
+Why: Devolved operational systems do not share one dataset that reconciles to the UK PESA functional total. NHS England is not a proxy for UK Health and social care.
+
+Implications: Allocation, output and outcome remain distinct; actual periods are displayed; status is metric-polarity based; no composite score or causal return claim is made. Hospitals is the semantic doorway into operational evidence, not a falsely quantified UK hospital budget.
 Status: Accepted brief and implemented.
 Date: 2026-08-25
 Decision: Separate citizen-meaningful COFOG functions from PESA accounting reconciliation; never label either as generic “Other” or imply technical adjustments are waste.
