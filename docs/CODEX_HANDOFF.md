@@ -2,20 +2,20 @@
 
 ## Approved £100 national Wall rebuild — 2026-08-25
 
-1. **Reference fidelity:** After the approved image arrived, the route received a direct comparison pass: large editorial masthead, header-level unit control and metadata, coloured source/allocation streams and tokens, central Britain medallion, dense ordered rows, structured history/outcome panel and dark evidence footer now follow it closely.
+1. **Reference fidelity:** The canonical PNG at `docs/design/reference/approved-national-wall-reference.png` was opened at original resolution before code changed. The approved contract is preserved at `docs/design/REFERENCE_CONTRACT.md`; the 22-region audit is `docs/design/CURRENT_VS_REFERENCE.md`.
 2. **Removed from public mode:** The dark 3200×1800 canvas, circular/blob masses, minimap, zoom chrome, floating controls, outcome horizon and network-like national composition no longer render on the main route. They remain intact at `/legacy-wall`.
-3. **£1 units:** Each row calculates its unrounded share of the current total, renders one premium token per whole pound and clips a final token to the remaining fraction.
+3. **£1 units:** Each row calculates its unrounded share of the current total, renders one labelled £1 block per whole pound and clips a final block to the remaining fraction. Public values use whole pounds where honest and one decimal where needed.
 4. **Flows:** Calm source and allocation curves converge on the medallion. Stroke widths are linearly proportional to national share with small visibility floors; borrowing and technical reconciliation use dashed treatments.
-5. **Ordering:** Source and destination arrays are sorted descending from the selected-period adapter values. The three largest rows receive greater height and visual prominence.
-6. **Illustrations:** Two generated editorial scene sheets use the approved reference as their strict style source. Stable taxonomy coordinates crop six source scenes and fourteen destination scenes; borrowing remains separately illustrated in violet.
+5. **Ordering:** Source and destination positions use the stable approved taxonomy order so the exhibit does not jump between periods. Values and flow widths still update from the selected-period adapters.
+6. **Illustrations:** Two generated editorial scene sheets use the approved reference as their strict style source. Stable taxonomy coordinates crop six source scenes and fourteen destination scenes; borrowing is separated into a handwritten explanatory field.
 7. **Borrowing:** It remains `TME − comparable current receipts`, is labelled as gap-filling rather than revenue, and uses violet tokens plus a dashed flow.
 8. **Technical reconciliation:** `ACCOUNTING & STATISTICAL ADJUSTMENTS` remains in the exact £100 reconciliation but is grey/hatched/dashed and explicitly `NOT A SERVICE`.
-9. **Difference from reference:** The medallion uses a stylised British crown rather than a geographic relief. Verified adapter values intentionally replace differing example values in the image.
-10. **Next refinement:** Replace the crown with a licensed/verified UK relief asset and continue exact spacing refinement without changing layout or data bindings.
+9. **Three visual passes:** `docs/design/pass-1-1440x900.png`, `pass-2-1440x900.png`, and `pass-3-1440x900.png` record the correction sequence. Final QA also covers £ billions at 1440×900 and Every £100 at 1920×1080.
+10. **Remaining differences:** The live exhibit uses the verified adapter taxonomy and values, including Debt and the technical reconciliation line. Illustration crops are generated companions rather than pixel-for-pixel copies of the reference artwork. The ribbons remain proportional SVG bands with dashed borrowing/technical treatments rather than traced bitmap shapes.
 
 Implementation: `src/components/NationalWall.tsx`, `src/national.css`, route selection in `src/App.tsx`. Real data, evidence, reconciliation and historical adapters are unchanged.
 
-Verification: 5 Vitest files / 98 tests passed; TypeScript passed; production build passed; `git diff --check` passed; three required browser screenshots were captured with no console errors. Immutable SHA is recorded in the dated handoff after commit.
+Verification: 5 Vitest files / 98 tests passed; TypeScript passed; production build passed; `git diff --check` passed; three required browser screenshots were captured. Self-score: composition 9/10; typography 8/10; density 9/10; money blocks 9/10; medallion 9/10; illustrations 8/10; lower panel 9/10; overall five-second comprehension 9/10.
 
 ---
 
