@@ -1,5 +1,24 @@
 # CODEX HANDOFF
 
+## Approved £100 national Wall rebuild — 2026-08-25
+
+1. **Reference fidelity:** The implementation follows the supplied written reference closely: warm editorial paper, left source bands, a central £100 medallion, right ordered allocations, calm proportional flows, restrained metadata and a lower history/outcome strip. The referenced image itself was not present in the supplied attachment, so pixel-level image comparison is not claimed.
+2. **Removed from public mode:** The dark 3200×1800 canvas, circular/blob masses, minimap, zoom chrome, floating controls, outcome horizon and network-like national composition no longer render on the main route. They remain intact at `/legacy-wall`.
+3. **£1 units:** Each row calculates its unrounded share of the current total, renders one premium token per whole pound and clips a final token to the remaining fraction.
+4. **Flows:** Calm source and allocation curves converge on the medallion. Stroke widths are linearly proportional to national share with small visibility floors; borrowing and technical reconciliation use dashed treatments.
+5. **Ordering:** Source and destination arrays are sorted descending from the selected-period adapter values. The three largest rows receive greater height and visual prominence.
+6. **Illustrations:** Category-specific line SVGs are placed in a consistent editorial scene frame. They are coherent code-native placeholders designed for later artwork replacement without layout changes.
+7. **Borrowing:** It remains `TME − comparable current receipts`, is labelled as gap-filling rather than revenue, and uses violet tokens plus a dashed flow.
+8. **Technical reconciliation:** `ACCOUNTING & STATISTICAL ADJUSTMENTS` remains in the exact £100 reconciliation but is grey/hatched/dashed and explicitly `NOT A SERVICE`.
+9. **Difference from reference:** The supplied attachment contained no reference image, so composition is faithful to the detailed written art direction rather than verified against pixels. Illustrations are structured SVG placeholders, not commissioned final scenes.
+10. **Next refinement:** Compare this route directly with the missing approved image, then commission or generate the final consistent British editorial illustration set and tune exact spacing/flow attachment points against that image.
+
+Implementation: `src/components/NationalWall.tsx`, `src/national.css`, route selection in `src/App.tsx`. Real data, evidence, reconciliation and historical adapters are unchanged.
+
+Verification: 5 Vitest files / 98 tests passed; TypeScript passed; production build passed; `git diff --check` passed; three required browser screenshots were captured with no console errors. Immutable SHA is recorded in the dated handoff after commit.
+
+---
+
 ## Real public historical timeline — 2026-08-25
 
 1. **Is it live?** It is implemented in the public real-data build and defaults to 2025–26; repository deployment follows the requested push.

@@ -1,5 +1,20 @@
 # Britain on the Wall — visual scene specification
 
+## Approved £100 Wall visual grammar — 2026-08-25
+
+The public national route is an editorial page, not the legacy spatial canvas. Its five-second reading order is `where Britain's £100 comes from → public money £100 → where Britain's £100 goes`, followed by real history and explicitly illustrative outcomes. The previous canvas remains available only at `/legacy-wall`.
+
+- **Source bands:** six real receipt/funding groups are ordered by the selected period. Each row combines a coherent line illustration, plain-English label, active-unit value, percentage, secondary context and proportional unit tokens.
+- **Unit blocks:** one gold physical token represents £1 of every £100; a final clipped token represents the unrounded fraction. Tokens are generated from the adapter share and are not spreadsheet cells. Borrowing tokens are violet; technical tokens are grey.
+- **Central object:** a warm metallic, double-ring Britain medallion says `PUBLIC MONEY`, `£100`, `of every £100` and the selected-period total. It is the sole visual convergence point.
+- **Flow grammar:** source and destination strokes are derived from the same adapter values. Width is `max(4px, share × 52px)` for sources and `max(3px, share × 48px)` for destinations in the 1400×660 authored viewBox. Borrowing and technical flows are dashed and distinct.
+- **Destination rows:** every non-zero frozen destination is sorted descending for the selected period. The three largest have extra height; the long tail remains compact. Accounting/statistical adjustments is hatched and says `NOT A SERVICE`.
+- **Illustration system:** reusable line-SVG scenes use one restrained architectural frame, inherited teal/green surfaces and category-specific Lucide drawings. They are deliberately swappable placeholders for final commissioned editorial artwork without changing layout or data bindings.
+- **Numeric hierarchy:** Every £100 defaults to `£23.06`, then `23.1%`, then `£313.7bn`. Billions mode promotes `£313.7bn`, retains `23.1%`, and demotes `£23.06 / £100`.
+- **Borrowing:** calculated as TME less comparable current receipts, labelled `Fills the gap · not revenue`, and rendered with violet tokens plus a dashed flow.
+- **Bottom strip:** the five accepted outturns retain adapter-driven interaction and deterministic largest-change calculations. Outcomes remain a separate, quiet strip labelled `ILLUSTRATIVE CONTEXT · NOT HISTORICAL EVIDENCE`.
+- **Responsive rule:** 1440×900 and 1920×1080 use the authored three-column composition. Below 1000px the flows disappear and the same source, pool and destination material stacks without data loss.
+
 ## Historical timeline grammar — 2026-08-25
 
 - Real mode uses five discrete fiscal stops from 2021–22 through 2025–26.
