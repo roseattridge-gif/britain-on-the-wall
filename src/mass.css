@@ -114,3 +114,12 @@
 .level-0 .wall-node.health .wall-label em,
 .level-0 .wall-node.pensions .wall-label em,
 .level-0 .wall-node.welfare .wall-label em { font-size: 9px; color: #eff7f4; }
+
+/* Technical reconciliation is part of TME, but not a service or a leak. */
+.wall-node.technical .node-orb {
+  background: repeating-linear-gradient(135deg, #687273 0, #687273 13px, #7c8788 13px, #7c8788 22px);
+  border-style: dashed;
+  filter: saturate(.2);
+}
+.wall-node.technical .wall-label b { color: #c7d0d0; }
+.wall-node.technical .wall-label em { color: #aeb8b8; }

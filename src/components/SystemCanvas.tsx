@@ -28,7 +28,7 @@ const rankFor=(node:CanvasNode,year:Year)=>{
 
 const outcomeLinks:Record<string,string[]>={
   healthy:['health'],prosperity:['pensions','welfare','transport','housing'],safe:['defence','justice'],
-  skilled:['education'],effective:['local','admin','interest','other'],
+  skilled:['education'],effective:['admin','interest','economy','environment','culture','technical'],
 };
 
 const guideSteps=[
@@ -158,6 +158,7 @@ function WallNode({node,size,rank,value,year,level,selected,faded,onSelect,onEvi
       {outcome&&<><b className="outcome-direction">{status==='improving'?'↗':status==='mixed'?'→':'↘'} {status}</b><em>{outcome.attribution}</em></>}
       {outcome&&dataMode==='demo'&&prior&&<span className="spend-outcome-pair"><i>RELATED SPEND</i><b>{spendDirection>=0?'↑':'↓'} {Math.abs(spendDirection)}%</b><small>OUTCOME {status==='improving'?'↑':status==='mixed'?'→':'↓'}</small></span>}
       {node.id==='borrowing'&&<em>ENTERS DIFFERENTLY</em>}
+      {node.id==='technical'&&<em>RECONCILIATION · NOT A SERVICE</em>}
       {node.kind==='operation'&&level>=3&&<em>METRICS AVAILABLE</em>}
     </span>
     {node.id==='health'&&<span className="focus-callout">FLY INTO HEALTH ↘</span>}

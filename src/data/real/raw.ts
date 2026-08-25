@@ -11,6 +11,8 @@ export const rawSpending={
   health:257.542,personalSocialServices:56.135,pensions:154.858,totalSocialProtection:407.270,
   education:125.721,defence:65.418,publicOrderAndSafety:55.720,
   housingAndCommunityAmenities:22.470,transport:48.923,
+  totalEconomicAffairs:93.959,environmentProtection:19.157,recreationCultureReligion:15.053,
+  euTransactions:-0.166,
   totalGeneralPublicServices:165.504,publicDebtTransactions:130.305,
   accountingAdjustments:132.474,totalManagedExpenditure:1360.122,
 } as const;

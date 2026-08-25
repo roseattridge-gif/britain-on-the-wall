@@ -36,22 +36,53 @@ These are receipt-stream/collection-point groupings, not claims about ultimate e
 | Transport & infrastructure | 48.923 | £3.6 | Transport sub-function |
 | Central administration | 35.199 | £2.6 | General public services less public debt transactions |
 | Debt interest & transactions | 130.305 | £9.6 | Public debt transactions |
-| Other / residual | 211.554 | £15.6 | Remaining functions, EU transactions and accounting adjustments |
+| Economy, business & industry | 45.036 | £3.3 | Economic affairs excluding Transport |
+| Environment | 19.157 | £1.4 | Environment protection |
+| Culture & recreation | 15.053 | £1.1 | Recreation, culture and religion |
+| Accounting & statistical adjustments | 132.308 | £9.7 | PESA accounting adjustments net of EU transactions |
 | **TME** | **1,360.122** | **£100** | |
+
+## Residual decomposition
+
+The previous £211.554bn “Other / residual” was not unexplained. It combined three public functions with technical reconciliation. The public functions are now first-class, reproducible Wall destinations. The remaining £132.308bn is explicitly a non-service accounting/statistical category. The genuinely unexplained residual is therefore £0bn, not because values were forced into policy categories, but because every component maps exactly to a published PESA line.
+
+## Residual decomposition bridge
+
+| Bridge | £bn |
+|---|---:|
+| Previous Other / residual | 211.554 |
+| less Economy, business & industry | −45.036 |
+| less Environment | −19.157 |
+| less Culture & recreation | −15.053 |
+| **Remaining accounting/statistical category** | **132.308** |
+
+The £132.308bn comprises £132.474bn PESA accounting adjustments and −£0.166bn EU transactions. The negative EU line is netted here because it is a transaction rather than a service destination and cannot form a meaningful positive proportional territory.
 
 ## Reconciliation
 
-Money in: £1,230.299bn receipts + £129.823bn borrowing = £1,360.122bn. Money out: mapped destinations + explicit £211.554bn residual = £1,360.122bn. Code tests use sub-penny numerical tolerance before display rounding; independently rounded labels are not expected to add visually to exactly £100.
+Money in: £1,230.299bn receipts + £129.823bn borrowing = £1,360.122bn. Money out: service/policy destinations + £132.308bn accounting/statistical reconciliation = £1,360.122bn. The unexplained residual is £0bn. Code tests use sub-penny numerical tolerance before display rounding; independently rounded labels are not expected to add visually to exactly £100.
+
+## Historical compatibility assessment
+
+| New category | Rating | Reason |
+|---|---|---|
+| Economy, business & industry | **HIGH** | Reconstructable as total Economic affairs less Transport in each PESA Table 5.2 year; the internal policy mix can vary. |
+| Environment | **HIGH** | Direct, stable COFOG Environment protection function. |
+| Culture & recreation | **HIGH** | Direct, stable Recreation, culture and religion function. |
+| Accounting & statistical adjustments | **MEDIUM** | Published every year and reproducible, but the contents and sign of technical/EU items can change and require year-specific notes. |
 
 ## Mapping methodology
 
-Raw published lines are held in `src/data/real/raw.ts`; canonical flows and mappings in `normalized.ts`; the renderer consumes only `adapter.ts`. Local-government expenditure is not a separate destination because PESA already allocates central and local spending to functions. Health and social care combines Health with personal social services, which is removed from welfare. The debt label says “interest & transactions” because PESA's published aggregate includes Bank of England and other public-debt transactions.
+Raw published lines are held in `src/data/real/raw.ts`; the auditable old-residual bridge is in `residualBridge.ts`; canonical flows and mappings are in `normalized.ts`; the renderer consumes only `adapter.ts`. Local-government expenditure is not a separate destination because PESA already allocates central and local spending to functions. Health and social care combines Health with personal social services, which is removed from welfare.
+
+Debt interest & transactions remains combined at £130.305bn. PESA Table 5.2 provides components—central government debt interest £96.946bn, local government £1.132bn, public corporations £0.502bn, Bank of England £12.344bn and public-sector pensions £19.381bn—but the published parent is “public debt transactions”. Splitting some components into a purported pure service destination would be less stable and could misdescribe the accounting basis, so the Wall retains the authoritative parent and explains its composition in evidence.
 
 ## Known limitations and unresolved categories
 
 - ONS receipts are accrued, not cash collected in the period.
 - Official series are revised on different schedules; the £129.823bn visual balance is derived and differs from the latest standalone ONS PSNB estimate.
-- “Other / residual” is large because it transparently retains PESA accounting adjustments and unmapped functions.
+- Accounting/statistical adjustments are large and are not comparable to a service priority; the Wall renders them with a muted hatched treatment.
+- Economy excluding Transport is reproducible across the five PESA years, but its sub-functional mix can be affected by one-year policy interventions.
 - Local services are unresolved as a distinct non-overlapping destination and therefore not rendered.
 - Deep Health composition, outcomes, attention markers and leaks remain illustrative and are labelled as such.
 

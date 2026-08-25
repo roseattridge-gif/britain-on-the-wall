@@ -89,3 +89,9 @@ Why: It is the latest completed period with coherent official receipt and functi
 Alternatives considered: Mixing newest forecasts and outturns; using receipts alone as the denominator; showing local-government transfers as another destination; forcing the old demo taxonomy.
 Implications: National data defaults to real. Borrowing remains visually distinct. Local government is not a separate node because functions already include its spending. A visible residual preserves PESA accounting adjustments. Deep Health and outcomes remain labelled illustrative.
 Status: Accepted brief and implemented.
+Date: 2026-08-25
+Decision: Separate citizen-meaningful COFOG functions from PESA accounting reconciliation; never label either as generic “Other” or imply technical adjustments are waste.
+Why: The accepted first real backbone hid £15.6 per £100 behind an opaque residual even though every component was available in Table 5.2.
+Alternatives considered: Keep one residual; create many sub-function nodes; absorb accounting adjustments into service domains; treat technical reconciliation as leakage.
+Implications: Economy excluding Transport, Environment, and Culture become stable top-level destinations. Accounting adjustments net of EU transactions remain a muted, hatched, non-service category. The taxonomy has no unexplained expenditure residual and can be reconstructed across PESA years.
+Status: Implemented.

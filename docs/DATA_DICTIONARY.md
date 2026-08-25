@@ -20,7 +20,14 @@ All national values are £bn, nominal current prices, UK public sector, fiscal y
 | transport | Out | Transport sub-function | Official sub-function |
 | admin | Out | General public services less public debt transactions | Derived official |
 | interest | Out | Public debt transactions, broader than coupon interest | Official function |
-| other | Out | TME less all mapped destinations; includes accounting adjustments | Derived residual |
+| economy | Out | £45.036bn; total Economic affairs less the separately mapped £48.923bn Transport sub-function. Includes enterprise/economic development, agriculture, energy, industry, communications and economic-affairs R&D. Stable parent function; annual sub-mix may vary. | Derived official |
+| environment | Out | £19.157bn; total Environment protection. Direct COFOG function and historically reproducible. | Official function |
+| culture | Out | £15.053bn; total Recreation, culture and religion, including broadcasting/publishing. Direct COFOG function and historically reproducible. | Official function |
+| technical | Out | £132.308bn; £132.474bn PESA accounting adjustments net of −£0.166bn EU transactions. Reconciles expenditure on services to TME; not a service, policy priority, waste or leak. | Derived technical |
 | local | Out | Not rendered: already allocated across functions | Unresolved / excluded |
 
 Evidence fields include metric, definition, value, unit, period, geography, accounting basis, source organisation and dataset, URL, publication date, last checked, methodology, revision status, confidence and limitations.
+
+No unexplained expenditure residual remains. Each output owns explicit mapping tokens, tested for uniqueness. The technical category should be reconstructed historically from each year's published accounting-adjustment and EU-transaction lines rather than inferred as a balancing plug.
+
+Historical comparability: `economy`, `environment`, and `culture` are **HIGH**; `technical` is **MEDIUM** because the published reconciliation lines are reproducible but their composition can change. No new category is rated LOW for the proposed PESA history.

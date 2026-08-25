@@ -161,3 +161,6 @@ A five-part optional, non-modal guide highlights funding, borrowing, Treasury, a
 ### Selected-system story
 
 At Health zoom, one editorial trace explicitly reads `allocation → delivery → people → outcome`, while national annotations recede. The inspector explains the selected allocation and outcome direction in plain English and repeats that the pairing does not establish causation.
+## Technical fiscal items
+
+Accounting/statistical reconciliation is part of the national TME mass but is not a service destination. It uses the same proportional geometry so the £100 still reconciles, with a neutral grey, desaturated, dashed and hatched treatment. It must never inherit leak/loss red or performance language.
