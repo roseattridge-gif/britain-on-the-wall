@@ -7,4 +7,4 @@ export const demoData:WallData={years:[2005,2010,2015,2020,2025],funding:funding
 demoData.evidence=[...demoData.funding.map(x=>ev(x.evidenceId,x.name)),...demoData.domains.map(x=>ev(x.evidenceId,x.name)),...demoData.outcomes.map(x=>ev(x.evidenceId,x.name,'status')), ...demoData.leaks.map(x=>ev(x.evidenceId,x.name)),...demoData.healthComponents.map(x=>ev(x.evidenceId,x.name))];
 export const totalFunding=(d:WallData,y:Year)=>d.funding.reduce((n,x)=>n+x.values[y],0);
 export const formatPerHundred=(value:number,total:number)=>{const share=value/total*100;const amount=share>=10?Math.round(share):Math.round(share*10)/10;return `£${amount}`};
-export const formatValue=(value:number,total:number,unit:'hundred'|'bn')=>unit==='bn'?`£${value}bn`:formatPerHundred(value,total);
+export const formatValue=(value:number,total:number,unit:'hundred'|'bn')=>unit==='bn'?`£${Number(value.toFixed(3)).toLocaleString('en-GB',{maximumFractionDigits:3})}bn`:formatPerHundred(value,total);

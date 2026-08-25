@@ -1,11 +1,11 @@
-export type Year=2005|2010|2015|2020|2025;
+export type Year=2005|2010|2015|2020|2021|2022|2023|2024|2025;
 export type Trend='up'|'flat'|'down'; export type Confidence='high'|'medium'|'low';
 export type DataStatus='official'|'derived-from-official'|'illustrative'|'unresolved';
 export type Evidence={id:string;metric:string;definition:string;value?:number;unit:string;period:string;geography:string;basis:string;source:string;dataset?:string;url:string;published:string;checked:string;methodology:string;revision:string;confidence:Confidence;limitations:string;dataStatus?:DataStatus};
-export type Series=Record<Year,number>;
+export type Series=Record<number,number>;
 export type Funding={id:string;name:string;icon:string;values:Series;trend:Trend;confidence:Confidence;borrowing?:boolean;evidenceId:string;dataStatus?:DataStatus};
 export type Domain={id:string;name:string;short:string;icon:string;values:Series;trend:Trend;confidence:Confidence;evidenceId:string;dataStatus?:DataStatus};
-export type Outcome={id:string;name:string;status:Record<Year,'improving'|'mixed'|'deteriorating'>;statement:string;attribution:'Measured return'|'Indicative return'|'Context only';evidenceId:string};
+export type Outcome={id:string;name:string;status:Partial<Record<Year,'improving'|'mixed'|'deteriorating'>>;statement:string;attribution:'Measured return'|'Indicative return'|'Context only';evidenceId:string};
 export type Leak={id:string;name:string;value:Series;domainId?:string;evidenceId:string};
 export type Component={id:string;name:string;icon:string;share:number;output:string;recipient:string;outcome:string;evidenceId:string};
 export type WallData={years:Year[];funding:Funding[];domains:Domain[];outcomes:Outcome[];leaks:Leak[];healthComponents:Component[];evidence:Evidence[]};

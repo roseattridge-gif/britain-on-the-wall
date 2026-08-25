@@ -1,5 +1,24 @@
 # CODEX HANDOFF
 
+## Real public historical timeline — 2026-08-25
+
+1. **Is it live?** It is implemented in the public real-data build and defaults to 2025–26; repository deployment follows the requested push.
+2. **Periods:** 2021–22, 2022–23, 2023–24, 2024–25 and 2025–26 only.
+3. **Visible earliest/latest change:** Yes. Territories, ribbons, Treasury total, values and rankings transform in place while positions and camera persist.
+4. **Top allocation shifts:** Debt +£2.60, Economy −£1.79, Health −£1.57, technical +£1.37 and Central administration −£0.92 per £100.
+5. **Funding side:** Income/social contributions +£2.43, Other receipts +£1.10, Businesses +£0.79, Property/capital −£0.33, Consumption −£1.98 and Borrowing −£2.00 per £100.
+6. **Borrowing:** Still `TME − current receipts`, violet/dashed and debt rather than revenue; amount, share, ribbon and evidence update.
+7. **Medium comparability:** A neutral selected-node indicator and evidence limitation explain Education, Debt, technical, and Economy in exceptional 2022–23.
+8. **Technical reconciliation:** Grey/hatched/dashed, `RECONCILIATION · NOT A SERVICE`; annotations say `TECHNICAL RECONCILIATION CHANGE`.
+9. **Real/illustrative boundary:** Demo attention/history is suppressed. Outcomes, leaks and deeper Health remain static and explicitly illustrative.
+10. **Health context:** Five £100/£bn values plus direction explanation; share falls £1.57 while nominal cash rises £57.313bn.
+11. **Remaining weakness:** Mobile secondary chrome scrolls horizontally; outcomes remain illustrative rather than official history.
+12. **Next build:** A focused mobile/chrome usability pass, then evidence-led outcome history only if an authoritative, non-causal method is approved.
+
+Primary specification: `docs/HISTORICAL_TIMELINE.md`.
+
+---
+
 ## Historical taxonomy freeze — 2026-08-25
 
 1. **Periods tested:** 2021–22, 2022–23, 2023–24, 2024–25 and 2025–26—the five outturn columns in PESA 2026 Table 5.2.

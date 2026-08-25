@@ -1,6 +1,13 @@
 # Product decisions
 
 Date: 2026-08-25
+Decision: Expose the frozen five-outturn real fiscal history as a discrete, in-place transformation of the persistent Wall, with Every £100 primary and nominal £bn explicitly qualified.
+Why: Users need to perceive fiscal-composition changes without losing spatial memory or mistaking animation for interpolated official data.
+Alternatives considered: Reconnecting demo years; a chart/dashboard timeline; route changes; continuous values; real terms before freezing a deflator method.
+Implications: Positions and camera persist while mass changes. Four computed notes can compare the prior selection or 2021–22. Medium comparability is disclosed on selection. Illustrative outcomes/leaks remain static and separate.
+Status: Accepted brief and implemented.
+
+Date: 2026-08-25
 Decision: Freeze the same 14 expenditure destinations across PESA 2026 outturns from 2021–22 through 2025–26, with period-specific TME denominators and explicit source-rounding reconciliation.
 Why: Historical interaction must be built on a tested classification rather than visual interpolation or changing category definitions.
 Alternatives considered: Reclassifying each year independently; hiding accounting differences in services; using an unexplained residual; exposing the timeline before the backtest.

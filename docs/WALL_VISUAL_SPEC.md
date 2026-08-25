@@ -1,5 +1,15 @@
 # Britain on the Wall — visual scene specification
 
+## Historical timeline grammar — 2026-08-25
+
+- Real mode uses five discrete fiscal stops from 2021–22 through 2025–26.
+- Time changes mass, value, rank and emphasis, never category position or camera state.
+- Geometry may tween for 750–800ms; labels resolve only to accepted snapshots and reduced motion removes the tween.
+- Every £100 is primary. £bn is labelled current prices / not inflation adjusted.
+- At most four computed spatial notes appear at national zoom. Technical notes say `TECHNICAL RECONCILIATION CHANGE`.
+- Controls are keyboard operable; mobile keeps the slider visible and scrolls secondary chrome horizontally.
+- Real fiscal history never animates illustrative outcomes, leaks or deep Health delivery.
+
 Date: 2026-08-23  
 Status: implementation specification for the national Wall visual reset
 

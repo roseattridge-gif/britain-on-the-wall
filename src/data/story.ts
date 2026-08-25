@@ -4,7 +4,7 @@ export type AttentionMarker={id:string;targetId:string;label:string;tone:'pressu
 
 // Explicit editorial demo markers: these are authored storytelling fixtures,
 // not an algorithmic ranking or a claim about the real country.
-export const attentionByYear:Record<Year,AttentionMarker[]>={
+export const attentionByYear:Partial<Record<Year,AttentionMarker[]>>={
   2005:[
     {id:'health-improving',targetId:'health',label:'IMPROVING',tone:'improving'},
     {id:'debt-drag',targetId:'interest',label:'LARGEST COMMITTED DRAG',tone:'drag'},
