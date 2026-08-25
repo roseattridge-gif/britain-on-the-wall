@@ -9,7 +9,7 @@ The main route now presents Britain's real 2025–26 fiscal snapshot as source b
 
 - Fiscal source, destination and history values come from the existing frozen adapters.
 - Outcomes remain illustrative and are visibly labelled as such.
-- The attachment contained the approved written specification but not its referenced image; pixel-level visual fidelity is therefore unverified.
+- The approved reference image arrived after the first implementation commit and was used for a direct visual-fidelity refinement pass.
 - Code-native SVG scene placeholders are used until final editorial illustration assets are available.
 
 ## Verification

@@ -5,7 +5,7 @@ import App from './App';
 
 describe('approved £100 national Wall',()=>{
   it('states the public-money question in the primary composition',()=>{render(<App/>);expect(screen.getByRole('heading',{name:/Where Britain’s£100 comes from/})).toBeInTheDocument();expect(screen.getByRole('heading',{name:/Where Britain’s£100 goes/})).toBeInTheDocument();expect(screen.getByText('of every £100')).toBeInTheDocument()});
-  it('shows the reconciled real national pool',()=>{render(<App/>);expect(screen.getAllByText('£1.360tn').length).toBeGreaterThan(0);expect(screen.getByText((_,node)=>node?.textContent==='£100 raised or borrowed')).toBeInTheDocument()});
+  it('shows the reconciled real national pool',()=>{render(<App/>);expect(screen.getAllByText('£1.360tn').length).toBeGreaterThan(0);expect(screen.getAllByText('£100').length).toBeGreaterThan(0);expect(screen.getByText('Raised or borrowed')).toBeInTheDocument()});
   it('orders the largest real source first',()=>{render(<App/>);const sources=screen.getAllByRole('button',{name:/percent$/}).slice(0,6);expect(sources[0]).toHaveAccessibleName(/Income & social contributions £44.90, 44.9 percent/)});
   it('orders Health as the largest destination with precise hierarchy',()=>{render(<App/>);const health=screen.getByRole('button',{name:/Health & social care £23.06, 23.1 percent/});expect(health).toHaveTextContent('£23.06');expect(health).toHaveTextContent('23.1%');expect(health).toHaveTextContent('£313.7bn')});
   it('keeps borrowing visibly separate from receipts',()=>{render(<App/>);const borrowing=screen.getByRole('button',{name:/Borrowing £9.54/});expect(borrowing).toHaveClass('borrowing');expect(borrowing).toHaveTextContent('Fills the gap · not revenue')});
