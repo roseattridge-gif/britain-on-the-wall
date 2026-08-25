@@ -20,4 +20,4 @@ The main route now presents Britain's real 2025–26 fiscal snapshot as source b
 - `git diff --check`: passed.
 - Browser console: no errors in the required desktop QA states.
 - Screenshots: `2026-08-25-approved-wall-every100-1440x900.png`, `2026-08-25-approved-wall-billions-1440x900.png`, and `2026-08-25-approved-wall-every100-1920x1080.png`.
-- Immutable commit SHA: recorded after commit.
+- Implementation commit: `362f538` (`Rebuild national Wall around every £100`).
