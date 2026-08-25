@@ -25,6 +25,9 @@ const fundingDiameter=(value:number,year:Year)=>80+Math.sqrt(value/maxFunding(ye
 const domainDiameter=(value:number,year:Year)=>75+Math.sqrt(value/maxDomain(year))*245;
 const nodeById=(id:string)=>canvasNodes.find(x=>x.id===id)!;
 const territoryIds=['income','business','consumer','health','pensions','welfare','education'];
+const overviewFunding=new Set(['income','business','consumer','borrowing']);
+const overviewDomains=new Set(['health','welfare','pensions','education','defence','justice','transport','interest','technical']);
+const overviewOutcomes=new Set(['prosperity','healthy','safe']);
 const rankFor=(node:CanvasNode,year:Year)=>{
   const collection=node.kind==='funding'?wallData.funding:node.kind==='domain'?wallData.domains:null;
   if(!collection)return undefined;
@@ -99,7 +102,7 @@ export function SystemCanvas(p:Props){
     return new Set(outcome?[selected,'state',outcome[0],...outcome[1]]:[selected,'state']);
   },[selected]);
 
-  const visible=(n:CanvasNode)=>n.kind==='component'?(selected?related.has(n.id):level>=1):n.kind==='operation'?(selected?selected==='hospitals'||(selected==='health'&&level>=2):level>=2):true;
+  const visible=(n:CanvasNode)=>n.kind==='component'?(selected?related.has(n.id):level>=1):n.kind==='operation'?(selected?selected==='hospitals'||(selected==='health'&&level>=2):level>=2):level===0&&!selected?n.kind==='funding'?overviewFunding.has(n.id):n.kind==='domain'?overviewDomains.has(n.id):n.kind==='outcome'?overviewOutcomes.has(n.id):true:true;
   const focusNode=(n:CanvasNode,scale=.78)=>{const v=viewport.current;if(!v)return;setCamera({x:v.clientWidth/2-n.point.x*scale,y:v.clientHeight/2-n.point.y*scale,scale})};
   const select=(n:CanvasNode)=>{setGuideStep(null);setSelected(n.id);if(n.id==='health')frame('health');else if(n.id==='hospitals')frame('hospitals');else if(compositionByParent[n.id])focusNode(n)};
   const value=(n:CanvasNode)=>{
@@ -121,14 +124,14 @@ export function SystemCanvas(p:Props){
             <linearGradient id="fundingGradient" x1="0" x2="1"><stop stopColor="#4b9aaa"/><stop offset="1" stopColor="#a8e3e8"/></linearGradient>
             <linearGradient id="allocationGradient" x1="0" x2="1"><stop stopColor="#f1ecd9"/><stop offset="1" stopColor="#6b9ba1"/></linearGradient>
           </defs>
-          {wallData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)}/>) }
-          {wallData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)}/>) }
-          {Object.entries(outcomeLinks).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).filter(id=>canvasNodes.some(node=>node.id===id)).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
+          {wallData.funding.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById(n.id).point,STATE_POINT)} width={fundingWidth(n.values[p.year],p.year)} tone={n.borrowing?'borrow':'funding'} faded={!!selected&&!related.has(n.id)} hidden={level===0&&!selected&&!overviewFunding.has(n.id)}/>) }
+          {wallData.domains.map(n=><MoneyFlow key={n.id} id={n.id} d={curve(STATE_POINT,nodeById(n.id).point)} width={domainWidth(n.values[p.year],p.year)} tone="allocation" faded={!!selected&&!related.has(n.id)} hidden={level===0&&!selected&&!overviewDomains.has(n.id)}/>) }
+          {Object.entries(outcomeLinks).filter(([outcome])=>level>0||selected||overviewOutcomes.has(outcome)).flatMap(([outcome,domains])=>(level===0?domains.slice(0,1):domains).filter(id=>canvasNodes.some(node=>node.id===id)).map(id=><path key={`${id}-${outcome}`} className={`return-thread ${selected&&!related.has(id)?'faded':''}`} d={curve(nodeById(id).point,nodeById(outcome).point)}/>))}
           {wallData.healthComponents.map(n=>{const parent=wallData.domains.find(x=>x.id==='health')!.values[p.year];const share=dataMode==='real'?healthComponentShare(n.id,p.year,parent):n.share;return <MoneyFlow key={n.id} id={n.id} d={curve(nodeById('health').point,nodeById(n.id).point)} width={10+share*70} tone="health" faded={false} hidden={level<1}/>}) }
           {canvasNodes.filter(n=>n.kind==='operation').map(n=><MoneyFlow key={n.id} id={n.id} d={curve(nodeById('hospitals').point,n.point)} width={14} tone="operation" faded={false} hidden={level<2}/>) }
           {p.leaks&&<LeakFlows year={p.year}/>} 
         </svg>
-        {territoryIds.map(id=>{const n=nodeById(id);const size=n.kind==='funding'?fundingDiameter(wallData.funding.find(x=>x.id===id)!.values[p.year],p.year):domainDiameter(wallData.domains.find(x=>x.id===id)!.values[p.year],p.year);return <TerritoryField key={id} node={n} size={size} level={level} selected={selected===id} faded={!!selected&&selected!==id&&!related.has(id)}/>})}
+        {territoryIds.filter(id=>level>0||selected||['income','consumer','health'].includes(id)).map(id=>{const n=nodeById(id);const size=n.kind==='funding'?fundingDiameter(wallData.funding.find(x=>x.id===id)!.values[p.year],p.year):domainDiameter(wallData.domains.find(x=>x.id===id)!.values[p.year],p.year);return <TerritoryField key={id} node={n} size={size} level={level} selected={selected===id} faded={!!selected&&selected!==id&&!related.has(id)}/>})}
         {canvasNodes.filter(visible).map(n=>{const fiscal=wallData.funding.find(x=>x.id===n.id)??wallData.domains.find(x=>x.id===n.id);return <WallNode key={n.id} node={n} size={n.id==='technical'&&level===0?205:n.kind==='funding'?fundingDiameter(wallData.funding.find(x=>x.id===n.id)!.values[p.year],p.year):n.kind==='domain'?domainDiameter(wallData.domains.find(x=>x.id===n.id)!.values[p.year],p.year):n.size} rank={rankFor(n,p.year)} value={value(n)} share={fiscal?fiscal.values[p.year]/total*100:undefined} unit={p.unit} year={p.year} level={level} selected={selected===n.id} faded={!!selected&&!related.has(n.id)&&selected!==n.id} onSelect={()=>select(n)} onEvidence={()=>n.evidenceId&&p.openEvidence(n.evidenceId)}/>}) }
         {selected&&compositionByParent[selected]&&camera.scale>=.62&&<CompositionOrbit parentId={selected} year={p.year} unit={p.unit} total={total}/>}
         {p.leaks&&<LeakLabels year={p.year} unit={p.unit} total={total} open={p.openEvidence}/>} 
@@ -162,7 +165,7 @@ function WallNode({node,size,rank,value,share,unit,year,level,selected,faded,onS
     <span className="status-field"/>
     {node.kind==='state'&&<span className="allocation-ring"><b>£100</b><small>ONE NATIONAL POOL</small></span>}
     <span className="node-orb"><Icon name={node.icon} size={node.kind==='state'?72:node.kind==='domain'?42:34}/></span>
-    {rank===1&&<span className="rank-badge">LARGEST {node.kind==='funding'?'SOURCE':'DESTINATION'}</span>}
+    {rank===1&&level>0&&<span className="rank-badge">LARGEST {node.kind==='funding'?'SOURCE':'DESTINATION'}</span>}
     <span className="wall-label">
       <strong>{node.kind==='state'?'PUBLIC MONEY':node.label}</strong>
       {node.kind==='state'?<><b>{stateValue}</b><em>100% · £100 TOTAL</em></>:value?<><b>{unit==='hundred'&&share!==undefined?`${value} / £100`:value}</b>{share!==undefined&&<em className="national-share">{share.toFixed(1)}% OF TOTAL {node.kind==='funding'?'FUNDING':'SPEND'}</em>}</>:null}
@@ -201,11 +204,11 @@ const territoryOffsets=[{x:-.3,y:-.28},{x:.3,y:-.24},{x:.02,y:.34}];
 function TerritoryField({node,size,level,selected,faded}:{node:CanvasNode;size:number;level:number;selected:boolean;faded:boolean}){
   const healthParent=wallData.domains.find(x=>x.id==='health')?.values[2025]??1;
   const items=node.id==='health'?wallData.healthComponents.map(x=>({id:x.id,label:x.name,share:dataMode==='real'?healthComponentShare(x.id,2025,healthParent):x.share,icon:x.icon})):compositionByParent[node.id];
-  const hints=[...items].sort((a,b)=>b.share-a.share).slice(0,level===0?2:3);
+  const hints=[...items].sort((a,b)=>b.share-a.share).slice(0,level===0?2:3),showHints=level>0||['income','health','consumer'].includes(node.id);
   const centre={x:node.point.x-125,y:node.point.y};
   const envelopeWidth=size+(level===0?80:190),envelopeHeight=size+(level===0?60:145);
   return <div className={`territory-field ${node.id} ${selected?'selected':''} ${faded?'faded':''}`} style={{left:centre.x,top:centre.y,'--territory-width':`${envelopeWidth}px`,'--territory-height':`${envelopeHeight}px`,'--territory-colour':node.colour??'#78c8d3'} as React.CSSProperties} aria-label={`${node.label} territory`}>
-    {level<=1&&!selected&&hints.map((item,index)=>{const o=territoryOffsets[index];const child=36+Math.sqrt(item.share)*54;return <span className="territory-hint" key={item.id} aria-label={item.label} style={{left:`${50+o.x*70}%`,top:`${50+o.y*70}%`,'--hint-size':`${child}px`} as React.CSSProperties}><Icon name={item.icon} size={22}/><small>{item.label}</small></span>})}
+    {showHints&&level<=1&&!selected&&hints.map((item,index)=>{const o=territoryOffsets[index];const child=36+Math.sqrt(item.share)*54;return <span className="territory-hint" key={item.id} aria-label={item.label} style={{left:`${50+o.x*70}%`,top:`${50+o.y*70}%`,'--hint-size':`${child}px`} as React.CSSProperties}><Icon name={item.icon} size={22}/><small>{item.label}</small></span>})}
   </div>;
 }
 

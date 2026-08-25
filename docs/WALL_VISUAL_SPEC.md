@@ -127,6 +127,20 @@ Seven priority aggregates—Workers & Households, Businesses, Consumption, Healt
 - Far-view territory envelopes add only 80 pixels horizontally and 60 vertically, render at reduced opacity without an extra shadow, and may aesthetically approach but must not merge primary ownership. Medium zoom restores the fuller envelope.
 - National fit shows at most two composition pictograms per priority territory. A third is deferred until medium zoom.
 - Leaks and drags remain available as an optional layer but default off so illustrative fixtures do not compete with the real national hierarchy.
+
+## Clarity and progressive disclosure rules
+
+- **Tier 1 — national overview (`scale < .72`, no selection):** three largest funding sources, borrowing, Treasury, four primary destinations, five quiet secondary/technical destinations and three outcomes. Property/capital, other receipts, Housing, Administration, Economy, Environment, Culture, Skills and Effective state remain in the world but do not render. Hidden nodes and their ribbons return automatically at Tier 2.
+- **Tier 2 — focused overview (`scale .72–1.24`):** the whole national taxonomy returns with fuller labels and up to three composition hints. This is exploratory context, not the launch poster.
+- **Tier 3 — territory detail (`scale 1.24–1.85` or selection):** related flows and children come forward; selection is the primary route into composition.
+- **Tier 4 — evidence and metrics (`scale ≥1.85`):** operational measures, provenance and caveats may appear. These never leak into Tier 1.
+- Tier 1 major nodes carry exactly two numeric lines: the active unit and percentage. Secondary nodes carry one numeric line; their percentage is deferred. Tertiary nodes are absent. The alternative unit lives in the inspector or unit toggle, not beside the active unit.
+- Tier 1 composition hints are restricted to Income/social contributions, Consumption and Health, with at most two pictograms each. Other composition is selection/zoom only.
+- Tier 1 outcomes are Shared prosperity, Healthy lives and Safe communities. Each shows a simple direction; attribution copy and the two additional outcome nodes are deferred. Only three representative return threads render.
+- Leaks default off. If explicitly enabled at Tier 1, only quiet markers appear; full leak names and values require zoom.
+- Permanent chrome is period, unit toggle, `Details`, and zoom/fit. Playback, year ticks, five-year change, leaks and contribution controls sit behind `Details`. The duplicate period-status strip is removed.
+- Focus mode dims unrelated nodes and flows to 7% opacity, reveals only the selected territory's composition, and opens its editorial inspector. This is the supported path from poster simplicity to analytical depth.
+- National fit has no rank badges, comparability chips or methodology stickers. Editorial region headings remain quiet orientation, not dashboard chrome.
 - **Visual hierarchy:** Workers is the unmistakable dominant source. Health, Pensions and Welfare carry their names and values inside their cores at national fit. Secondary-domain saturation, label size and metadata contrast are reduced.
 - **Ribbon ordering:** the largest source and allocation ribbons take the cleanest direct paths. National outcome context uses one representative return thread per outcome; the fuller relationship set returns above national zoom.
 - **Labels:** Tier 1 is Treasury and the largest masses; Tier 2 is major source/destination names and values; Tier 3 is secondary categories; Tier 4 is hints and metadata. Rank annotations are editorial rules, not badges, and disappear above national zoom.

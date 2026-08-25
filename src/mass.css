@@ -77,7 +77,12 @@
 .level-0 .wall-node.minor-territory.domain .wall-label strong { font-size: 18px; opacity: .86; }
 .level-0 .wall-node.minor-territory.domain .wall-label b { font-size: 24px; opacity: .94; margin-top: 7px; }
 .level-0 .wall-node.minor-territory.domain .wall-label em { font-size: 10px; opacity: .72; }
+.level-0 .wall-node.minor-territory .national-share { display: none; }
 .level-0 .wall-node.minor-territory.domain .node-orb { filter: saturate(.72) brightness(.88); }
+
+.level-0 .outcome .wall-label em { display: none; }
+.level-0 .outcome .wall-label strong { font-size: 20px; }
+.level-0 .outcome .outcome-direction { font-size: 18px!important; margin-top: 6px; }
 
 .level-0 .attention-pin { gap: 6px; transform: translate(-25%,-165%); }
 .level-0 .attention-pin > i { width: 34px; height: 34px; border-width: 2px; font-size: 16px; }
@@ -86,9 +91,7 @@
 
 .level-0 .leak-label { opacity: .78; }
 .level-0 .leak-label > i { width: 48px; height: 48px; font-size: 22px; }
-.level-0 .leak-label strong { font-size: 15px; }
-.level-0 .leak-label b { font-size: 19px; }
-.level-0 .leak-label em { font-size: 9px; }
+.level-0 .leak-label span { display: none; }
 
 .rank-badge { background: transparent; color: #f5f0df; border-top: 2px solid #f5f0df; padding: 6px 0; box-shadow: none; font-size: 12px; }
 .level-1 .rank-badge, .level-2 .rank-badge, .level-3 .rank-badge { display: none; }
@@ -126,6 +129,9 @@
 .national-share { white-space: nowrap; font-weight: 600!important; }
 .level-0 .wall-node.major-territory .wall-label .national-share { font-size: 16px!important; opacity: .94; }
 .level-0 .state .wall-label { background: #101819e8; padding: 10px 16px; margin: 18px auto 0; width: max-content; }
+.level-0 .treasury-sentence,.level-0 .state-title { display:none; }
+
+.wall-node.faded { opacity: .07; filter: saturate(.08); }
 
 /* Technical reconciliation is part of TME, but not a service or a leak. */
 .wall-node.technical .node-orb {
