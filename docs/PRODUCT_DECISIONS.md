@@ -1,5 +1,12 @@
 # Product decisions
 
+Date: 2026-08-25
+Decision: Freeze the same 14 expenditure destinations across PESA 2026 outturns from 2021–22 through 2025–26, with period-specific TME denominators and explicit source-rounding reconciliation.
+Why: Historical interaction must be built on a tested classification rather than visual interpolation or changing category definitions.
+Alternatives considered: Reclassifying each year independently; hiding accounting differences in services; using an unexplained residual; exposing the timeline before the backtest.
+Implications: All five years reconcile exactly and retain the same mappings. Comparability metadata travels with every flow. The 2022–23 economy mix, debt parent and technical category require interpretive warnings. Public timeline work remains unauthorised by this increment.
+Status: Accepted brief and implemented in the data layer.
+
 Date: 2026-08-24
 Decision: Author the national Wall as a primary and secondary spending composition, with only one representative spend-to-outcome thread per outcome at national fit.
 Why: Equal visual weight and dense contextual links obscured the source → Treasury → allocation → outcome sentence.

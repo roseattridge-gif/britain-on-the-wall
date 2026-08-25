@@ -1,6 +1,6 @@
 # Data dictionary
 
-All national values are £bn, nominal current prices, UK public sector, fiscal year 2025–26. The denominator is TME (£1,360.122bn). Pounds per £100 equal `value / TME × 100`; display uses whole pounds at £10 or above and one decimal below £10.
+National historical values are £bn, nominal current prices, UK public sector, fiscal years 2021–22 to 2025–26. Each period uses its own published TME denominator. Pounds per £100 equal `value / TME × 100`; display uses whole pounds at £10 or above and one decimal below £10. See `HISTORICAL_TAXONOMY.md` for the frozen transformations and matrix.
 
 | ID | Direction | Definition / inclusion rule | Status |
 |---|---|---|---|
@@ -28,6 +28,6 @@ All national values are £bn, nominal current prices, UK public sector, fiscal y
 
 Evidence fields include metric, definition, value, unit, period, geography, accounting basis, source organisation and dataset, URL, publication date, last checked, methodology, revision status, confidence and limitations.
 
-No unexplained expenditure residual remains. Each output owns explicit mapping tokens, tested for uniqueness. The technical category should be reconstructed historically from each year's published accounting-adjustment and EU-transaction lines rather than inferred as a balancing plug.
+No unexplained expenditure residual remains. Each output owns explicit mapping tokens, tested for uniqueness. The technical category is reconstructed from each year's published accounting-adjustment and EU-transaction lines. A separately recorded source-rounding adjustment of at most £0.001bn makes the displayed component rows agree exactly with displayed TME; it is not an unexplained residual or service allocation.
 
 Historical comparability: `economy`, `environment`, and `culture` are **HIGH**; `technical` is **MEDIUM** because the published reconciliation lines are reproducible but their composition can change. No new category is rated LOW for the proposed PESA history.
