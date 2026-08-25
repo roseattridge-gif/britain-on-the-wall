@@ -7,11 +7,11 @@
 3. **£1 units:** Each row calculates its unrounded share of the current total, renders one premium token per whole pound and clips a final token to the remaining fraction.
 4. **Flows:** Calm source and allocation curves converge on the medallion. Stroke widths are linearly proportional to national share with small visibility floors; borrowing and technical reconciliation use dashed treatments.
 5. **Ordering:** Source and destination arrays are sorted descending from the selected-period adapter values. The three largest rows receive greater height and visual prominence.
-6. **Illustrations:** Category-specific line SVGs are placed in a consistent editorial scene frame. They are coherent code-native placeholders designed for later artwork replacement without layout changes.
+6. **Illustrations:** Two generated editorial scene sheets use the approved reference as their strict style source. Stable taxonomy coordinates crop six source scenes and fourteen destination scenes; borrowing remains separately illustrated in violet.
 7. **Borrowing:** It remains `TME − comparable current receipts`, is labelled as gap-filling rather than revenue, and uses violet tokens plus a dashed flow.
 8. **Technical reconciliation:** `ACCOUNTING & STATISTICAL ADJUSTMENTS` remains in the exact £100 reconciliation but is grey/hatched/dashed and explicitly `NOT A SERVICE`.
-9. **Difference from reference:** Illustrations are structured SVG placeholders rather than the reference's commissioned scenes, and the medallion uses a stylised British crown mark rather than a geographic relief. Verified adapter values intentionally replace differing example values in the image.
-10. **Next refinement:** Commission or generate the final consistent British editorial illustration set and replace the crown with a licensed/verified UK relief asset without changing layout or data bindings.
+9. **Difference from reference:** The medallion uses a stylised British crown rather than a geographic relief. Verified adapter values intentionally replace differing example values in the image.
+10. **Next refinement:** Replace the crown with a licensed/verified UK relief asset and continue exact spacing refinement without changing layout or data bindings.
 
 Implementation: `src/components/NationalWall.tsx`, `src/national.css`, route selection in `src/App.tsx`. Real data, evidence, reconciliation and historical adapters are unchanged.
 
