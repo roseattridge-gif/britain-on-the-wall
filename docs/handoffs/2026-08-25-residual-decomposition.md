@@ -6,4 +6,4 @@ The former £211.554bn / £15.6-per-£100 Other bucket is fully traced to five P
 
 Debt interest & transactions remains the authoritative £130.305bn PESA parent; its five published components are documented rather than selectively reclassified. The new taxonomy is based on stable functions and is suitable to test across historical PESA years. The technical category is visually neutral and is not a leak.
 
-Verification and immutable commit SHA are recorded in `docs/CODEX_HANDOFF.md`.
+Verification and immutable implementation SHA `8f08666` are recorded in `docs/CODEX_HANDOFF.md`.

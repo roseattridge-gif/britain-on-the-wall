@@ -2,7 +2,7 @@
 
 Date: 2026-08-25
 Increment: Decompose the large expenditure residual
-Implementation commit: pending final verification
+Implementation commit: `8f08666`
 
 ## Product Management answers
 
