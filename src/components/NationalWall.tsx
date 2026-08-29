@@ -30,9 +30,10 @@ function FiscalRow({item,total,previousTotal,baseTotal,unit,direction,rank,openE
   const signed=(value:number,suffix:string)=>`${value>=0?'+':'−'}${Math.abs(value).toFixed(1)}${suffix}`;
   const comparison=`Previous: ${signed(cashDelta,'bn')}, ${signed(shareDelta,'pp')}. Since 2021–22: ${signed(baseCashDelta,'bn')}, ${signed(baseDelta,'pp')}.`;
   return <button style={{'--row-colour':colour} as React.CSSProperties} className={`fiscal-row ${direction} ${rank<3?'major':''} ${item.borrowing?'borrowing':''} ${item.technical?'technical':''}`} onClick={()=>openEvidence(item.evidenceId)} aria-label={`${item.name} ${money(item.value,total,unit)}, ${share.toFixed(1)} percent. ${comparison}`}>
-    <span className="category-icon" aria-hidden="true"><Icon/></span>
-    <span className="row-copy"><strong>{item.name}</strong>{item.borrowing&&<small>Fills the gap · not revenue</small>}{item.technical&&<small>NOT A SERVICE</small>}<UnitTokens share={share} colour={colour} tone={item.borrowing?'borrowing':item.technical?'technical':'standard'}/></span>
-    <span className="row-number"><b>{money(item.value,total,unit)}</b><em>{share.toFixed(1)}%</em><small title={comparison}><span>prev {signed(cashDelta,'bn')} / {signed(shareDelta,'pp')}</span><span>2021 {signed(baseCashDelta,'bn')} / {signed(baseDelta,'pp')}</span></small></span>
+    <span className="row-icon" aria-hidden="true"><Icon/></span>
+    <span className="row-copy"><strong>{item.name}</strong>{item.borrowing&&<small>Fills the gap between what we raise and what we spend · not revenue</small>}{item.technical&&<small>NOT A SERVICE</small>}</span>
+    <UnitTokens share={share} colour={colour} tone={item.borrowing?'borrowing':item.technical?'technical':'standard'}/>
+    <span className="row-number" title={comparison}><b>{money(item.value,total,unit)}</b><em>{share.toFixed(1)}%</em></span>
     <span className="expand" aria-hidden="true">＋</span>
   </button>;
 }
