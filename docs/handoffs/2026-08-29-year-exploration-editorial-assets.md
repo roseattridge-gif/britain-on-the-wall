@@ -20,4 +20,4 @@ Only authoritative net-migration points are shown for Immigration. No unsupporte
 
 ## Verification record
 
-Six Vitest files / 110 tests passed. TypeScript and the Vite production build passed, as did `git diff --check`. All five states were rendered and inspected at 1440×900; paths are recorded in `docs/CODEX_HANDOFF.md`. The implementation SHA is recorded after the final commit.
+Six Vitest files / 110 tests passed. TypeScript and the Vite production build passed, as did `git diff --check`. All five states were rendered and inspected at 1440×900; paths are recorded in `docs/CODEX_HANDOFF.md`. Implementation SHA: `b15320b`.

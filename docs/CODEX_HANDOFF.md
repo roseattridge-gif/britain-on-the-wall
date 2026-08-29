@@ -13,7 +13,7 @@
 9. **Immigration metrics:** Official long-term net migration is the supported metric: 944k YE March 2023, 649k YE June 2024, 345k YE December 2024 and provisional 204k YE June 2025, plus a clearly non-numeric rising context for the first period. Sparse material policy events retain evidence and relationship labels.
 10. **Unresolved:** Bespoke commissioned editorial illustrations are not supplied; restrained swappable placeholders are used. No unsupported operational Immigration series was added. The fixed national view remains desktop-first.
 11. **Screenshots:** `docs/qa/2026-08-29-year-2021-22-1440x900.png`, `docs/qa/2026-08-29-year-2022-23-1440x900.png`, `docs/qa/2026-08-29-year-2023-24-1440x900.png`, `docs/qa/2026-08-29-year-2024-25-1440x900.png`, and `docs/qa/2026-08-29-year-2025-26-1440x900.png`.
-12. **Implementation SHA:** Recorded after the implementation commit below.
+12. **Implementation SHA:** `b15320b` (`Rebuild direct year exploration`).
 
 Specification: `docs/STORY_SYSTEM.md`. Detailed handoff: `docs/handoffs/2026-08-29-year-exploration-editorial-assets.md`.
 
