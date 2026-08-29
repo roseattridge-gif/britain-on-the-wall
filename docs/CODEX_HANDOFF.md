@@ -10,7 +10,7 @@
 6. **Did browser QA show zero decorative row images?** YES. All 20 fiscal rows contain only a small functional outline icon; the explicitly permitted central Britain medallion remains.
 7. **Screenshot path:** `docs/design/qa-no-images-1440x900.png`.
 8. **Test result:** 6 Vitest files / 113 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed.
-9. **Commit SHA:** Recorded immediately after the implementation commit.
+9. **Commit SHA:** `d74ec32` (`Prove national row images are removed`).
 
 ## Hard correction: zero row images + true year exploration — 2026-08-29
 
