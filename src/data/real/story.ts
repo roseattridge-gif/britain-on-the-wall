@@ -1,10 +1,12 @@
-import type {Confidence,Evidence} from '../../types';
+import type {Confidence,Evidence,Year} from '../../types';
 
 export type Relationship='documented-policy'|'authoritative-contributor'|'followed-by'|'context-only'|'uncertain';
 export type StoryTrack='government'|'policy'|'spend'|'capacity'|'system'|'outcome';
 export type GovernmentPeriod={id:string;label:string;party:string;primeMinister?:string;startDate:string;endDate?:string;sourceId:string};
 export type StoryEvent={id:string;topicId:string;date:string;endDate?:string;track:StoryTrack;title:string;summary:string;governmentId?:string;metricId?:string;value?:number;unit?:string;direction?:'up'|'down'|'flat'|'mixed';relationship:Relationship;confidence:Confidence;sourceIds:string[];limitations?:string[]};
 export type StoryTopic={id:string;label:string;period:string;governmentPeriods:GovernmentPeriod[];events:StoryEvent[];handover:{date:string;metricId:string;beforeValue:number;afterValue:number;unit:string;inherited:'rising'|'falling'|'stable';after:'accelerated'|'slowed'|'reversed'|'continued'};summary:{observed:string;policyContext:string;attribution:string;cannotSay:string}};
+export type MetricPolarity='higher-is-better'|'lower-is-better'|'neutral-context';
+export type YearStoryContext={year:Year;government:string;handover?:string;metric:{label:string;value?:number;unit:string;period:string;direction:'up'|'down'|'flat'|'mixed';polarity:MetricPolarity;classification:string};inherited:string;after:string;events:StoryEvent[]};
 
 const source=(id:string,metric:string,url:string,sourceName:string,published:string,definition:string,limitations:string):Evidence=>({id,metric,definition,unit:'Chronology event',period:'2021–2025',geography:'United Kingdom',basis:'Official publication or official statistics',source:sourceName,dataset:metric,url,published,checked:'2026-08-29',methodology:'Displayed as chronology. Relationship classification is stored separately and chronology alone is never treated as causation.',revision:'Checked against the linked official publication.',confidence:'high',limitations,dataStatus:'official'});
 
@@ -45,3 +47,12 @@ export const storyEvidenceById=(id:string)=>storyEvidence.find(item=>item.id===i
 export const sortedStoryEvents=(topic:StoryTopic)=>[...topic.events].sort((a,b)=>a.date.localeCompare(b.date));
 export const governmentForEvent=(event:StoryEvent,periods:GovernmentPeriod[])=>periods.find(period=>event.date>=period.startDate&&(!period.endDate||event.date<period.endDate));
 export const handoverTrajectory=(topic:StoryTopic)=>topic.handover;
+const yearMeasures:Record<2021|2022|2023|2024|2025,Omit<YearStoryContext,'year'|'events'>>={
+  2021:{government:'Conservative · Boris Johnson',metric:{label:'Long-term net migration',unit:'Official series in development',period:'YE June 2022 · revised series',direction:'up',polarity:'neutral-context',classification:'RISING'},inherited:'No government handover in this fiscal period.',after:'Graduate and care-route changes preceded the later peak.'},
+  2022:{government:'Conservative · Johnson → Truss → Sunak',metric:{label:'Long-term net migration',value:944,unit:'thousand',period:'YE March 2023',direction:'up',polarity:'neutral-context',classification:'PEAKED'},inherited:'Leadership changed within the same governing party.',after:'The rolling annual measure reached its revised peak.'},
+  2023:{government:'Conservative · Rishi Sunak',metric:{label:'Long-term net migration',value:649,unit:'thousand',period:'YE June 2024',direction:'down',polarity:'neutral-context',classification:'DOWN'},inherited:'No government handover in this fiscal period.',after:'Early-2024 restrictions took effect before the July handover.'},
+  2024:{government:'Conservative → Labour',handover:'5 July 2024',metric:{label:'Long-term net migration',value:345,unit:'thousand',period:'YE December 2024',direction:'down',polarity:'neutral-context',classification:'DOWN'},inherited:'Already falling at the 5 July 2024 handover.',after:'The fall continued after handover; this is chronology, not attribution.'},
+  2025:{government:'Labour · Keir Starmer',metric:{label:'Long-term net migration',value:204,unit:'thousand',period:'YE June 2025 · provisional',direction:'down',polarity:'neutral-context',classification:'DOWN'},inherited:'The incoming government inherited a falling trajectory.',after:'The fall continued; ONS identifies fewer work/study arrivals and rising emigration.'},
+};
+export const storyContextForYear=(year:Year):YearStoryContext=>{const accepted=(year>=2021&&year<=2025?year:2025) as 2021|2022|2023|2024|2025;const start=`${accepted}-04-01`,end=`${accepted+1}-04-01`;return {year:accepted,...yearMeasures[accepted],events:events.filter(event=>event.date>=start&&event.date<end)}};
+export const classifyMetricChange=(from:number,to:number,polarity:MetricPolarity)=>{if(polarity==='neutral-context')return to>from?'UP':to<from?'DOWN':'BROADLY STABLE';const improved=polarity==='higher-is-better'?to>from:to<from;return to===from?'BROADLY STABLE':improved?'IMPROVED':'DECLINED'};

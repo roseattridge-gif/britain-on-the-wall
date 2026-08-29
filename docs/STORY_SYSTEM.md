@@ -30,6 +30,20 @@ Every government period and story event must resolve to at least one official or
 
 The chronology is a compact editorial exhibit, not a Gantt chart. Four aligned tracks share one time axis. Party is restrained context; the government handover uses a neutral boundary marker. Policy events are deliberately sparse. Mini-trends show directional timing, with annotations carrying more meaning than axes. A short evidence summary states observed movement, policy context, supported contributors and what cannot be concluded.
 
+## Direct year exploration
+
+The five accepted fiscal periods are primary, directly selectable states. Selecting a year updates the same Wall, its total, all source and destination values, proportional blocks, flows and the Immigration context strip without changing route. Stable taxonomy positions preserve spatial memory; values change in place. Previous/next and left/right keys step through the identical states. Playback is an optional secondary shortcut only.
+
+Each fiscal row exposes the selected nominal cash amount and share, cash/share movement from the previous comparable year, and cash/share movement from the 2021–22 base. For 2021–22 the previous comparison is intentionally zero because it is the first accepted period.
+
+Government at the time, policy ownership and measurement timing remain separate fields. The 2024–25 state is explicitly `Conservative → Labour`, marks the 5 July 2024 handover, and labels the pre-handover falling direction as inherited rather than assigning the later measurement to either administration.
+
+Metric interpretation uses explicit polarity: `higher-is-better`, `lower-is-better`, or `neutral-context`. Only the first two may produce `IMPROVED` or `DECLINED`; Immigration's net-migration series is neutral and therefore displays only direction. Actual outcome periods remain calendar/month/quarter labels and are never relabelled as fiscal years.
+
+## Editorial assets
+
+Illustrations are resolved by stable taxonomy ID through `src/assets/editorial/manifest.ts`. Each manifest entry carries `id`, `src`, `alt`, `category`, and optional focal point. The present SVG files are restrained abstract placeholders with fixed boxes; they are not React/CSS drawings and can be replaced asset-for-asset without changing Wall geometry. The rejected generated source and destination scene sheets have been removed.
+
 ## Future topics
 
 The component consumes a `StoryTopic`, so Health, Welfare, Housing, Education, Justice, Debt, Defence and Economy can reuse it. Only Immigration is populated pending product review.

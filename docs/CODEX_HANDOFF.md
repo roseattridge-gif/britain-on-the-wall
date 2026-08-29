@@ -1,5 +1,24 @@
 # CODEX HANDOFF
 
+## Direct year exploration + editorial asset reset — 2026-08-29
+
+1. **Illustration code removed:** The rejected generated source/destination scene sheets, sprite coordinates and CSS background cropping have been removed. The central approved medallion/reference assets remain.
+2. **New asset infrastructure:** `src/assets/editorial/manifest.ts` maps all stable source/destination IDs to fixed-box assets with `id`, `src`, `alt`, `category` and focal point. Four restrained abstract SVG placeholders can be replaced without layout changes.
+3. **Year selection:** Five prominent fiscal-year stops update the whole Wall in place. Previous/next buttons and timeline-focus ArrowLeft/ArrowRight use the same state; playback remains visually secondary.
+4. **Government periods:** Exact Cabinet Office-backed prime-minister periods remain on the common timeline. Selected-year context names the government(s), while policy events retain their own government ownership.
+5. **Mixed period:** 2024–25 is `Conservative → Labour`, with the 5 July 2024 handover explicitly marked. Measurements keep their actual periods rather than inheriting a fiscal-year or party label.
+6. **Spend change:** Each category shows selected nominal £bn and share, then nominal and percentage-point changes against both the previous accepted year and 2021–22. The first period uses a zero previous-period delta.
+7. **Outcome polarity:** `higher-is-better`, `lower-is-better` and `neutral-context` are explicit data rules. Only directional-performance metrics can say `IMPROVED`/`DECLINED`; neutral net migration says only `UP`, `PEAKED`, `DOWN` or stable.
+8. **Inherited trajectory:** The last suitable pre-handover measure sets the inherited direction. For July 2024, net migration was already below its revised peak; subsequent movement is separately labelled `AFTER` and never treated as causal performance.
+9. **Immigration metrics:** Official long-term net migration is the supported metric: 944k YE March 2023, 649k YE June 2024, 345k YE December 2024 and provisional 204k YE June 2025, plus a clearly non-numeric rising context for the first period. Sparse material policy events retain evidence and relationship labels.
+10. **Unresolved:** Bespoke commissioned editorial illustrations are not supplied; restrained swappable placeholders are used. No unsupported operational Immigration series was added. The fixed national view remains desktop-first.
+11. **Screenshots:** `docs/qa/2026-08-29-year-2021-22-1440x900.png`, `docs/qa/2026-08-29-year-2022-23-1440x900.png`, `docs/qa/2026-08-29-year-2023-24-1440x900.png`, `docs/qa/2026-08-29-year-2024-25-1440x900.png`, and `docs/qa/2026-08-29-year-2025-26-1440x900.png`.
+12. **Implementation SHA:** Recorded after the implementation commit below.
+
+Specification: `docs/STORY_SYSTEM.md`. Detailed handoff: `docs/handoffs/2026-08-29-year-exploration-editorial-assets.md`.
+
+Verification: 6 Vitest files / 110 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed; all five years were rendered and inspected at 1440×900. The 2024–25 capture explicitly shows the mixed government, handover date, actual outcome period, inherited direction and after-handover direction.
+
 ## How We Got Here — Immigration pilot — 2026-08-29
 
 1. **Coverage:** April 2021 to June 2025, using finer event dates alongside the unchanged annual fiscal Wall.
