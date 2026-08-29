@@ -1,5 +1,22 @@
 # CODEX HANDOFF
 
+## Hard correction: zero row images + true year exploration — 2026-08-29
+
+1. **All images removed?** Yes. The public source/destination rows contain no image, picture, illustration panel, scene crop or decorative landscape. The central Britain medallion is not a row image and remains the approved anchor.
+2. **Is `.scene` gone from `NationalWall.tsx`?** Yes. It is also gone from `national.css`; a raw-source regression test enforces both facts.
+3. **Scene sheets unused?** Yes. `fiscal-sources-v1.png` and `fiscal-destinations-v1.png` were deleted previously and neither filename exists in the national component or CSS.
+4. **Coordinate maps deleted?** Yes. `sourceScene`, `destinationScene`, `--scene-x` and `--scene-y` do not exist in the national implementation.
+5. **Fiscal row contents:** Restrained outline icon, category label, aligned proportional £1 blocks, selected-unit monetary value, percentage, quiet previous/base comparison and evidence affordance. Icons have no coloured box or gradient.
+6. **Direct year selection:** Five prominent fiscal-year stops update the full Wall in place. Previous/next, keyboard left/right and the five chronology column headers select the same state. Playback remains optional and secondary.
+7. **Mixed government:** The 2024–25 column says `Conservative → Labour` and `Handover: 5 July 2024`; policy ownership and the YE December 2024 system/outcome period are separate.
+8. **Inherited trajectory:** The selected-year evidence summary explicitly shows `INHERITED TREND` and `AFTER HANDOVER`. For 2024–25 it says the trend was already falling at handover, then continued falling, without causal attribution.
+9. **Polarity:** Metrics declare higher-is-better, lower-is-better or neutral-context. Net migration is neutral; columns say `RISING`, `PEAKED` or `DOWN` plus `CONTEXT ONLY`, never improved/declined.
+10. **Live Immigration data:** Official long-term net-migration contexts/points, actual measurement periods, exact government periods and sparse material policy events with evidence routing. The latest 204k point is provisional.
+11. **Illustrative boundary:** No generic Better health/Good education/Safe & secure/Strong economy/Support in hard times panel remains. No unsupported Immigration backlog, processing, accommodation or removals series was invented. The legacy canvas remains isolated at `/legacy-wall`.
+12. **Next build:** Product Management can review the five-column story grammar, then commission one authoritative operational Immigration series or resume a separately approved deeper domain. Do not add metrics without comparable official periods and polarity rules.
+
+Detailed record: `docs/handoffs/2026-08-29-hard-correction-year-exploration.md`. Verification: 6 Vitest files / 113 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed; explicit source scan found rejected terms only inside the negative regression test. Four required 1440×900 states were inspected. Implementation SHA follows commit.
+
 ## Clean national UI rebuild — 2026-08-29
 
 1. **Reference fidelity:** Macro-composition closely matches the only supplied repository reference: calm masthead, compact metadata rail, left sources, central £100 medallion, right destinations, lower history/evidence band and footer. The written clean brief controls where it conflicts with the reference's painted scenes.

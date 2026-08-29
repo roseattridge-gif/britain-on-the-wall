@@ -55,7 +55,7 @@ export function NationalWall({year,setYear,unit,setUnit,openEvidence}:Props){
     </section>
     <section className="lower-editorial" id="history">
       <div className="time-panel"><small>SELECT A YEAR</small><h2>Explore Britain year by year</h2><div className="years" tabIndex={0} aria-label="Fiscal year selector" onKeyDown={event=>{if(event.key==='ArrowLeft')moveYear(-1);if(event.key==='ArrowRight')moveYear(1)}}>{realYears.map(item=><button key={item} className={year===item?'active':''} aria-pressed={year===item} onClick={()=>setYear(item)}><i/><b>{displayPeriod(item)}</b><span>{item===2025?'LATEST':''}</span></button>)}</div><div className="year-step"><button onClick={()=>moveYear(-1)} disabled={year===2021}>← PREVIOUS YEAR</button><button onClick={()=>moveYear(1)} disabled={year===2025}>NEXT YEAR →</button></div><button className="story-button" onClick={play} aria-pressed={playing}><Play/>{playing?'PAUSE':'OPTIONAL PLAYBACK'}</button></div>
-      <HowWeGotHere year={year} openEvidence={openEvidence}/>
+      <HowWeGotHere year={year} setYear={setYear} openEvidence={openEvidence}/>
     </section><footer className="editorial-footer"><b>◇ &nbsp; TRANSPARENT. EVIDENCE-BASED. INDEPENDENT.</b><span>All data is from official sources. We show what the evidence says — not what we think.</span><nav>Sources &nbsp; • &nbsp; Methodology &nbsp; • &nbsp; Data dictionary ↗</nav></footer>
   </main>;
 }

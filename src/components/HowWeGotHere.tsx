@@ -1,20 +1,22 @@
-import {immigrationStory,sortedStoryEvents,storyContextForYear,type StoryEvent} from '../data/real/story';
+import {displayPeriod,realYears,type RealYear} from '../data/real/adapter';
+import {storyContextForYear} from '../data/real/story';
 import type {Year} from '../types';
 
-const start=new Date('2021-04-01T00:00:00Z').getTime(),end=new Date('2025-06-30T00:00:00Z').getTime();
-const x=(date:string)=>Math.max(0,Math.min(100,(new Date(`${date}T00:00:00Z`).getTime()-start)/(end-start)*100));
-const relationLabel:Record<StoryEvent['relationship'],string>={'documented-policy':'POLICY CHANGE','authoritative-contributor':'EVIDENCE SUPPORTS CONTRIBUTION','followed-by':'FOLLOWED BY','context-only':'CONTEXT ONLY',uncertain:'UNCERTAIN'};
-
-export function HowWeGotHere({year,openEvidence}:{year:Year;openEvidence:(id:string)=>void}){
-  const story=immigrationStory,context=storyContextForYear(year),events=sortedStoryEvents(story),policy=context.events.filter(event=>event.track==='policy'),measures=events.filter(event=>event.track==='system'||event.track==='outcome');
+export function HowWeGotHere({year,setYear,openEvidence}:{year:Year;setYear:(year:Year)=>void;openEvidence:(id:string)=>void}){
+  const contexts=realYears.map(item=>storyContextForYear(item));
+  const selected=storyContextForYear(year);
   return <section className="story-chronology" aria-label="How We Got Here — Immigration">
-    <header><div><small>YEAR DETAIL · {year}–{String(year+1).slice(2)}</small><h2>Immigration</h2><span>Chronology is not causation. Attribution requires evidence.</span></div><button className="topic-selector">STORY: IMMIGRATION ▾</button></header>
-    <div className="story-body"><div className="story-tracks">
-      <div className="story-track government-track"><b>GOVERNMENT</b><div className="track-line"><i className="selected-window" style={{left:`${x(`${year}-04-01`)}%`,width:`${x(`${year+1}-04-01`)-x(`${year}-04-01`)}%`}}/>{story.governmentPeriods.map(period=><button key={period.id} style={{left:`${x(period.startDate)}%`,width:`${x(period.endDate??'2025-06-30')-x(period.startDate)}%`}} onClick={()=>openEvidence(period.sourceId)}><strong>{period.primeMinister?.split(' ').at(-1)}</strong><small>{period.party}</small></button>)}<i className="handover" style={{left:`${x(story.handover.date)}%`}}><span>HANDOVER</span></i></div></div>
-      <div className="story-track policy-track"><b>POLICY / MONEY / CAPACITY</b><div className="track-line">{policy.map((event,index)=><button key={event.id} className={`event-dot ${event.id} row-${index%3}`} style={{left:`${x(event.date)}%`}} onClick={()=>openEvidence(event.sourceIds[0])}><i/><span>{event.title}</span><small>{relationLabel[event.relationship]}</small></button>)}</div></div>
-      <div className="story-track system-track"><b>SYSTEM MEASURE</b><div className="track-line trend"><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="M48 3 C62 4 70 9 77 12 S91 22 100 24"/><line x1={x(story.handover.date)} x2={x(story.handover.date)} y1="0" y2="26"/></svg>{measures.map(event=><button key={event.id} style={{left:`${x(event.date)}%`}} onClick={()=>openEvidence(event.sourceIds[0])}><i/><strong>{event.value?.toLocaleString()}k</strong><span>{event.title}</span></button>)}</div></div>
-      <div className="story-track outcome-track"><b>OUTCOME / EXPERIENCE</b><div className="track-line"><span>Long-term net migration is a population outcome—not a government score.</span><em>RISING → PEAKED → FALLING AT HANDOVER → FELL FURTHER</em></div></div>
-      <div className="story-years">{['2021','2022','2023','2024','2025'].map((year,index)=><span key={year} style={{left:`${index*24.4}%`}}>{year}</span>)}</div>
-    </div><aside className="evidence-summary"><b>WHAT THE EVIDENCE SUGGESTS</b><dl><div><dt>GOVERNMENT</dt><dd>{context.government}{context.handover&&<> · handover {context.handover}</>}</dd></div><div><dt>SYSTEM · {context.metric.period}</dt><dd><strong>{context.metric.classification}</strong>{context.metric.value!==undefined&&` · ${context.metric.value.toLocaleString()}k`} · neutral measure</dd></div><div><dt>OUTCOME</dt><dd><strong>CONTEXT ONLY</strong> · net migration is descriptive, not an improved/declined score</dd></div><div><dt>POLICY</dt><dd>{policy.length?policy.map(event=>event.title).join(' · '):'No selected material event in this fiscal period.'}</dd></div></dl><p><strong>INHERITED:</strong> {context.inherited}<br/><strong>AFTER:</strong> {context.after}</p></aside></div>
+    <header><div><small>HOW WE GOT HERE</small><h2>Immigration</h2><span>Government at the time, policy ownership and outcome date are separate. Chronology is not causation.</span></div><button className="topic-selector">TOPIC: IMMIGRATION</button></header>
+    <div className="story-body"><div className="year-matrix" aria-label="Immigration five-year chronology">
+      {contexts.map(context=>{const policy=context.events.filter(event=>event.track==='policy');return <article key={context.year} className={context.year===year?'selected':''}>
+        <button className="matrix-year" onClick={()=>setYear(context.year as RealYear)} aria-label={`View ${displayPeriod(context.year)} in chronology`} aria-pressed={context.year===year}>{displayPeriod(context.year)}</button>
+        <dl>
+          <div><dt>GOVERNMENT</dt><dd>{context.government}{context.handover&&<small>Handover: {context.handover}</small>}</dd></div>
+          <div><dt>KEY POLICY</dt><dd>{policy.length?policy.map(event=><button key={event.id} onClick={()=>openEvidence(event.sourceIds[0])}>{event.title}<small>{event.date} · policy owner recorded</small></button>):<span>No selected material event</span>}</dd></div>
+          <div><dt>SYSTEM</dt><dd><b>{context.metric.value!==undefined?`${context.metric.value.toLocaleString()}k`:context.metric.classification}</b><small>{context.metric.label} · {context.metric.period}</small></dd></div>
+          <div><dt>OUTCOME</dt><dd><b>{context.metric.classification}</b><small>CONTEXT ONLY · neutral polarity</small></dd></div>
+        </dl>
+      </article>})}
+    </div><aside className="evidence-summary"><b>WHAT THE EVIDENCE SUGGESTS</b><dl><div><dt>SELECTED YEAR</dt><dd>{displayPeriod(selected.year)} · {selected.government}</dd></div><div><dt>INHERITED TREND</dt><dd>{selected.inherited}</dd></div><div><dt>AFTER HANDOVER</dt><dd>{selected.after}</dd></div><div><dt>WHAT CANNOT BE CLAIMED</dt><dd>Timing alone cannot assign the movement to one policy, party or prime minister.</dd></div></dl><button onClick={()=>openEvidence('story-ons-net-migration')}>Inspect official net-migration evidence ↗</button></aside></div>
   </section>;
 }
