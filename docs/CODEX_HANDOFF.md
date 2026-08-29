@@ -1,5 +1,26 @@
 # CODEX HANDOFF
 
+## How We Got Here — Immigration pilot — 2026-08-29
+
+1. **Coverage:** April 2021 to June 2025, using finer event dates alongside the unchanged annual fiscal Wall.
+2. **Government periods:** Boris Johnson, Liz Truss and Rishi Sunak (Conservative), then Keir Starmer (Labour) from 5 July 2024. Party is restrained context, never a score.
+3. **Policy events:** Graduate route; care-route expansion; student-dependant restriction; care-worker-dependant restriction; Skilled Worker salary threshold; May 2025 white paper.
+4. **Inherited trajectory:** the closest suitable pre-handover annual estimate was 649,000 (YE June 2024), below the revised peak: falling at handover.
+5. **After handover:** provisional net migration fell further to 204,000 (YE June 2025). This describes chronology, not government performance attribution.
+6. **Measures:** long-term net migration is primary. No questionable spend/capacity series or speculative social-impact measures were added.
+7. **Supported contributors:** ONS/MAC identify work and study routes, dependants and emigration as contributors to the rise/fall. The route and policy dates themselves are documented policy.
+8. **Chronology only:** the 649,000 handover point and subsequent movement are not treated as proof that one administration caused the direction.
+9. **Conclusion:** the sharp increase began under the previous administration, peaked in 2023 and was already falling before the 2024 handover; the fall continued afterwards.
+10. **Uncertainty:** recent ONS estimates are provisional/revised; rolling annual measures overlap governments; policy effects cannot be isolated from chronology alone.
+11. **Political clarity:** yes—the handover boundary and inherited direction are explicit without dominant party colour or causal shortcuts.
+12. **Ready for Health:** the schema, relationship controls, evidence routing, lag model and tests are reusable; visual grammar should be reviewed before a second topic is populated.
+
+Implementation: `src/data/real/story.ts`, `src/components/HowWeGotHere.tsx`. Specifications: `docs/STORY_SYSTEM.md`, `docs/stories/IMMIGRATION.md`.
+
+Verification: 6 Vitest files / 105 tests passed; TypeScript passed; production build passed; `git diff --check` passed. Final 1440×900 screenshot and immutable SHA are recorded in the dated handoff.
+
+---
+
 ## Approved £100 national Wall rebuild — 2026-08-25
 
 1. **Reference fidelity:** The canonical PNG at `docs/design/reference/approved-national-wall-reference.png` was opened at original resolution before code changed. The approved contract is preserved at `docs/design/REFERENCE_CONTRACT.md`; the 22-region audit is `docs/design/CURRENT_VS_REFERENCE.md`.

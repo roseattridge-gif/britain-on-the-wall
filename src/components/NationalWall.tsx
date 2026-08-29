@@ -2,7 +2,7 @@ import {useEffect,useMemo,useState} from 'react';
 import {BookOpen,Building2,Factory,GraduationCap,HandCoins,HeartPulse,Home,Landmark,Leaf,Palette,Percent,Play,Scale,Shield,ShoppingBasket,TrainFront,Users} from 'lucide-react';
 import {wallData,totalFunding} from '../data';
 import {displayPeriod,realYears,type RealYear} from '../data/real/adapter';
-import {majorHistoricalChanges} from '../data/real/timeline';
+import {HowWeGotHere} from './HowWeGotHere';
 import type {Year} from '../types';
 
 type Unit='hundred'|'bn';
@@ -10,7 +10,6 @@ type Props={year:Year;setYear:(year:Year)=>void;unit:Unit;setUnit:(unit:Unit)=>v
 type FiscalItem={id:string;name:string;value:number;evidenceId:string;technical?:boolean;borrowing?:boolean};
 
 const icons={income:Users,business:Factory,consumer:ShoppingBasket,capital:Home,'other-income':Landmark,borrowing:HandCoins,health:HeartPulse,welfare:HandCoins,pensions:Users,education:GraduationCap,defence:Shield,justice:Scale,housing:Home,transport:TrainFront,admin:Landmark,interest:Percent,economy:Building2,environment:Leaf,culture:Palette,technical:BookOpen} as const;
-const outcomes=[['Better health',HeartPulse],['Good education',GraduationCap],['Safe & secure',Shield],['Strong economy',Factory],['Support in hard times',HandCoins]] as const;
 const tones=['#197fc4','#2a9ca3','#68a73f','#c2a82c','#7253a0','#8d73b1','#d84d43','#ee762b','#eda11d','#d6b428','#269aa2','#3685b8','#8465a7','#578f43','#2d9aa7','#63768a','#9aa1a5'];
 const sourceScene:Record<string,[number,number]>={income:[0,0],business:[1,0],consumer:[0,1],capital:[1,1],'other-income':[0,2],borrowing:[1,2]};
 const destinationScene:Record<string,[number,number]>={health:[0,0],welfare:[1,0],pensions:[2,0],education:[3,0],defence:[0,1],transport:[1,1],justice:[2,1],housing:[3,1],economy:[0,2],environment:[1,2],culture:[2,2],admin:[3,2],interest:[0,3],technical:[1,3]};
@@ -41,7 +40,6 @@ export function NationalWall({year,setYear,unit,setUnit,openEvidence}:Props){
   const [playing,setPlaying]=useState(false);const[showHelp,setShowHelp]=useState(false);const total=totalFunding(wallData,year);
   const sources=useMemo(()=>wallData.funding.map(x=>({id:x.id,name:x.name,value:x.values[year],evidenceId:x.evidenceId,borrowing:x.borrowing})).sort((a,b)=>sourceOrder.indexOf(a.id)-sourceOrder.indexOf(b.id)),[year]);
   const destinations=useMemo(()=>wallData.domains.filter(x=>x.values[year]>0).map(x=>({id:x.id,name:x.name,value:x.values[year],evidenceId:x.evidenceId,technical:x.id==='technical'})).sort((a,b)=>destinationOrder.indexOf(a.id)-destinationOrder.indexOf(b.id)),[year]);
-  const changes=useMemo(()=>majorHistoricalChanges(2021,year as RealYear),[year]);
   useEffect(()=>{if(!playing)return;const index=realYears.indexOf(year as RealYear);if(index===realYears.length-1){setPlaying(false);return}const timer=setTimeout(()=>setYear(realYears[index+1]),1100);return()=>clearTimeout(timer)},[playing,year,setYear]);
   const play=()=>{if(year===2025)setYear(2021);setPlaying(!playing)};
   return <main className="national-wall">
@@ -55,8 +53,7 @@ export function NationalWall({year,setYear,unit,setUnit,openEvidence}:Props){
     </section>
     <section className="lower-editorial" id="history">
       <div className="time-panel"><small>OVER TIME</small><h2>Five years of public money</h2><div className="years">{realYears.map(item=><button key={item} className={year===item?'active':''} onClick={()=>setYear(item)}><i/><b>{displayPeriod(item)}</b><span>{item===2025?'LATEST':''}</span></button>)}</div><button className="story-button" onClick={play} aria-pressed={playing}><Play/>{playing?'PAUSE STORY':'PLAY 5-YEAR STORY'}</button></div>
-      <div className="change-summary"><small>5-YEAR CHANGE (2021–22 TO {displayPeriod(year)})</small>{year===2021?<p>Select a later year to compare its allocation with 2021–22.</p>:<div>{changes.slice(0,5).map(change=><span key={change.id}><b>{change.label}</b><em>{change.perHundredDelta>=0?'+':'−'}£{Math.abs(change.perHundredDelta).toFixed(1)} of every £100</em></span>)}</div>}<button className="changes-button">See all changes</button></div>
-      <div className="outcomes-panel"><header><small>WHAT BRITAIN GETS</small><span>ILLUSTRATIVE CONTEXT · NOT HISTORICAL EVIDENCE</span></header><div>{outcomes.map(([label,Icon])=><article key={label}><Icon/><b>{label}</b><span>Evidence upgrade pending</span></article>)}</div></div>
+      <HowWeGotHere openEvidence={openEvidence}/>
     </section><footer className="editorial-footer"><b>◇ &nbsp; TRANSPARENT. EVIDENCE-BASED. INDEPENDENT.</b><span>All data is from official sources. We show what the evidence says — not what we think.</span><nav>Sources &nbsp; • &nbsp; Methodology &nbsp; • &nbsp; Data dictionary ↗</nav></footer>
   </main>;
 }
