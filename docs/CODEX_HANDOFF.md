@@ -13,7 +13,7 @@
 9. **Remaining differences:** No separate approved-clean bitmap was supplied, so the repository's approved illustrated reference supplies geometry while the clean written brief supplies the no-picture override. Real taxonomy/counts and the Immigration evidence exhibit intentionally differ from its mock content.
 10. **Readiness:** The public national UI is clear enough to resume deeper-domain work after Product Management review. Bespoke source/destination illustration commissioning is no longer a dependency.
 
-Detailed handoff: `docs/handoffs/2026-08-29-clean-national-ui.md`. Verification: 6 Vitest files / 111 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed. QA includes Every £100, £ billions, all five years, 2024–25 story/handover and 390×844 mobile. Implementation SHA is recorded after commit.
+Detailed handoff: `docs/handoffs/2026-08-29-clean-national-ui.md`. Verification: 6 Vitest files / 111 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed. QA includes Every £100, £ billions, all five years, 2024–25 story/handover and 390×844 mobile. Implementation SHA: `39a86ef`.
 
 ## Direct year exploration + editorial asset reset — 2026-08-29
 

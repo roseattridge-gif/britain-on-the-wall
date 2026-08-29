@@ -15,4 +15,4 @@ QA artefacts:
 
 The single remaining premium picture is the approved Britain medallion. No new domain depth or unsupported outcome series was added.
 
-Verification: 6 Vitest files / 111 tests, TypeScript, Vite production build and `git diff --check` all passed. Implementation SHA is recorded in `docs/CODEX_HANDOFF.md` after commit.
+Verification: 6 Vitest files / 111 tests, TypeScript, Vite production build and `git diff --check` all passed. Implementation SHA: `39a86ef`.
