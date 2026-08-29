@@ -1,5 +1,17 @@
 # CODEX HANDOFF
 
+## National illustration removal — COMPLETE
+
+1. **Is `.scene` removed from `NationalWall.tsx`?** YES.
+2. **Are `sourceScene` and `destinationScene` deleted?** YES.
+3. **Is `/illustrations/fiscal-sources-v1.png` referenced by the public national UI?** NO.
+4. **Is `/illustrations/fiscal-destinations-v1.png` referenced by the public national UI?** NO.
+5. **Did the forbidden-string grep return zero matches?** YES. Both the mandatory component/CSS command and the second `src public` asset search returned no matches (`rg` exit 1).
+6. **Did browser QA show zero decorative row images?** YES. All 20 fiscal rows contain only a small functional outline icon; the explicitly permitted central Britain medallion remains.
+7. **Screenshot path:** `docs/design/qa-no-images-1440x900.png`.
+8. **Test result:** 6 Vitest files / 113 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed.
+9. **Commit SHA:** Recorded immediately after the implementation commit.
+
 ## Hard correction: zero row images + true year exploration — 2026-08-29
 
 1. **All images removed?** Yes. The public source/destination rows contain no image, picture, illustration panel, scene crop or decorative landscape. The central Britain medallion is not a row image and remains the approved anchor.
