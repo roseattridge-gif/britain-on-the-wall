@@ -15,7 +15,7 @@
 11. **Illustrative boundary:** No generic Better health/Good education/Safe & secure/Strong economy/Support in hard times panel remains. No unsupported Immigration backlog, processing, accommodation or removals series was invented. The legacy canvas remains isolated at `/legacy-wall`.
 12. **Next build:** Product Management can review the five-column story grammar, then commission one authoritative operational Immigration series or resume a separately approved deeper domain. Do not add metrics without comparable official periods and polarity rules.
 
-Detailed record: `docs/handoffs/2026-08-29-hard-correction-year-exploration.md`. Verification: 6 Vitest files / 113 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed; explicit source scan found rejected terms only inside the negative regression test. Four required 1440×900 states were inspected. Implementation SHA follows commit.
+Detailed record: `docs/handoffs/2026-08-29-hard-correction-year-exploration.md`. Verification: 6 Vitest files / 113 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed; explicit source scan found rejected terms only inside the negative regression test. Four required 1440×900 states were inspected. Implementation SHA: `68ca862`.
 
 ## Clean national UI rebuild — 2026-08-29
 

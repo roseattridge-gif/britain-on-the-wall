@@ -17,4 +17,4 @@ QA screenshots:
 
 Only official net migration is live as an Immigration system/outcome measure. Unsupported backlog, processing, accommodation and removals series remain absent rather than illustrative.
 
-Verification: 6 Vitest files / 113 tests, TypeScript, Vite production build and `git diff --check` passed. A source scan found rejected scene terms only in the negative regression assertion. Implementation SHA is recorded in `docs/CODEX_HANDOFF.md` after commit.
+Verification: 6 Vitest files / 113 tests, TypeScript, Vite production build and `git diff --check` passed. A source scan found rejected scene terms only in the negative regression assertion. Implementation SHA: `68ca862`.
