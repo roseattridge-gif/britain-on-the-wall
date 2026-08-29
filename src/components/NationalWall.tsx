@@ -1,10 +1,9 @@
 import {useEffect,useMemo,useState} from 'react';
-import {Play} from 'lucide-react';
+import {BadgePoundSterling,Building2,BusFront,Calculator,Castle,Factory,GraduationCap,HandCoins,HeartPulse,Home,Landmark,Leaf,Library,Play,ReceiptText,Scale,Shield,ShoppingBag,Users,WalletCards,type LucideIcon} from 'lucide-react';
 import {wallData,totalFunding} from '../data';
 import {displayPeriod,realYears,type RealYear} from '../data/real/adapter';
 import {HowWeGotHere} from './HowWeGotHere';
 import type {Year} from '../types';
-import {editorialIllustrationById} from '../assets/editorial/manifest';
 
 type Unit='hundred'|'bn';
 type Props={year:Year;setYear:(year:Year)=>void;unit:Unit;setUnit:(unit:Unit)=>void;openEvidence:(id:string)=>void};
@@ -15,6 +14,7 @@ const perHundred=(value:number,total:number)=>{const amount=value/total*100;retu
 const money=(value:number,total:number,unit:Unit)=>unit==='hundred'?`£${perHundred(value,total)}`:`£${value.toFixed(1)}bn`;
 const sourceOrder=['income','business','consumer','capital','other-income','borrowing'];
 const destinationOrder=['health','welfare','pensions','interest','education','defence','transport','justice','housing','economy','environment','culture','admin','technical'];
+const fiscalIcons:Record<string,LucideIcon>={income:Users,business:Building2,consumer:ShoppingBag,capital:Home,'other-income':ReceiptText,borrowing:WalletCards,health:HeartPulse,welfare:HandCoins,pensions:Users,interest:BadgePoundSterling,education:GraduationCap,defence:Shield,transport:BusFront,justice:Scale,housing:Home,economy:Factory,environment:Leaf,culture:Library,admin:Landmark,technical:Calculator};
 
 function UnitTokens({share,tone='standard',colour}:{share:number;tone?:'standard'|'borrowing'|'technical';colour?:string}){
   const whole=Math.floor(share),fraction=share-whole;
@@ -25,12 +25,12 @@ function UnitTokens({share,tone='standard',colour}:{share:number;tone?:'standard
 }
 
 function FiscalRow({item,total,previousTotal,baseTotal,unit,direction,rank,openEvidence}:{item:FiscalItem;total:number;previousTotal:number;baseTotal:number;unit:Unit;direction:'in'|'out';rank:number;openEvidence:(id:string)=>void}){
-  const illustration=editorialIllustrationById(item.id);const share=item.value/total*100;const colour=item.borrowing?'#7253a0':item.technical?'#92999b':tones[direction==='in'?rank:rank+6];
+  const Icon=fiscalIcons[item.id]??Castle;const share=item.value/total*100;const colour=item.borrowing?'#7253a0':item.technical?'#92999b':tones[direction==='in'?rank:rank+6];
   const cashDelta=item.value-item.previousValue,shareDelta=share-item.previousValue/previousTotal*100,baseCashDelta=item.value-item.baseValue,baseDelta=share-item.baseValue/baseTotal*100;
   const signed=(value:number,suffix:string)=>`${value>=0?'+':'−'}${Math.abs(value).toFixed(1)}${suffix}`;
   const comparison=`Previous: ${signed(cashDelta,'bn')}, ${signed(shareDelta,'pp')}. Since 2021–22: ${signed(baseCashDelta,'bn')}, ${signed(baseDelta,'pp')}.`;
   return <button style={{'--row-colour':colour} as React.CSSProperties} className={`fiscal-row ${direction} ${rank<3?'major':''} ${item.borrowing?'borrowing':''} ${item.technical?'technical':''}`} onClick={()=>openEvidence(item.evidenceId)} aria-label={`${item.name} ${money(item.value,total,unit)}, ${share.toFixed(1)} percent. ${comparison}`}>
-    <span className="scene"><img src={illustration.src} alt={illustration.alt}/></span>
+    <span className="category-icon" aria-hidden="true"><Icon/></span>
     <span className="row-copy"><strong>{item.name}</strong>{item.borrowing&&<small>Fills the gap · not revenue</small>}{item.technical&&<small>NOT A SERVICE</small>}<UnitTokens share={share} colour={colour} tone={item.borrowing?'borrowing':item.technical?'technical':'standard'}/></span>
     <span className="row-number"><b>{money(item.value,total,unit)}</b><em>{share.toFixed(1)}%</em><small title={comparison}><span>prev {signed(cashDelta,'bn')} / {signed(shareDelta,'pp')}</span><span>2021 {signed(baseCashDelta,'bn')} / {signed(baseDelta,'pp')}</span></small></span>
     <span className="expand" aria-hidden="true">＋</span>

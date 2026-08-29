@@ -1,5 +1,13 @@
 # Current implementation versus approved national Wall reference
 
+## Clean UI correction — 2026-08-29
+
+The only repository reference remains `approved-national-wall-reference.png`; no separate approved-clean bitmap was supplied with the clean-UI brief. Its composition, medallion, ribbons, density and editorial hierarchy remain authoritative. The newer written direction overrides its decorative scene artwork.
+
+The current national route now matches the reference's macro-structure at 1440×900: masthead and metadata rail; source rows; central £100 medallion; destination rows; direct year/story/evidence exhibition band; and navy evidence footer. Source and destination picture regions have deliberately been replaced by small consistent functional outline icons. Blocks, values and ribbons provide the visual mass.
+
+Remaining intentional differences are the verified adapter taxonomy/counts, the evidence-led Immigration panel rather than the reference's generic outcomes/change widgets, and functional icons instead of its painted scenes. `/legacy-wall` retains the former spatial prototype but is not the public route.
+
 Reference: `docs/design/reference/approved-national-wall-reference.png`  
 Current capture: `docs/design/current-national-wall-1440x900.png`
 

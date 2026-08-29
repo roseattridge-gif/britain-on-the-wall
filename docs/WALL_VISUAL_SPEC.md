@@ -214,3 +214,17 @@ At Health zoom, one editorial trace explicitly reads `allocation → delivery �
 ## Technical fiscal items
 
 Accounting/statistical reconciliation is part of the national TME mass but is not a service destination. It uses the same proportional geometry so the £100 still reconciles, with a neutral grey, desaturated, dashed and hatched treatment. It must never inherit leak/loss red or performance language.
+
+## Clean national £100 UI grammar
+
+- **No illustration rule:** the public national route contains no decorative source/destination scenes, picture panels, sprite sheets, cartoon figures or programmatic artwork. The Britain medallion is the single premium anchor.
+- **Icon system:** each fiscal taxonomy ID maps to one functional Lucide outline icon. Icons use a consistent 1.5px stroke, inherit the category colour, have no semantic status meaning and never compete with labels or money blocks.
+- **Source rows:** functional icon → label and block field → active-unit value and percentage → evidence affordance. Borrowing remains dashed/violet and explicitly gap-filling rather than revenue.
+- **Destination rows:** block field → active-unit value and percentage → fixed label column → restrained icon → evidence affordance. Technical reconciliation is grey and explicitly `NOT A SERVICE`.
+- **£1 blocks:** one aligned rectangular block per whole pound of the unrounded share, plus a partially filled final block where needed. Blocks always represent the selected period's share of the full reconciled £100.
+- **Ribbons:** broad proportional source and destination bands converge on the medallion. Stable row positions prevent crossings and preserve spatial memory; dashed ribbons distinguish borrowing and technical reconciliation.
+- **Numeric hierarchy:** `EVERY £100` defaults to `£x` then percentage. `£ BILLIONS` promotes the nominal amount while retaining the same percentage. Previous-period and 2021–22 cash/share comparisons remain quiet tertiary text and accessible copy.
+- **Year selection:** five direct fiscal-year stops are primary. Previous/next and ArrowLeft/ArrowRight step through the identical state; playback is optional. The route is stable and both period and unit are reflected in the query string.
+- **Story panel:** the selected year updates government, sparse evidenced policy moments, an actual-period system trend, neutral outcome interpretation, inherited direction and after-handover chronology. Government context never becomes causal attribution.
+- **Outcome panel:** polarity controls language. Higher/lower-is-better metrics may say improved or declined; neutral measures such as net migration show direction and `CONTEXT ONLY`.
+- **Responsive rule:** mobile stacks the editorial header, medallion, sources, destinations and lower story while retaining the same data order and no-illustration grammar.

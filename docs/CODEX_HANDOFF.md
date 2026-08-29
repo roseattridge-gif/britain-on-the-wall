@@ -1,5 +1,20 @@
 # CODEX HANDOFF
 
+## Clean national UI rebuild — 2026-08-29
+
+1. **Reference fidelity:** Macro-composition closely matches the only supplied repository reference: calm masthead, compact metadata rail, left sources, central £100 medallion, right destinations, lower history/evidence band and footer. The written clean brief controls where it conflicts with the reference's painted scenes.
+2. **Pictures removed:** All source/destination placeholder SVGs, their manifest and visual scene regions were removed from the public route. No sprite sheets, decorative panels, cartoon figures or programmatic scenes remain.
+3. **Icons:** Stable fiscal IDs map to restrained Lucide outline icons with consistent stroke weight. They are functional category cues only; the medallion remains the single premium visual anchor.
+4. **£1 blocks:** Whole blocks use the unrounded selected-year share; a partially filled final block preserves fractions. They recolour and recount with the year while stable rows preserve spatial memory.
+5. **Year clicks:** Five direct stops, previous/next and focused-timeline arrow keys update the same page. Playback is secondary. Period and unit are now shareable URL state.
+6. **Government context:** The lower Immigration exhibit shows exact government bands and a neutral handover marker. 2024–25 explicitly reads Conservative → Labour with 5 July 2024 separated from policy ownership and outcome timing.
+7. **Outcomes:** The evidence summary now has an explicit outcome field. Metric polarity governs the language; neutral net migration is `CONTEXT ONLY`, never improved/declined.
+8. **Story panel:** `HOW WE GOT HERE` aligns government, sparse material policy events, actual-period system points, outcome interpretation, inherited direction and after-handover chronology, with evidence available in place.
+9. **Remaining differences:** No separate approved-clean bitmap was supplied, so the repository's approved illustrated reference supplies geometry while the clean written brief supplies the no-picture override. Real taxonomy/counts and the Immigration evidence exhibit intentionally differ from its mock content.
+10. **Readiness:** The public national UI is clear enough to resume deeper-domain work after Product Management review. Bespoke source/destination illustration commissioning is no longer a dependency.
+
+Detailed handoff: `docs/handoffs/2026-08-29-clean-national-ui.md`. Verification: 6 Vitest files / 111 tests passed; TypeScript passed; Vite production build passed; `git diff --check` passed. QA includes Every £100, £ billions, all five years, 2024–25 story/handover and 390×844 mobile. Implementation SHA is recorded after commit.
+
 ## Direct year exploration + editorial asset reset — 2026-08-29
 
 1. **Illustration code removed:** The rejected generated source/destination scene sheets, sprite coordinates and CSS background cropping have been removed. The central approved medallion/reference assets remain.
