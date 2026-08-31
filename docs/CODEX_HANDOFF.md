@@ -1,5 +1,21 @@
 # CODEX HANDOFF
 
+## Immigration system-performance history — 2026-08-31
+
+1. **Metrics added:** asylum backlog and substantive initial-decision output, alongside existing long-term net migration.
+2. **Definitions:** backlog is people (main applicants plus dependants) awaiting an initial decision at each December snapshot. Output is people receiving a grant of protection, grant of other leave or refusal during each calendar year; withdrawals and administrative outcomes are excluded.
+3. **Official sources:** Home Office Asy_D03 and Asy_D02 in Immigration System Statistics. Exact methodology and links are in `docs/stories/IMMIGRATION_SYSTEM_DATA.md`.
+4. **Periods:** December snapshots and calendar years 2021–2025, mapped to the five explorer columns without relabelling them as fiscal data.
+5. **Comparability:** both headline operational series are HIGH within the documented definitions. The backlog caseworking-system boundary and long-wait dependant-record caveat remain visible in evidence.
+6. **Backlog trend:** 100,564 → 160,919 → 128,786 → 124,802 → 64,426 people. It rose through 2022, peaked in June 2023, and was already falling before the July 2024 handover; it then continued to fall.
+7. **Output trend:** 17,866 → 22,790 → 91,556 → 86,641 → 135,740 substantive initial decisions. Output rose sharply in 2023, eased in 2024 and rose again in 2025.
+8. **At handover:** net migration and backlog were already falling; calendar-2023 decision output had already risen substantially before easing in 2024.
+9. **After handover:** backlog continued to fall and calendar-2025 substantive output increased. This is chronology, not government attribution.
+10. **Contribution evidence:** existing ONS/MAC sources support contributors to net-migration movement. No policy is claimed to have caused the backlog or output path.
+11. **Chronology only:** policy dates, government control, backlog and output movements are adjacent unless an authoritative source expressly supports contribution.
+12. **Unresolved:** processing time, hotel dependence and returns remain out of the headline UI because a clean five-period performance series or safe polarity was not established.
+13. **Replication readiness:** the typed metric model, evidence requirements, comparability labels and polarity-safe presentation are reusable, but Product Management should review this Immigration pilot before another domain is built.
+
 ## National illustration removal — COMPLETE
 
 1. **Is `.scene` removed from `NationalWall.tsx`?** YES.

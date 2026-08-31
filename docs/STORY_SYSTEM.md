@@ -8,6 +8,8 @@ The story layer aligns government control, policy/money/capacity events, system 
 
 `GovernmentPeriod` stores stable IDs, neutral labels, party, prime minister, exact start/end dates and an evidence source. `StoryEvent` stores topic, date/range, track, title, summary, optional metric/value/direction, government context, mandatory relationship and confidence, source IDs and limitations. `StoryTopic` adds the handover comparison and four-part rule-constrained summary.
 
+`StoryMetric` gives each operational series one stable definition and polarity. Its `StoryMetricPoint` values retain actual date, period label, unit, evidence IDs, official/derived status and high/medium/low comparability. Fiscal-year selection never rewrites a measurement period. A headline metric must have evidence at every live point and must not cross definitions within its series.
+
 ## Relationship classes
 
 - `documented-policy`: an official source records enactment or implementation. UI: `POLICY CHANGE`.
@@ -28,7 +30,7 @@ Every government period and story event must resolve to at least one official or
 
 ## Visual grammar
 
-The chronology is a compact editorial exhibit, not a Gantt chart. Four aligned tracks share one time axis. Party is restrained context; the government handover uses a neutral boundary marker. Policy events are deliberately sparse. Mini-trends show directional timing, with annotations carrying more meaning than axes. A short evidence summary states observed movement, policy context, supported contributors and what cannot be concluded.
+The chronology is a compact editorial exhibit, not a dashboard. Party is restrained context and policy events are deliberately sparse. Five aligned year columns show at most three visible measures: neutral-context net migration, lower-is-better asylum backlog and higher-is-better substantive decision output. A selected-year system-state summary separates demand/volume, capacity, backlog, government context and attribution limits.
 
 ## Direct year exploration
 

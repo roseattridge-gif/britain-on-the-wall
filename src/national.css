@@ -36,11 +36,12 @@ html:has(.national-wall),body:has(.national-wall),#root:has(.national-wall){widt
 }
 
 /* Five-column evidence chronology. Selected year is dominant; all years remain comparable. */
-.story-body{grid-template-columns:minmax(0,80%) 20%}
-.year-matrix{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:155px;border:1px solid #d7dcde;border-radius:7px;overflow:hidden}
+.story-body{grid-template-columns:minmax(0,78%) 22%;height:205px}
+.year-matrix{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:205px;border:1px solid #d7dcde;border-radius:7px;overflow:hidden}
 .year-matrix article{min-width:0;padding:5px 6px;border-right:1px solid #d7dcde;background:#fff}
 .year-matrix article:last-child{border-right:0}.year-matrix article.selected{background:#f3f6f7;box-shadow:inset 0 3px 0 #0a405f}
 .matrix-year{width:100%;border:0;background:none;padding:0 0 4px;text-align:left;font-size:8px;font-weight:700}.year-matrix article.selected .matrix-year{font-size:10px;color:#0a405f}
 .year-matrix dl{margin:0}.year-matrix dl>div{padding:3px 0;border-top:1px solid #e6e9ea}.year-matrix dt{font-size:4.5px;font-weight:700;color:#6b747b;letter-spacing:.04em}.year-matrix dd{margin:1px 0 0;font-size:5.2px;line-height:1.18}.year-matrix dd>b,.year-matrix dd>small,.year-matrix dd>span,.year-matrix dd>button small{display:block}.year-matrix dd>b{font-size:7px}.year-matrix dd small{font-size:4.2px;color:#68747b;margin-top:1px}.year-matrix dd>button{display:block;border:0;background:none;padding:0;text-align:left;font-size:5px;line-height:1.15;color:#8e4435}
+.year-matrix .metric-row dd>button{color:#10283d}.year-matrix .metric-row dd>button b{display:block;font-size:7px}.year-matrix .metric-row dd>button small{color:#68747b}
 .evidence-summary>button{border:0;background:none;padding:0;font-size:5px;color:#0e5d9c;text-align:left}
 @media(max-width:600px){.year-matrix{grid-template-columns:1fr;height:auto}.year-matrix article{border-right:0;border-bottom:1px solid #d7dcde}.story-body{grid-template-columns:1fr}.year-matrix dt{font-size:7px}.year-matrix dd,.year-matrix dd>button{font-size:8px}.year-matrix dd small{font-size:6px}}
