@@ -1,0 +1,13 @@
+import {describe,expect,it} from 'vitest';
+import {detectHealthContradictions,healthStoryContextForYear,healthStoryEvidence,healthSystemMetrics} from './healthStory';
+
+describe('How We Got Here — Health model',()=>{
+  it('covers every accepted period with the four consistent operational series',()=>{for(const metric of healthSystemMetrics){expect(metric.points).toHaveLength(5);expect(new Set(metric.points.map(point=>point.metricId))).toEqual(new Set([metric.id]));expect(new Set(metric.points.map(point=>point.unit)).size).toBe(1)}});
+  it('gives every operational point an official evidence record',()=>{const ids=new Set(healthStoryEvidence.map(item=>item.id));for(const metric of healthSystemMetrics)for(const point of metric.points){expect(point.status).toBe('official');point.sourceIds.forEach(id=>expect(ids.has(id)).toBe(true))}});
+  it('preserves UK fiscal values and separates cash from share direction',()=>{const first=healthStoryContextForYear(2021),second=healthStoryContextForYear(2022);expect(first.spend.value).toBeCloseTo(256.364);expect(first.spend.share).toBeCloseTo(24.629);expect(second.spend.cashDirection).toBe('up');expect(second.spend.shareDirection).toBe('down')});
+  it('uses safe polarity: spend, capacity and activity never become performance claims',()=>{expect(healthSystemMetrics.find(item=>item.id==='health-workforce')?.polarity).toBe('neutral-context');expect(healthSystemMetrics.find(item=>item.id==='health-rtt-activity')?.polarity).toBe('neutral-context');expect(healthStoryContextForYear(2023).operational[0].classification).toBe('UP')});
+  it('classifies waiting and 18-week movement from metric polarity',()=>{const context=healthStoryContextForYear(2022);expect(context.metric.classification).toBe('DECLINED');expect(context.operational[2].classification).toBe('DECLINED')});
+  it('models the mixed government year and handover without attribution',()=>{const context=healthStoryContextForYear(2024);expect(context.government).toBe('Conservative → Labour');expect(context.handover).toBe('5 July 2024');expect(`${context.inherited} ${context.after}`).not.toMatch(/caused|delivered|because of/i)});
+  it('detects only deterministic neutral contradictions',()=>{expect(detectHealthContradictions('up','up','DECLINED','DECLINED')).toEqual(['SPEND UP · PERFORMANCE DOWN','CAPACITY UP · PERFORMANCE DOWN']);expect(detectHealthContradictions('up','up','IMPROVED','IMPROVED')).toEqual([])});
+  it('records the England operational boundary in every relevant evidence item',()=>{expect(healthStoryEvidence.filter(item=>item.id.includes('rtt')||item.id.includes('workforce')).every(item=>item.geography==='England')).toBe(true)});
+});

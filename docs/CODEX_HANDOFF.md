@@ -96,6 +96,18 @@ Verification: 6 Vitest files / 110 tests passed; TypeScript passed; Vite product
 
 Implementation: `src/data/real/story.ts`, `src/components/HowWeGotHere.tsx`. Specifications: `docs/STORY_SYSTEM.md`, `docs/stories/IMMIGRATION.md`.
 
+---
+
+Date: 2026-09-01
+Increment: How We Got Here — Health
+
+- Added Health as the second shared story configuration; selector changes topic without changing fiscal year.
+- Reused the frozen UK Health & social care cash/share series without altering the national Wall geometry or fiscal taxonomy.
+- Added four official England March operational series: HCHS workforce FTE, completed RTT pathways, incomplete RTT pathways and percentage within 18 weeks.
+- Preserved `Conservative → Labour` and the 5 July 2024 handover; policy events remain documented chronology rather than attribution.
+- Added deterministic co-movement labels with an explicit non-causation caveat.
+- Full data contract and limits: `docs/stories/HEALTH.md` and `docs/stories/HEALTH_SYSTEM_DATA.md`.
+
 Verification: 6 Vitest files / 105 tests passed; TypeScript passed; production build passed; `git diff --check` passed. Final 1440×900 screenshot and immutable SHA are recorded in the dated handoff.
 
 ---

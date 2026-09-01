@@ -2,7 +2,7 @@ import {useEffect,useMemo,useState} from 'react';
 import {BadgePoundSterling,Building2,BusFront,Calculator,Castle,Factory,GraduationCap,HandCoins,HeartPulse,Home,Landmark,Leaf,Library,Play,ReceiptText,Scale,Shield,ShoppingBag,Users,WalletCards,type LucideIcon} from 'lucide-react';
 import {wallData,totalFunding} from '../data';
 import {displayPeriod,realYears,type RealYear} from '../data/real/adapter';
-import {HowWeGotHere} from './HowWeGotHere';
+import {HowWeGotHere,type StoryId} from './HowWeGotHere';
 import type {Year} from '../types';
 
 type Unit='hundred'|'bn';
@@ -39,7 +39,7 @@ function FiscalRow({item,total,previousTotal,baseTotal,unit,direction,rank,openE
 }
 
 export function NationalWall({year,setYear,unit,setUnit,openEvidence}:Props){
-  const [playing,setPlaying]=useState(false);const[showHelp,setShowHelp]=useState(false);const total=totalFunding(wallData,year);const yearIndex=realYears.indexOf(year as RealYear);const previousYear=realYears[Math.max(0,yearIndex-1)];const previousTotal=totalFunding(wallData,previousYear),baseTotal=totalFunding(wallData,2021);
+  const [playing,setPlaying]=useState(false);const[showHelp,setShowHelp]=useState(false);const[story,setStory]=useState<StoryId>('immigration');const total=totalFunding(wallData,year);const yearIndex=realYears.indexOf(year as RealYear);const previousYear=realYears[Math.max(0,yearIndex-1)];const previousTotal=totalFunding(wallData,previousYear),baseTotal=totalFunding(wallData,2021);
   const sources=useMemo(()=>wallData.funding.map(x=>({id:x.id,name:x.name,value:x.values[year],previousValue:x.values[previousYear],baseValue:x.values[2021],evidenceId:x.evidenceId,borrowing:x.borrowing})).sort((a,b)=>sourceOrder.indexOf(a.id)-sourceOrder.indexOf(b.id)),[year,previousYear]);
   const destinations=useMemo(()=>wallData.domains.filter(x=>x.values[year]>0).map(x=>({id:x.id,name:x.name,value:x.values[year],previousValue:x.values[previousYear],baseValue:x.values[2021],evidenceId:x.evidenceId,technical:x.id==='technical'})).sort((a,b)=>destinationOrder.indexOf(a.id)-destinationOrder.indexOf(b.id)),[year,previousYear]);
   useEffect(()=>{if(!playing)return;const index=realYears.indexOf(year as RealYear);if(index===realYears.length-1){setPlaying(false);return}const timer=setTimeout(()=>setYear(realYears[index+1]),1100);return()=>clearTimeout(timer)},[playing,year,setYear]);
@@ -56,7 +56,7 @@ export function NationalWall({year,setYear,unit,setUnit,openEvidence}:Props){
     </section>
     <section className="lower-editorial" id="history">
       <div className="time-panel"><small>SELECT A YEAR</small><h2>Explore Britain year by year</h2><div className="years" tabIndex={0} aria-label="Fiscal year selector" onKeyDown={event=>{if(event.key==='ArrowLeft')moveYear(-1);if(event.key==='ArrowRight')moveYear(1)}}>{realYears.map(item=><button key={item} className={year===item?'active':''} aria-pressed={year===item} onClick={()=>setYear(item)}><i/><b>{displayPeriod(item)}</b><span>{item===2025?'LATEST':''}</span></button>)}</div><div className="year-step"><button onClick={()=>moveYear(-1)} disabled={year===2021}>← PREVIOUS YEAR</button><button onClick={()=>moveYear(1)} disabled={year===2025}>NEXT YEAR →</button></div><button className="story-button" onClick={play} aria-pressed={playing}><Play/>{playing?'PAUSE':'OPTIONAL PLAYBACK'}</button></div>
-      <HowWeGotHere year={year} setYear={setYear} openEvidence={openEvidence}/>
+      <HowWeGotHere year={year} setYear={setYear} openEvidence={openEvidence} story={story} setStory={setStory}/>
     </section><footer className="editorial-footer"><b>◇ &nbsp; TRANSPARENT. EVIDENCE-BASED. INDEPENDENT.</b><span>All data is from official sources. We show what the evidence says — not what we think.</span><nav>Sources &nbsp; • &nbsp; Methodology &nbsp; • &nbsp; Data dictionary ↗</nav></footer>
   </main>;
 }

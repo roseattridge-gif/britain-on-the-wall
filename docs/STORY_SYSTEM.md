@@ -30,7 +30,7 @@ Every government period and story event must resolve to at least one official or
 
 ## Visual grammar
 
-The chronology is a compact editorial exhibit, not a dashboard. Party is restrained context and policy events are deliberately sparse. Five aligned year columns show at most three visible measures: neutral-context net migration, lower-is-better asylum backlog and higher-is-better substantive decision output. A selected-year system-state summary separates demand/volume, capacity, backlog, government context and attribution limits.
+The chronology is a compact editorial exhibit, not a dashboard. Party is restrained context and policy events are deliberately sparse. A two-option selector loads Immigration or Health while preserving the selected fiscal year. Immigration shows net migration, asylum backlog and decision output. Health shows UK nominal spend/share separately from four England operational measures: workforce, completed RTT pathways, waiting list and 18-week performance. The selected-year summary preserves the same evidence and attribution grammar.
 
 ## Direct year exploration
 
@@ -46,6 +46,6 @@ Metric interpretation uses explicit polarity: `higher-is-better`, `lower-is-bett
 
 Illustrations are resolved by stable taxonomy ID through `src/assets/editorial/manifest.ts`. Each manifest entry carries `id`, `src`, `alt`, `category`, and optional focal point. The present SVG files are restrained abstract placeholders with fixed boxes; they are not React/CSS drawings and can be replaced asset-for-asset without changing Wall geometry. The rejected generated source and destination scene sheets have been removed.
 
-## Future topics
+## Configured topics
 
-The component consumes a `StoryTopic`, so Health, Welfare, Housing, Education, Justice, Debt, Defence and Economy can reuse it. Only Immigration is populated pending product review.
+Immigration and Health are populated. Future Welfare, Housing, Education, Justice, Debt, Defence and Economy stories must reuse the shared year selection, evidence drawer, polarity, relationship and handover rules rather than add topic-specific interaction architecture.
