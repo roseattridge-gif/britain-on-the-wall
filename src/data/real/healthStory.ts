@@ -41,7 +41,7 @@ const governments:Record<number,{government:string;handover?:string;inherited:st
 };
 
 const direction=(from:number,to:number):'up'|'down'|'flat'=>to>from?'up':to<from?'down':'flat';
-const view=(metric:StoryMetric,index:number):YearMetricView=>{const current=metric.points[index],previous=index?metric.points[index-1]:undefined;return {label:metric.label,value:current.value,unit:current.unit,period:current.periodLabel,direction:previous?direction(previous.value,current.value):'flat',polarity:metric.polarity,classification:previous?classifyMetricChange(previous.value,current.value,metric.polarity):'BASELINE',comparability:current.comparability,sourceIds:current.sourceIds}};
+const view=(metric:StoryMetric,index:number):YearMetricView=>{const current=metric.points[index],previous=index?metric.points[index-1]:undefined;return {label:metric.label,value:current.value,unit:current.unit,period:current.periodLabel,direction:previous&&previous.value!==undefined&&current.value!==undefined?direction(previous.value,current.value):'mixed',polarity:metric.polarity,classification:previous?classifyMetricChange(previous.value,current.value,metric.polarity):'BASELINE',comparability:current.comparability,sourceIds:current.sourceIds}};
 export const detectHealthContradictions=(spendDirection:'up'|'down'|'flat',capacityDirection:'up'|'down'|'flat'|'mixed',waitingClassification:string,performanceClassification:string)=>{
   const performanceDown=waitingClassification==='DECLINED'||performanceClassification==='DECLINED';
   const labels:string[]=[];

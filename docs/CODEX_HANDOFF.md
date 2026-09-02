@@ -1,5 +1,24 @@
 # CODEX HANDOFF
 
+## How We Got Here — Housing — 2026-09-02
+
+1. **Accepted/rejected metrics:** Accepted UK Housing and communities expenditure as context; England net additional dwellings as supply output; the ONS England median house-price-to-residence-based-earnings ratio as purchase affordability; and England households in temporary accommodation as the social outcome. New-build completions, planning permissions, raw house prices, mortgage rates, homelessness-duty flows and demand/population comparisons were rejected from the headline story. Affordable-housing delivery remains later evidence, not a hero series.
+2. **Definitions/geographies:** Fiscal spending is the frozen UK public-sector PESA function. Net additions are the net annual change in England dwelling stock. Affordability is median England sale price divided by median residence-based full-time earnings. Temporary accommodation is the England quarter-end household stock under statutory homelessness functions.
+3. **Public money:** Nominal Housing and communities expenditure rose £15.273bn → £17.404bn → £20.908bn → £21.700bn → £22.470bn. Its TME share was 1.47% → 1.50% → 1.70% → 1.68% → 1.65%. This is context, not improvement.
+4. **Supply:** England net additions were 234,460 → 234,290 → 221,410 → 208,600 through 2024–25: broadly flat, then two falls. The comprehensive 2025–26 result is not yet published and is visibly unavailable.
+5. **Affordability:** The latest ONS workbook gives 9.06 → 8.56 → 8.45 → 7.84 → 7.64. Purchase affordability improved after the 2021 peak, but the ratio remained high. Lower is better.
+6. **Housing need:** England households in temporary accommodation rose 95,060 → 104,510 → 117,450 → 131,140 → 135,580 at successive 31 March snapshots. Lower is better; households are not people.
+7. **Labour inheritance:** At 5 July 2024, supply was already falling, purchase affordability was improving from its 2021 peak, and temporary accommodation was already rising.
+8. **After handover:** The 2024–25 supply total fell further, March 2025 temporary accommodation rose, calendar-2025 affordability improved and March 2026 temporary accommodation rose again. The annual 2025–26 net-additions result is pending. These are subsequent observations, not attribution.
+9. **Policy events:** Affordable Homes Programme delivery period; Social Housing (Regulation) Act 2023; July/December 2024 planning and housing-target reform; March 2025 affordable-housing bridge funding; and the 2025 launch of the 2026–36 Social and Affordable Homes Programme. Every event records owner, status, relationship and expected lag.
+10. **Lag warnings:** Planning, grant allocation, starts and completions are distinct. Planning and supply programmes carry a long expected lag; current outcomes cannot assess programmes whose delivery lies later.
+11. **Chronology only:** Spending, policy dates, supply, affordability and temporary-accommodation movement are not treated as a causal chain. House prices/mortgage rates are not government scores. No migration-to-prices or migration-to-homelessness claim exists.
+12. **Signals:** `SPEND UP · SUPPLY DOWN` and `SUPPLY DOWN · HOUSING NEED UP` appear where mechanically true, always followed by the non-causation caveat.
+13. **Three-story proof:** Yes. Immigration explains demand/system flows, Health separates UK spend from England capacity/activity/outcomes, and Housing separates money, physical supply, market affordability and social need.
+14. **Scale readiness:** The architecture supports three substantively different stories without redesign. Reusable additions are limited to missing observations and policy lag/ownership/context metadata. Stop before a fourth topic for Product Management review.
+
+Research record: `docs/stories/HOUSING_SYSTEM_DATA.md`. Story contract: `docs/stories/HOUSING.md`.
+
 ## Immigration system-performance history — 2026-08-31
 
 1. **Metrics added:** asylum backlog and substantive initial-decision output, alongside existing long-term net migration.

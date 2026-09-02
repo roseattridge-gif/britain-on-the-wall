@@ -1,5 +1,12 @@
 # Product decisions
 
+Date: 2026-09-02
+Decision: Add Housing as the third story using the unchanged five-column component, with UK public spending separated from England supply, purchase affordability and temporary-accommodation outcomes.
+Why: Housing tests whether the shared story can explain a system in which money, policy, output, market conditions and social need are related but not identical.
+Alternatives considered: Raw house prices as performance; mortgage rates as government performance; planning permissions as output; provisional quarterly supply substituted for the missing annual 2025–26 result; a new Housing dashboard; a migration-to-housing causal comparison.
+Implications: The fifth supply value remains visibly unavailable. Policy events carry owner, status and expected lag. Deterministic co-movement labels remain non-causal. Housing adds no images and no fourth topic.
+Status: Implemented for Product Management review.
+
 Date: 2026-08-25
 Decision: Expose the frozen five-outturn real fiscal history as a discrete, in-place transformation of the persistent Wall, with Every £100 primary and nominal £bn explicitly qualified.
 Why: Users need to perceive fiscal-composition changes without losing spatial memory or mistaking animation for interpolated official data.
