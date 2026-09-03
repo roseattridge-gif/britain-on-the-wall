@@ -18,7 +18,7 @@ Checks: `pnpm test`, `pnpm lint`, `pnpm typecheck`, `pnpm build`.
 ## Architecture
 
 - `src/data/real/` contains the national fiscal adapter and the Immigration, Health and Housing evidence-led story modules; `src/data/demo.ts` remains the optional demo fixture.
-- `src/components/NationalWall.tsx` is the public clean editorial route: fixed source/medallion/destination geometry, functional icons, proportional £1 blocks, direct year selection and Immigration context.
+- `src/components/NationalWall.tsx` is the public clean editorial route: fixed source/medallion/destination geometry and proportional £1 blocks, followed by the full-scale Immigration, Health and Housing story workspace.
 - `/legacy-wall` preserves the older spatial canvas for development/reference; it is not the public face of the product.
 - `src/types.ts` defines stable entities and evidence relationships.
 - `src/canvas/layout.ts` defines the stable logical world, graph nodes and focus targets.

@@ -124,3 +124,6 @@ Why: The accepted first real backbone hid £15.6 per £100 behind an opaque resi
 Alternatives considered: Keep one residual; create many sub-function nodes; absorb accounting adjustments into service domains; treat technical reconciliation as leakage.
 Implications: Economy excluding Transport, Environment, and Culture become stable top-level destinations. Accounting adjustments net of EU transactions remain a muted, hatched, non-service category. The taxonomy has no unexplained expenditure residual and can be reconstructed across PESA years.
 Status: Implemented.
+# 2026-09-03 — Story evidence is a full second chapter
+
+The national £100 Wall remains the compact overview. `HOW WE GOT HERE` is now a separate, scrolling evidence workspace with large year cards, selected-year hero values, aligned trend charts, government/policy context and an editorial change reading. This replaces the 205px fine-print treatment; it does not duplicate it. The visual hierarchy is now overview first, explanation second, evidence/footer last.

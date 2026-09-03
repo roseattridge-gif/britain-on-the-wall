@@ -223,3 +223,17 @@ Implementation commit: `8f08666`
 - Production build: passed.
 - `git diff --check`: passed.
 - Browser QA: the local server started successfully, but the in-app browser again blocked localhost inspection under its URL-security policy. No rendered screenshot is claimed; authored spacing is covered by DOM/adapter tests but remains pending visual confirmation.
+# 2026-09-03 — Large story / outcome workspace
+
+1. **Desktop height:** the former 205px strip is replaced by a scrolling second chapter. Its first working view is at least 980px and the complete evidence workspace expands with content rather than clipping it.
+2. **Typography floor:** hero values 38px, hero labels 16px, year dates 25px, government labels 12px, and supporting detail/evidence controls 11–12px on desktop. Mobile retains the same 11px supporting floor and 36px hero values.
+3. **Hero metrics:** Immigration shows net migration, asylum backlog and substantive initial decisions. Health shows health spend, NHS workforce, completed RTT pathways and waiting list. Housing shows housing spend, net additional dwellings, price-to-earnings affordability and temporary accommodation.
+4. **Primary chart:** Immigration uses net migration; Health uses waiting list; Housing uses temporary accommodation. Health's within-18-weeks series remains a full supporting chart.
+5. **Selected year:** one shared year state updates the Wall, every hero value, change comparison, highlighted year card, selected-year chart bands and the What Changed panel.
+6. **Government control:** large year cards state the government; the shared band uses neutral grey distinctions and a visible 5 July 2024 handover marker.
+7. **Policy events:** only existing curated events appear, aligned to one five-period grid; event buttons open the existing evidence drawer.
+8. **Contradictions:** deterministic adapter signals are large editorial cards with the permanent warning, “Observed co-movement. Not evidence that one caused the other.”
+9. **Readability:** desktop acceptance styles exceed the requested minimums at 100% zoom; screenshot QA checks the requested Health states plus Immigration and Housing at 1440×900.
+10. **Removed UI:** the tiny dot year selector, playback controls, five-column miniature statistics table and compact summary sidebar were removed. There is one story presentation and no duplicate compact strip.
+
+No data or topics were added. The existing Immigration, Health and Housing adapters and evidence records remain authoritative.
