@@ -14,6 +14,16 @@ Alternatives considered: Reconnecting demo years; a chart/dashboard timeline; ro
 Implications: Positions and camera persist while mass changes. Four computed notes can compare the prior selection or 2021–22. Medium comparability is disclosed on selection. Illustrative outcomes/leaks remain static and separate.
 Status: Accepted brief and implemented.
 
+## 2026-09-04 — Bounded V1 launch surface
+
+Decision: Limit top navigation to Britain, What Changed and Ask Britain. Keep Ask deterministic and evidence-mapped; offer only Immigration and Health guided journeys; publish five curated Claim → Evidence checks and a concise trust method.
+
+Why: The launch should deepen explanation and interrogation of the accepted Wall without implying a general-purpose chatbot or expanding topic breadth before the core proposition is tested.
+
+Implications: Unsupported questions stop with suggested covered questions. Every supported answer and journey step links to evidence and a Wall focus. Justice, Education, forecasts, accounts, payments and generative answers remain post-launch. Technical readiness does not override the 10–15-person private-test gate.
+
+Status: Implemented; public-launch approval pending private test.
+
 Date: 2026-08-25
 Decision: Freeze the same 14 expenditure destinations across PESA 2026 outturns from 2021–22 through 2025–26, with period-specific TME denominators and explicit source-rounding reconciliation.
 Why: Historical interaction must be built on a tested classification rather than visual interpolation or changing category definitions.

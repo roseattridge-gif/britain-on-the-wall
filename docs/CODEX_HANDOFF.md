@@ -1,5 +1,9 @@
 # CODEX HANDOFF
 
+## V1 launch candidate — 2026-09-04
+
+The bounded V1 is implemented: readable What Changed comparisons; official productivity, benefit fraud/error, tax-gap and debt-interest context; five Claim → Evidence checks; deterministic Ask Britain with an explicit unsupported state; two seven-step shareable journeys; a public trust/method section; and launch audit, data register, private-test plan and scorecard. Automated tests, type checking, production build and browser receipts are the technical gate. Public-launch approval remains deliberately withheld until the documented 10–15-person private test is run and every scorecard dimension is at least 4/5. No generative chat, forecasts, accounts, payments, Justice or Education expansion was added.
+
 ## Main Wall readability pass — 2026-09-04
 
 1. **Cash percentage change:** yes, it is visible on every row with a prior comparable period.
