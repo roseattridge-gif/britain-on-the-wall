@@ -5,6 +5,7 @@ import {evidenceForYear,realYears,type RealYear} from './data/real/adapter';
 import {storyEvidenceById} from './data/real/story';
 import {healthStoryEvidenceById} from './data/real/healthStory';
 import {housingStoryEvidenceById} from './data/real/housingStory';
+import {valueLeakageEvidenceById} from './data/real/valueLeakage';
 import {SystemCanvas} from './components/SystemCanvas';
 import {NationalWall,type WallFocus} from './components/NationalWall';
 import {EvidenceDrawer} from './components/EvidenceDrawer';
@@ -23,7 +24,7 @@ export default function App(){
   const[year,setYear]=useState<Year>(initialYear),[unit,setUnit]=useState<'hundred'|'bn'>(initialUnit),[leaks,setLeaks]=useState(false),[receipt,setReceipt]=useState(false),[evidence,setEvidence]=useState<Evidence>();
   const[view,setView]=useState<View>(params().get('view')==='changed'?'changed':'britain'),[story,setStory]=useState<StoryId>(initialStory),[focus,setFocus]=useState<WallFocus|undefined>(initialMetrics().length?{topicId:initialStory(),periodId:params().get('period')??`${initialYear()}-${String(initialYear()+1).slice(2)}`,metricIds:initialMetrics(),source:'what-changed'}:undefined);
   const[selectedFinding,setSelectedFinding]=useState<string|undefined>(params().get('finding')??undefined),[filter,setFilter]=useState<Filter>('all');
-  const openEvidence=(id:string)=>setEvidence(storyEvidenceById(id)??healthStoryEvidenceById(id)??housingStoryEvidenceById(id)??(dataMode==='real'?evidenceForYear(year as RealYear,id):wallData.evidence.find(x=>x.id===id)));
+  const openEvidence=(id:string)=>setEvidence(storyEvidenceById(id)??healthStoryEvidenceById(id)??housingStoryEvidenceById(id)??valueLeakageEvidenceById(id)??(dataMode==='real'?evidenceForYear(year as RealYear,id):wallData.evidence.find(x=>x.id===id)));
   const legacy=location.pathname.endsWith('/legacy-wall');
   const changeView=(next:View)=>{setView(next);const url=new URL(location.href);if(next==='changed')url.searchParams.set('view','changed');else{url.searchParams.delete('view');url.searchParams.delete('finding')}history.pushState(null,'',url)};
   const selectFinding=(id:string)=>{setSelectedFinding(id);const url=new URL(location.href);url.searchParams.set('view','changed');url.searchParams.set('finding',id);history.replaceState(null,'',url)};

@@ -1,7 +1,7 @@
 export type Year=2005|2010|2015|2020|2021|2022|2023|2024|2025;
 export type Trend='up'|'flat'|'down'; export type Confidence='high'|'medium'|'low';
 export type DataStatus='official'|'derived-from-official'|'illustrative'|'unresolved';
-export type Evidence={id:string;metric:string;definition:string;value?:number;unit:string;period:string;geography:string;basis:string;source:string;dataset?:string;url:string;published:string;checked:string;methodology:string;revision:string;confidence:Confidence;limitations:string;dataStatus?:DataStatus};
+export type Evidence={id:string;metric:string;definition:string;value?:number;valueDisplay?:string;unit:string;period:string;geography:string;basis:string;source:string;dataset?:string;url:string;published:string;checked:string;methodology:string;revision:string;confidence:Confidence;limitations:string;doesNotMeasure?:string;cannotProve?:string;statusLabel?:string;dataStatus?:DataStatus};
 export type Series=Record<number,number>;
 export type Funding={id:string;name:string;icon:string;values:Series;trend:Trend;confidence:Confidence;borrowing?:boolean;evidenceId:string;dataStatus?:DataStatus};
 export type Domain={id:string;name:string;short:string;icon:string;values:Series;trend:Trend;confidence:Confidence;evidenceId:string;dataStatus?:DataStatus};

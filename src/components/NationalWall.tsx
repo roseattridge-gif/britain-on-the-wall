@@ -5,6 +5,7 @@ import {displayPeriod,realYears,type RealYear} from '../data/real/adapter';
 import {HowWeGotHere,type StoryId} from './HowWeGotHere';
 import {MoneyDisplay} from './MoneyDisplay';
 import type {Year} from '../types';
+import {ValueLeakage} from './ValueLeakage';
 
 type Unit='hundred'|'bn';
 export type WallFocus={topicId?:StoryId;periodId?:string;metricIds?:string[];source?:'what-changed'|'manual'};
@@ -55,6 +56,6 @@ export function NationalWall({year,setYear,unit,setUnit,openEvidence,story,setSt
       <section className="pool-column"><div className="pool-label"><span>PUBLIC MONEY</span><strong><MoneyDisplay value="100"/></strong><em>of every £100</em><small>{total>=1000?<><MoneyDisplay value={(total/1000).toFixed(3)} unit="tn"/> in total</>:<><MoneyDisplay value={total.toFixed(1)} unit="bn"/> in total</>}</small></div><div className="pool-object"><div className="britain-mark">BRITAIN</div></div><p>Money in equals money out.<br/><small>Borrowing balances the gap.</small></p></section>
       <section className="fiscal-column destinations"><div className="section-heading"><small>02 · MONEY OUT</small><h1>Where Britain’s £100 goes</h1></div>{destinations.map((item,i)=><FiscalRow key={item.id} item={item} total={total} previousTotal={previousTotal} baseTotal={baseTotal} unit={unit} flowDirection="out" rank={i} major={majorDestinations.has(item.id)} hasPrior={hasPrior} previousPeriod={previousPeriod} active={activeFlow===`out:${item.id}`} setActive={active=>setHoverFlow(active?`out:${item.id}`:undefined)} selectActive={()=>setSelectedFlow(`out:${item.id}`)} openEvidence={openEvidence}/>)}</section>
     </section>
-    <section className="lower-editorial" id="history" ref={historyRef} tabIndex={-1}><HowWeGotHere year={year} setYear={setYear} openEvidence={openEvidence} story={story} setStory={setStory} focus={focus}/></section><footer className="editorial-footer"><b>TRANSPARENT · EVIDENCE-BASED · INDEPENDENT</b><span>Official sources, visible definitions and explicit limits.</span></footer>
+    <ValueLeakage year={year} openEvidence={openEvidence}/><section className="lower-editorial" id="history" ref={historyRef} tabIndex={-1}><HowWeGotHere year={year} setYear={setYear} openEvidence={openEvidence} story={story} setStory={setStory} focus={focus}/></section><footer className="editorial-footer"><b>TRANSPARENT · EVIDENCE-BASED · INDEPENDENT</b><span>Official sources, visible definitions and explicit limits.</span></footer>
   </main>;
 }
