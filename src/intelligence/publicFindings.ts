@@ -4,11 +4,13 @@ import type {ContradictionSignal,InflectionSignal,IntelligenceConfidence,Intelli
 import {formatPublicMetricValue,semanticsFor} from '../metricSemantics';
 
 export type PublicTopicId='health'|'immigration'|'housing';
+export type PublicComparison={metricId:string;metricLabel:string;beforeValue:string;beforePeriod:string;afterValue:string;afterPeriod:string;deltaLabel:string;geography:string};
 export type PublicFinding={
   id:string;topicId:PublicTopicId;headline:string;summary:string;signalKind:'turning-point'|'co-movement';signalType:string;
   primaryValue?:string;previousValue?:string;numberLine:string;periodLabel:string;confidence:IntelligenceConfidence;
   evidenceIds:string[];limitation:string;whatHappened:string;whyFlagged:string;rawSignalIds:string[];materiality:number;
   focusTarget:{topicId:PublicTopicId;periodId:string;metricIds:string[]};
+  comparisons:PublicComparison[];
 };
 
 const publicLabels:Record<string,string>={
@@ -23,6 +25,8 @@ const unique=<T,>(items:T[])=>[...new Set(items)];
 const pointFor=(topicId:string,metricId:string,periodId:string)=>seriesById(topicId,metricId)?.points.find(point=>point.periodId===periodId);
 const previousPoint=(topicId:string,metricId:string,periodId:string)=>{const points=seriesById(topicId,metricId)?.points??[];const index=points.findIndex(point=>point.periodId===periodId);return index>0?points[index-1]:undefined};
 const latestPoint=(topicId:string,metricId:string)=>[...(seriesById(topicId,metricId)?.points??[])].reverse().find(point=>point.value!==undefined);
+const deltaLabel=(metricId:string,before:number|undefined,after:number|undefined,unit:string)=>{if(before===undefined||after===undefined||before===0)return 'No comparable percentage change';const change=after-before,arrow=change>0?'↑':change<0?'↓':'—';return unit==='percent'?`${arrow} ${Math.abs(change).toFixed(1)} percentage points`:`${arrow} ${Math.abs(change/before*100).toFixed(1)}%`};
+const comparison=(metricId:string,beforeValue:number|undefined,beforePeriod:string,afterValue:number|undefined,afterPeriod:string,unit:string):PublicComparison=>({metricId,metricLabel:semanticsFor(metricId)?.publicLabel??label(metricId),beforeValue:format(metricId,beforeValue,unit),beforePeriod,afterValue:format(metricId,afterValue,unit),afterPeriod,deltaLabel:deltaLabel(metricId,beforeValue,afterValue,unit),geography:semanticsFor(metricId)?.geographyLabel??'United Kingdom'});
 
 const inflectionHeadline=(signal:InflectionSignal,combined?:InflectionSignal)=>{
   const name=label(signal.metricId);
@@ -55,7 +59,7 @@ const fromInflection=(signal:InflectionSignal,combined?:InflectionSignal):Public
     periodLabel:`Turning point: ${peakOrTrough.measurementPeriod}${combined&&latest?.measurementPeriod?` · Latest: ${latest.measurementPeriod}`:''}`,confidence:grouped.some(item=>item.comparability==='medium')?'medium':'high',
     evidenceIds:unique(grouped.flatMap(item=>item.evidenceIds).concat(latest?.evidenceIds??[])),limitation:'This identifies a change in the shape of the series. It does not explain why the change happened.',
     whatHappened:headline+'.',whyFlagged:`The comparable series changed direction around ${peakOrTrough.measurementPeriod}.`,rawSignalIds:grouped.map(item=>item.id),materiality:Math.max(...grouped.map(item=>item.materiality)),
-    focusTarget:{topicId:signal.topicId as PublicTopicId,periodId:signal.periodId,metricIds:[signal.metricId]}};
+    focusTarget:{topicId:signal.topicId as PublicTopicId,periodId:signal.periodId,metricIds:[signal.metricId]},comparisons:[comparison(signal.metricId,peakOrTrough.value,peakOrTrough.measurementPeriod,end,combined&&latest?.measurementPeriod?latest.measurementPeriod:signal.measurementPeriod,series.unit)]};
 };
 
 const fromContradiction=(signal:ContradictionSignal):PublicFinding=>{
@@ -64,7 +68,7 @@ const fromContradiction=(signal:ContradictionSignal):PublicFinding=>{
   const numberLine=`${semanticsFor(signal.leftMetricId)?.publicLabel??label(signal.leftMetricId)}: ${format(signal.leftMetricId,leftPrev?.value,leftSeries.unit)} → ${format(signal.leftMetricId,left?.value,leftSeries.unit)} · ${semanticsFor(signal.rightMetricId)?.publicLabel??label(signal.rightMetricId)}: ${format(signal.rightMetricId,rightPrev?.value,rightSeries.unit)} → ${format(signal.rightMetricId,right?.value,rightSeries.unit)}`;
   return{id:`finding-${signal.id}`,topicId:signal.topicId as PublicTopicId,headline,summary:`${signal.explanation.observed} Observed co-movement; not proof of cause.`,signalKind:'co-movement',signalType:signal.type,numberLine,periodLabel:`${signal.leftMeasurementPeriod} · ${signal.rightMeasurementPeriod}`,confidence:signal.comparability,evidenceIds:signal.evidenceIds,
     limitation:'Observed co-movement. Not evidence that one caused the other.',whatHappened:`${headline}.`,whyFlagged:`Both comparable measures moved in a noteworthy pattern in ${signal.periodId}.`,rawSignalIds:[signal.id],materiality:signal.materiality,
-    focusTarget:{topicId:signal.topicId as PublicTopicId,periodId:signal.periodId,metricIds:[signal.leftMetricId,signal.rightMetricId]}};
+    focusTarget:{topicId:signal.topicId as PublicTopicId,periodId:signal.periodId,metricIds:[signal.leftMetricId,signal.rightMetricId]},comparisons:[comparison(signal.leftMetricId,leftPrev?.value,leftPrev?.measurementPeriod??'Previous comparable period',left?.value,left?.measurementPeriod??signal.leftMeasurementPeriod,leftSeries.unit),comparison(signal.rightMetricId,rightPrev?.value,rightPrev?.measurementPeriod??'Previous comparable period',right?.value,right?.measurementPeriod??signal.rightMeasurementPeriod,rightSeries.unit)]};
 };
 
 export const adaptSignalsToPublicFindings=(signals:IntelligenceSignal[]):PublicFinding[]=>{
