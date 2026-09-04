@@ -1,5 +1,24 @@
 # CODEX HANDOFF
 
+# V1 regression repair — 2026-09-04
+
+1. **Why favicon was missing:** `index.html` had no favicon link and the repository contained no approved favicon files.
+2. **Assets now live:** NONE YET. A recreated crowned-wall candidate and 32/192px derivatives are isolated locally, but publication awaits explicit founder approval because the exact approved asset was unavailable.
+3. **Production browser rendering:** NOT YET for this increment; production deployment is intentionally blocked on favicon approval.
+4. **Number/unit composition:** shared `MetricValueText` parses the dominant magnitude into `metric-value-number` and the semantic noun/denominator into `metric-value-unit`; unavailable values get a smaller wrapping treatment.
+5. **Views repaired:** story hero cards, trend current summaries, What Changed comparisons, guided journeys and Ask Britain key evidence.
+6. **Clipping:** no document overflow at 390px; desktop Health and Immigration cards are clear. Housing's long unavailable state was found during browser review and repaired with a dedicated wrapping style.
+7. **Ask catalogue:** 25 supported deterministic questions across national money, Health, Immigration, Housing and value/leakage.
+8. **Matching:** normalized exact canonical match scores 100, exact alias 95, otherwise alias-phrase and weighted keyword overlap compete; stable ID ordering breaks a tie.
+9. **Threshold:** 28. Normative, electoral and forecast language stops before scoring.
+10. **Tested variants:** tax gap/uncollected tax, NHS waiting/falling/coming down, inherited migration/falling before Labour, debt interest, benefit fraud/error, productivity and temporary accommodation, plus five unsupported questions.
+11. **Value focus ownership:** YES. Tax gap, benefit error, productivity and debt interest use the `value-leakage` target kind; no fake Health or Housing ownership remains.
+12. **Ask URL restoration:** YES locally for `?view=ask&q=...`; navigation clears stale question, journey, finding, metric and value-focus state.
+13. **Guided journeys:** YES locally; direct step state and next/previous remain intact, with shared semantic value rendering.
+14. **Underlying data changed:** NO.
+15. **Regression suite:** PENDING final green run after the favicon decision.
+16. **Private-test readiness:** NO. Metric and Ask repairs are locally verified; favicon approval, final commit, deployment and production verification remain required.
+
 # BOTW V1 — PRIVATE TEST READY
 
 Feature scope frozen: YES
