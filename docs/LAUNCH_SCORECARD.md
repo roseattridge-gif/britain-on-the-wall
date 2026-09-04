@@ -11,7 +11,7 @@ Scale: 1 unusable, 2 weak, 3 workable with material issues, 4 launch standard, 5
 | Ask Britain usefulness | 4 | Supported deterministic intents plus explicit unsupported stop |
 | Guided journeys | 4 | Two seven-step, shareable journeys with per-step limitations |
 | Neutrality / attribution | 4 | Chronology and co-movement caveats are systematic; confirm participant interpretation |
-| Mobile usability | PENDING | Requires final 390×844 receipt and participant testing |
+| Mobile usability | 4 | 390×844 has no document overflow or browser errors; confirm on participant devices |
 | Performance / reliability | 4 | Static bundle, no runtime fetching; automated suite and production build pass |
 | Public trust | PENDING | “How BOTW works” is public; trust score requires participants |
 

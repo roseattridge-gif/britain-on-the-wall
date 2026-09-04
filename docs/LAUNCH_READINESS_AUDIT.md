@@ -18,14 +18,14 @@ Initial audit was made at `b2f22ac`; this status was updated after implementatio
 | G. Evidence drawer final pass | NEEDS WORK | Public label/unit, source, definition, status and limits exist | Ensure every launch headline resolves with relevant value, period and geography |
 | H. Site copy | NEEDS WORK | Non-causal and scope language is strong | Audit new and existing public copy for jargon, abbreviations and partisan implication |
 | I. Top navigation | PASS | Exactly `BRITAIN`, `WHAT CHANGED`, `ASK BRITAIN` | Keep topic navigation internal |
-| J. Mobile | NEEDS WORK | Current Wall, stories and What Changed pass 390px checks | Verify leakage, Ask Britain, journeys and drawer at 390×844 |
+| J. Mobile | PASS | 390×844 Ask/evidence check has zero overflow and no browser warnings/errors | Confirm on participant devices |
 | K. Performance | PASS | Static typed data, no runtime fetching, no heavy new libraries or decorative imagery | Keep new launch data bundled and dependency-free |
 | L. How BOTW works | PASS | Ten concise public trust/method principles in Ask Britain | Retain evidence detail in drawer |
 | Launch data register | PASS | `LAUNCH_DATA_REGISTER.md` inventories headline values and boundaries | Update with releases |
 | Private test package | PASS | `PRIVATE_TEST_PLAN.md` defines 10–15-user protocol | Execution remains external |
 | Launch scorecard | EXTERNAL GATE | Pre-test technical scores recorded; comprehension/mobile trust unscored | Complete after private test; no dimension below 4 |
-| Final QA receipts | FAIL | Strong increment-level QA exists | Capture all seven named launch screenshots after implementation |
-| Test coverage | NEEDS WORK | 179 tests cover Wall, stories, intelligence and semantic labels | Add launch feature, evidence, neutrality, mobile-structure and URL-state tests |
+| Final QA receipts | PASS | Seven named receipts recorded in `docs/qa`; browser interaction and widths logged | Repeat after material UI changes |
+| Test coverage | PASS | 196 tests cover Wall, stories, intelligence, launch routing, journeys and URL state | Preserve green suite |
 | Real-data public default | PASS | `dataMode` uses the accepted real-data adapter; public story values resolve to official evidence | Preserve; no placeholder headline values |
 | Launch boundary | PASS | No accounts, payments, generative chat, forecasts or broad domain expansion | Document as post-launch scope |
 
