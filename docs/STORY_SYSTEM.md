@@ -28,6 +28,8 @@ The handover marker compares the latest suitable measure before/at the boundary 
 
 Every government period and story event must resolve to at least one official or authoritative source. Each evidence record exposes publication, date, definition, classification method, confidence and limitations through the existing in-place drawer. Primary sources are preferred: ONS, Home Office, Parliament, legislation, NAO, OBR and other authoritative public bodies.
 
+Every metric configuration must also supply sufficient public semantics to stand alone: a plain-English label, public unit or unit noun, concise definition and geography. Values, selected-year summaries, comparisons, chart accessibility labels and evidence surfaces must render from that shared semantic metadata; technical units remain unchanged for calculation.
+
 ## Visual grammar
 
 The chronology is a compact editorial exhibit, not a dashboard. Party is restrained context and policy events are deliberately sparse. A two-option selector loads Immigration or Health while preserving the selected fiscal year. Immigration shows net migration, asylum backlog and decision output. Health shows UK nominal spend/share separately from four England operational measures: workforce, completed RTT pathways, waiting list and 18-week performance. The selected-year summary preserves the same evidence and attribution grammar.

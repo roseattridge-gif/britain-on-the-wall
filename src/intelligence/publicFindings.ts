@@ -1,6 +1,7 @@
 import {getTopIntelligenceSignals} from './index';
 import {seriesById} from './registry';
 import type {ContradictionSignal,InflectionSignal,IntelligenceConfidence,IntelligenceSignal} from './types';
+import {formatPublicMetricValue,semanticsFor} from '../metricSemantics';
 
 export type PublicTopicId='health'|'immigration'|'housing';
 export type PublicFinding={
@@ -17,7 +18,7 @@ const publicLabels:Record<string,string>={
 };
 const label=(id:string)=>publicLabels[id]??seriesById('',id)?.label??id;
 const lower=(id:string)=>label(id).startsWith('NHS ')?`the ${label(id)}`:label(id).replace(/^./,char=>char.toLowerCase());
-const format=(value:number|undefined,unit:string)=>value===undefined?'Not available':unit.includes('£bn')?`£${value.toFixed(1)}bn`:unit==='percent'?`${value.toFixed(1)}%`:unit==='ratio'?`${value.toFixed(2)}×`:unit==='FTE'?`${(value/1e6).toFixed(2)}m`:unit==='pathways'?`${(value/1e6).toFixed(2)}m`:unit==='thousand'?`${value.toLocaleString()}k`:value.toLocaleString();
+const format=(metricId:string,value:number|undefined,unit:string)=>formatPublicMetricValue(metricId,value,unit);
 const unique=<T,>(items:T[])=>[...new Set(items)];
 const pointFor=(topicId:string,metricId:string,periodId:string)=>seriesById(topicId,metricId)?.points.find(point=>point.periodId===periodId);
 const previousPoint=(topicId:string,metricId:string,periodId:string)=>{const points=seriesById(topicId,metricId)?.points??[];const index=points.findIndex(point=>point.periodId===periodId);return index>0?points[index-1]:undefined};
@@ -49,8 +50,8 @@ const fromInflection=(signal:InflectionSignal,combined?:InflectionSignal):Public
   const peakOrTrough=grouped.find(item=>item.type==='peak'||item.type==='trough')??signal;
   const headline=inflectionHeadline(signal,combined);const end=combined&&latest?.value!==undefined?latest.value:signal.nextValue??signal.value;
   return{id:`finding-${grouped.map(item=>item.id).sort().join('--')}`,topicId:signal.topicId as PublicTopicId,headline,
-    summary:`${headline}. The comparable series moved from ${format(peakOrTrough.value,series.unit)} to ${format(end,series.unit)}.`,signalKind:'turning-point',signalType:grouped.map(item=>item.type).sort().join('+'),
-    primaryValue:format(end,series.unit),previousValue:format(peakOrTrough.value,series.unit),numberLine:`${format(peakOrTrough.value,series.unit)} → ${format(end,series.unit)}`,
+    summary:`${headline}. The comparable series moved from ${format(signal.metricId,peakOrTrough.value,series.unit)} to ${format(signal.metricId,end,series.unit)}.`,signalKind:'turning-point',signalType:grouped.map(item=>item.type).sort().join('+'),
+    primaryValue:format(signal.metricId,end,series.unit),previousValue:format(signal.metricId,peakOrTrough.value,series.unit),numberLine:`${format(signal.metricId,peakOrTrough.value,series.unit)} → ${format(signal.metricId,end,series.unit)}`,
     periodLabel:`Turning point: ${peakOrTrough.measurementPeriod}${combined&&latest?.measurementPeriod?` · Latest: ${latest.measurementPeriod}`:''}`,confidence:grouped.some(item=>item.comparability==='medium')?'medium':'high',
     evidenceIds:unique(grouped.flatMap(item=>item.evidenceIds).concat(latest?.evidenceIds??[])),limitation:'This identifies a change in the shape of the series. It does not explain why the change happened.',
     whatHappened:headline+'.',whyFlagged:`The comparable series changed direction around ${peakOrTrough.measurementPeriod}.`,rawSignalIds:grouped.map(item=>item.id),materiality:Math.max(...grouped.map(item=>item.materiality)),
@@ -60,7 +61,7 @@ const fromInflection=(signal:InflectionSignal,combined?:InflectionSignal):Public
 const fromContradiction=(signal:ContradictionSignal):PublicFinding=>{
   const left=pointFor(signal.topicId,signal.leftMetricId,signal.periodId),right=pointFor(signal.topicId,signal.rightMetricId,signal.periodId),leftPrev=previousPoint(signal.topicId,signal.leftMetricId,signal.periodId),rightPrev=previousPoint(signal.topicId,signal.rightMetricId,signal.periodId);
   const leftSeries=seriesById(signal.topicId,signal.leftMetricId)!,rightSeries=seriesById(signal.topicId,signal.rightMetricId)!;const headline=contradictionHeadline(signal);
-  const numberLine=`${format(leftPrev?.value,leftSeries.unit)} → ${format(left?.value,leftSeries.unit)} · ${format(rightPrev?.value,rightSeries.unit)} → ${format(right?.value,rightSeries.unit)}`;
+  const numberLine=`${semanticsFor(signal.leftMetricId)?.publicLabel??label(signal.leftMetricId)}: ${format(signal.leftMetricId,leftPrev?.value,leftSeries.unit)} → ${format(signal.leftMetricId,left?.value,leftSeries.unit)} · ${semanticsFor(signal.rightMetricId)?.publicLabel??label(signal.rightMetricId)}: ${format(signal.rightMetricId,rightPrev?.value,rightSeries.unit)} → ${format(signal.rightMetricId,right?.value,rightSeries.unit)}`;
   return{id:`finding-${signal.id}`,topicId:signal.topicId as PublicTopicId,headline,summary:`${signal.explanation.observed} Observed co-movement; not proof of cause.`,signalKind:'co-movement',signalType:signal.type,numberLine,periodLabel:`${signal.leftMeasurementPeriod} · ${signal.rightMeasurementPeriod}`,confidence:signal.comparability,evidenceIds:signal.evidenceIds,
     limitation:'Observed co-movement. Not evidence that one caused the other.',whatHappened:`${headline}.`,whyFlagged:`Both comparable measures moved in a noteworthy pattern in ${signal.periodId}.`,rawSignalIds:[signal.id],materiality:signal.materiality,
     focusTarget:{topicId:signal.topicId as PublicTopicId,periodId:signal.periodId,metricIds:[signal.leftMetricId,signal.rightMetricId]}};

@@ -125,3 +125,9 @@ The third chapter is a desktop side sheet and a full-width mobile sheet. Its ord
 - use unexplained technical language as the public label.
 - Let party colour dominate or imply a score.
 - Add a new product feature during a visual-system pass.
+
+# Metric semantics
+
+> No naked numbers.
+
+Every public metric identifies what is measured, its unit or human unit noun, its actual period, and its geography where material. Use `7.11m pathways`, `64,426 people`, `135,580 households`, `1.38m FTE staff`, `208,600 homes`, `65.3% of RTT pathways within 18 weeks`, and `7.64× earnings`. Before/after values repeat the unit on both sides. Plain-English labels belong in the interface; full official definitions remain in evidence.

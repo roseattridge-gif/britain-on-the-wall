@@ -302,3 +302,18 @@ No data or topics were added. The existing Immigration, Health and Housing adapt
 10. **Government:** NO. Government does not enter signal calculation, public eligibility or ranking.
 11. **Visual QA:** verified at 1440×900 and 390×844. The restrained navigation, editorial hierarchy, two-column desktop cards, readable selected detail, persistent Wall highlight and horizontally scrolling mobile topic control all held; the mobile page itself showed no visible horizontal clipping. Receipts are in `docs/qa/what-changed-*.png`.
 12. **Ask Britain readiness:** yes as a deterministic substrate. Findings now expose stable topic, metric, period, evidence and focus primitives; question routing and generative interpretation remain deliberately out of scope.
+
+# Metric semantic clarity pass — 2026-09-04
+
+1. **Fixed ambiguities:** story hero values, selected-year changes, trend summaries, chart ARIA labels, intelligence comparisons and story evidence headings now carry shared public semantics.
+2. **NHS waiting list:** `pathways`.
+3. **Asylum backlog:** `people`.
+4. **Temporary accommodation:** `households`.
+5. **18-week performance:** `% of RTT pathways within 18 weeks`.
+6. **Affordability:** `7.64× earnings`, defined as median house price divided by median earnings.
+7. **Net migration:** values are labelled `net migration`, defined as long-term immigration minus long-term emigration; provisional wording remains in the period.
+8. **Underlying numeric values changed:** NO.
+9. **Official definitions changed:** NO.
+10. **Rule documented and tested:** YES. “No naked numbers” is in the design system and explicit semantic audit tests cover key nouns and comparisons.
+11. **What Changed:** YES. Both sides of each comparison carry their unit meaning and multi-metric findings name each metric.
+12. **Remaining ambiguity:** policy-event evidence has no numeric metric by design. Fiscal Wall rows retain their existing explicit money/share grammar. The shared RTT evidence record covers both waiting-list volume and 18-week performance, so its default public evidence heading follows the waiting-list entry while the full definition retains both measures.
