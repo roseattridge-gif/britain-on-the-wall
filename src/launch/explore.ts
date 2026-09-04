@@ -1,0 +1,47 @@
+import type {PublicTopicId} from '../intelligence/publicFindings';
+
+export type FocusTarget={topicId:PublicTopicId;periodId:string;metricIds:string[]};
+export type Claim={id:string;claim:string;context:string;evidenceIds:string[];focusTarget:FocusTarget};
+export type JourneyStep={eyebrow:string;title:string;value:string;explanation:string;limit:string;evidenceIds:string[];focusTarget:FocusTarget};
+export type Journey={id:'immigration'|'health';title:string;question:string;steps:JourneyStep[]};
+
+export const claims:Claim[]=[
+  {id:'tax-gap',claim:'The estimated UK tax gap was £59.2bn in 2024–25.',context:'HMRC estimates this as 6.4% of theoretical tax liabilities. It is not an estimate of tax evasion alone.',evidenceIds:['launch-tax-gap'],focusTarget:{topicId:'housing',periodId:'2024-25',metricIds:[]}},
+  {id:'benefit-error',claim:'Benefits were overpaid by an estimated £9.9bn in FYE 2026.',context:'The total includes fraud, claimant error and official error; it is not all claimant fraud.',evidenceIds:['launch-benefit-error'],focusTarget:{topicId:'health',periodId:'2025-26',metricIds:[]}},
+  {id:'productivity',claim:'Public-service productivity rose an estimated 0.9% in 2025.',context:'ONS classifies this aggregate as statistics in development; it remained 2.5% below 2019.',evidenceIds:['launch-productivity'],focusTarget:{topicId:'health',periodId:'2025-26',metricIds:['health-rtt-activity']}},
+  {id:'migration',claim:'Net migration peaked around 944,000, then fell to 204,000.',context:'The rolling annual series spans governments and has been revised. Chronology does not apportion the fall between policies.',evidenceIds:['story-ons-net-migration'],focusTarget:{topicId:'immigration',periodId:'2025-26',metricIds:['net-migration']}},
+  {id:'housing',claim:'Temporary accommodation reached 135,580 households at 31 March 2026.',context:'This England measure is a point-in-time count, not the total number of households experiencing homelessness over a year.',evidenceIds:['story-housing-temporary-accommodation'],focusTarget:{topicId:'housing',periodId:'2025-26',metricIds:['housing-temporary-accommodation']}},
+];
+
+const f=(topicId:PublicTopicId,periodId:string,metricIds:string[]):FocusTarget=>({topicId,periodId,metricIds});
+export const journeys:Record<'immigration'|'health',Journey>={
+  immigration:{id:'immigration',title:'How did migration change across the handover?',question:'What was inherited, and what happened next?',steps:[
+    {eyebrow:'01 · THE RISE',title:'Net migration rose sharply after 2021',value:'466,000',explanation:'The comparable year-ending series was about 466,000 at June 2021 and continued upwards.',limit:'A rolling annual estimate is not a point-in-time government score.',evidenceIds:['story-ons-net-migration'],focusTarget:f('immigration','2021-22',['net-migration'])},
+    {eyebrow:'02 · POLICY CONTEXT',title:'Work and graduate routes expanded',value:'2021–22',explanation:'The Graduate route opened and care workers became eligible for the Health and Care visa.',limit:'Sequence alone does not quantify either policy’s contribution.',evidenceIds:['story-graduate-route','story-care-route'],focusTarget:f('immigration','2021-22',['net-migration'])},
+    {eyebrow:'03 · PEAK',title:'The revised series reached its high point',value:'944,000',explanation:'Net migration peaked in the year ending March 2023.',limit:'The estimate has been revised and the year spans more than one administration.',evidenceIds:['story-ons-net-migration'],focusTarget:f('immigration','2022-23',['net-migration'])},
+    {eyebrow:'04 · RESTRICTIONS',title:'Several restrictions took effect in early 2024',value:'JAN–APR 2024',explanation:'Student and care-worker dependant rules tightened and the general Skilled Worker salary threshold rose.',limit:'A policy date is not evidence of its measured effect.',evidenceIds:['story-student-dependants','story-care-dependants','story-skilled-threshold'],focusTarget:f('immigration','2023-24',['net-migration'])},
+    {eyebrow:'05 · BEFORE HANDOVER',title:'The measure was already falling',value:'649,000',explanation:'The latest pre-handover annual estimate, for the year ending June 2024, was below the peak.',limit:'The annual window overlaps earlier policy and behaviour.',evidenceIds:['story-ons-net-migration'],focusTarget:f('immigration','2024-25',['net-migration'])},
+    {eyebrow:'06 · HANDOVER',title:'Government changed on 5 July 2024',value:'5 JUL 2024',explanation:'The handover sits inside overlapping measurement periods rather than between clean annual blocks.',limit:'BOTW does not assign the inherited level to one party.',evidenceIds:['story-government-history'],focusTarget:f('immigration','2024-25',['net-migration'])},
+    {eyebrow:'07 · WHAT FOLLOWED',title:'The fall continued after the handover',value:'204,000',explanation:'Provisional net migration fell to 204,000 in the year ending June 2025; 64,426 people awaited an initial asylum decision at December 2025.',limit:'The timeline cannot apportion the fall between governments or individual measures.',evidenceIds:['story-ons-net-migration','story-asylum-awaiting'],focusTarget:f('immigration','2025-26',['net-migration','asylum-awaiting-initial'])},
+  ]},
+  health:{id:'health',title:'Did higher health spending improve outcomes?',question:'Follow money, capacity, activity and waiting together.',steps:[
+    {eyebrow:'01 · MONEY',title:'Health and social-care spending increased',value:'£313.7bn',explanation:'UK public spending provides the fiscal context for the 2025–26 complete outturn.',limit:'The operational measures that follow cover NHS England, not the whole UK.',evidenceIds:['e-health'],focusTarget:f('health','2025-26',['health-spend'])},
+    {eyebrow:'02 · CAPACITY',title:'The NHS workforce was larger',value:'1.38m FTE',explanation:'Hospital and Community Health Service full-time-equivalent staff in England increased across the comparable period.',limit:'This excludes primary care and does not itself measure productivity.',evidenceIds:['story-health-workforce'],focusTarget:f('health','2025-26',['health-workforce'])},
+    {eyebrow:'03 · ACTIVITY',title:'More pathways were completed in March',value:'1.71m',explanation:'Admitted plus non-admitted referral-to-treatment pathways completed in March 2026 rose.',limit:'This is a monthly count, not annual output, and does not describe case complexity or quality.',evidenceIds:['story-health-activity'],focusTarget:f('health','2025-26',['health-rtt-activity'])},
+    {eyebrow:'04 · OUTCOME',title:'The waiting list remained very large',value:'7.11m',explanation:'Incomplete referral-to-treatment pathways at 31 March 2026 remained above March 2022.',limit:'Pathways are not unique patients.',evidenceIds:['story-health-rtt'],focusTarget:f('health','2025-26',['health-rtt-waiting'])},
+    {eyebrow:'05 · STANDARD',title:'The 18-week standard remained unmet',value:'65.3%',explanation:'The share of incomplete pathways waiting no more than 18 weeks was below the 92% constitutional standard.',limit:'This is one operational performance measure, not a complete account of care.',evidenceIds:['story-health-rtt'],focusTarget:f('health','2025-26',['health-rtt-18-week'])},
+    {eyebrow:'06 · PRODUCTIVITY CONTEXT',title:'Aggregate public-service productivity rose',value:'+0.9%',explanation:'ONS estimates output grew faster than inputs in calendar 2025 across public services.',limit:'This aggregate cannot explain NHS waiting-list changes or cash savings.',evidenceIds:['launch-productivity'],focusTarget:f('health','2025-26',['health-rtt-activity'])},
+    {eyebrow:'07 · CONCLUSION',title:'More resource and activity did not clear the backlog',value:'MIXED',explanation:'Spending and workforce rose; March activity increased and waiting fell recently, but remained above March 2022.',limit:'Observed co-movement is not proof that spending caused, or failed to prevent, any outcome.',evidenceIds:['e-health','story-health-workforce','story-health-activity','story-health-rtt'],focusTarget:f('health','2025-26',['health-spend','health-workforce','health-rtt-activity','health-rtt-waiting'])},
+  ]},
+};
+
+export type AskAnswer={title:string;answer:string;claim:Claim;suggestions:string[]};
+const intents=[
+  {terms:['tax gap','tax lost','unpaid tax','tax avoidance'],claim:'tax-gap',title:'How large is the tax gap?'},
+  {terms:['benefit fraud','benefit error','overpayment','benefits lost'],claim:'benefit-error',title:'How much is lost through benefit fraud and error?'},
+  {terms:['productivity','public service efficiency','value for money'],claim:'productivity',title:'Is public-service productivity improving?'},
+  {terms:['migration','immigration','net migration','handover'],claim:'migration',title:'What happened to net migration?'},
+  {terms:['temporary accommodation','homelessness','housing need'],claim:'housing',title:'How many households are in temporary accommodation?'},
+];
+export const askSuggestions=['What happened to net migration?','Is public-service productivity improving?','How large is the tax gap?','How much is lost through benefit fraud and error?'];
+export function answerQuestion(question:string):AskAnswer|undefined{const normal=question.toLowerCase().replace(/[^a-z0-9£ ]/g,' ');const intent=intents.find(item=>item.terms.some(term=>normal.includes(term)));if(!intent)return;const claim=claims.find(item=>item.id===intent.claim)!;return{title:intent.title,answer:claim.claim,claim,suggestions:askSuggestions.filter(item=>item!==intent.title).slice(0,3)}}
