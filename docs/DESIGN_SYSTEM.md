@@ -60,11 +60,7 @@ Every comparable row exposes four levels in a fixed order: the current monetary 
 
 ### Money typography
 
-Money is composed from separate `.currency-symbol`, `.money-value` and `.money-unit` elements. The number keeps the typographic emphasis; the pound sign is 0.78em, lighter and optically spaced, while `bn` or `tn` is 0.52em. This component is canonical for fiscal rows, the central £100, total public money and story money cards.
-
-### Flow behaviour
-
-All fiscal ribbons remain proportional but rest at low opacity. Hovering or keyboard-focusing a fiscal row raises its own ribbon to strong opacity and quietens every unrelated ribbon. Borrowing and technical paths retain their dashed semantics. Ribbons are hidden in stacked tablet/mobile layouts.
+Money is composed from separate `.currency-symbol`, `.money-value` and `.money-unit` elements. Currency symbols are optically separated from numeric values. Digits carry the visual weight; the £ sign is smaller and lighter with deliberate breathing room, while `bn` or `tn` is smaller, lighter and separately spaced. Monetary values use tabular lining numerals and never inherit the masthead’s tight tracking. This component is canonical for fiscal rows, the central £100, total public money and story money cards.
 
 ### Proportional mark
 
