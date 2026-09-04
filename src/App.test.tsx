@@ -2,6 +2,7 @@ import {render,screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe,expect,it} from 'vitest';
 import App from './App';
+import {getPublicFindings} from './intelligence/publicFindings';
 import nationalCss from './national.css?raw';
 import nationalSource from './components/NationalWall.tsx?raw';
 
@@ -36,4 +37,11 @@ describe('approved £100 national Wall',()=>{
   it('uses one shared topic tab grammar and plain-English public metric labels',()=>{render(<App/>);expect(screen.getByRole('tablist',{name:'Story topic'})).toBeInTheDocument();expect(screen.getAllByText('People awaiting an asylum decision').length).toBeGreaterThan(0);expect(screen.getAllByText('Asylum decisions made').length).toBeGreaterThan(0);expect(screen.queryByText('Substantive initial decisions')).not.toBeInTheDocument()});
   it('keeps public typography above the 11px metadata floor',()=>{for(const size of ['3px','4px','5px','6px','7px','8px','9px','10px']){expect(nationalCss).not.toContain(`font-size:${size}`);expect(nationalCss).not.toContain(`font:${size}`)}});
   it('uses a mobile breakpoint, full-width evidence sheet and no obsolete compact story rules',()=>{expect(nationalCss).toContain('@media(max-width:600px)');expect(nationalCss).toContain('.drawer{width:100%');for(const stale of ['story-body','story-track','evidence-summary','health-summary','housing-summary'])expect(nationalCss).not.toContain(stale)});
+});
+
+describe('What Changed in Britain',()=>{
+  it('filters engine-derived findings using public topic controls',async()=>{render(<App/>);await userEvent.click(screen.getByRole('link',{name:'WHAT CHANGED'}));expect(screen.getByRole('heading',{name:'WHAT CHANGED IN BRITAIN?'})).toBeInTheDocument();await userEvent.click(screen.getByRole('button',{name:'HEALTH'}));expect(screen.getAllByText('Health').length).toBeGreaterThan(0);expect(screen.queryByText('Immigration')).not.toBeInTheDocument()});
+  it('opens a semantic finding detail and restores its deterministic URL',async()=>{render(<App/>);await userEvent.click(screen.getByRole('link',{name:'WHAT CHANGED'}));const finding=screen.getAllByRole('button',{expanded:false})[0];await userEvent.click(finding);expect(screen.getByRole('heading',{name:'WHAT HAPPENED'})).toBeInTheDocument();expect(location.search).toContain('finding=finding-')});
+  it('drives the correct Wall topic, year and metric focus',async()=>{const{container}=render(<App/>);await userEvent.click(screen.getByRole('link',{name:'WHAT CHANGED'}));await userEvent.click(screen.getAllByRole('button',{name:'SHOW ME ON THE WALL'})[0]);expect(screen.getByRole('region',{name:/How We Got Here/})).toBeInTheDocument();expect(container.querySelector('.wall-focused')).toBeInTheDocument();expect(location.search).toMatch(/story=(health|immigration|housing)/);expect(location.search).toContain('metric=')});
+  it('restores a selected finding directly from its shareable URL',()=>{const finding=getPublicFindings()[0];history.replaceState(null,'',`/?view=changed&finding=${encodeURIComponent(finding.id)}`);render(<App/>);expect(screen.getByRole('region',{name:`Detail: ${finding.headline}`})).toBeInTheDocument()});
 });
