@@ -25,3 +25,10 @@ This evidence establishes technical launch-candidate readiness. It does not subs
 - National Ask answers now return to `#value-leakage`; story answers return to their metric focus.
 - Receipts: `private-test-1440x900.png`, `what-changed-1920x1080.png`, `health-journey-390x844.png`.
 - Favicon network/recognisability QA could not be run: the three exact approved crowned-wall asset files were not present. No replacement was generated.
+
+## Production readback
+
+- GitHub Pages run `33881973795` completed successfully for `13cd576ca55a86aeb8ac7285500b98f7a8b142df`.
+- `https://britainonthewall.co.uk/?test=1` returned HTTPS 200 and the deployed fingerprints `index-D9FQO05w.js` and `index-BWztVAj3.css`.
+- After a production reload: navigation was exactly Britain / What Changed / Ask Britain; the private banner appeared only with `test=1`; all four value boundaries rendered; the tax-gap Wall action restored `#value-leakage`; the final Health step restored `MIXED`; 1440px had no overflow; the console was clean.
+- The three approved favicon paths returned 404 because their exact asset files were not supplied: `/favicon.ico`, `/favicon-128.png`, `/apple-touch-icon.png`.

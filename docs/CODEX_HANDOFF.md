@@ -18,11 +18,11 @@ Tests: PASS — 13 files / 201 tests
 Typecheck: PASS
 Build: PASS
 Diff check: PASS
-GitHub Pages: PENDING FINAL DEPLOYMENT
+GitHub Pages: PASS — run 33881973795 deployed `13cd576ca55a86aeb8ac7285500b98f7a8b142df`; HTTPS and production smoke test passed
 
 Placeholder headline numbers remaining in public mode: NONE FOUND
 Demo-only public content remaining: NONE ON PUBLIC ROUTES; `/legacy-wall` remains a separate development reference
-Broken controls: NONE FOUND IN LOCAL THREE-VIEWPORT QA; final production smoke test pending
+Broken controls: NONE FOUND IN LOCAL THREE-VIEWPORT QA OR PRODUCTION SMOKE TEST
 Known launch blockers: APPROVED FAVICON ASSET FILES NOT SUPPLIED; PRIVATE-TEST THRESHOLD NOT YET MEASURED
 
 Ready for 10–15-person private test: YES
