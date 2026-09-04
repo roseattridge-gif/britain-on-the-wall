@@ -1,11 +1,12 @@
 import {useMemo} from 'react';
 import {displayPeriod} from '../data/real/adapter';
 import {getPublicFindings,type PublicFinding,type PublicTopicId} from '../intelligence/publicFindings';
+import {MetricValueText} from './MetricValue';
 
 type Filter='all'|PublicTopicId;
 type Props={filter:Filter;setFilter:(filter:Filter)=>void;selectedId?:string;selectFinding:(id:string)=>void;openEvidence:(id:string)=>void;showOnWall:(finding:PublicFinding)=>void};
 const topicLabel=(topic:PublicTopicId)=>topic[0].toUpperCase()+topic.slice(1);
-const ComparisonBlock=({finding}:{finding:PublicFinding})=><div className="finding-comparisons">{finding.comparisons.map(item=><section className="finding-comparison" key={item.metricId}><h3>{item.metricLabel}</h3><div className="comparison-values"><div><strong>{item.beforeValue}</strong><small>{item.beforePeriod}</small></div><span aria-hidden="true">↓</span><div><strong>{item.afterValue}</strong><small>{item.afterPeriod}</small></div></div><b>{item.deltaLabel}</b><small>{item.geography}</small></section>)}</div>;
+const ComparisonBlock=({finding}:{finding:PublicFinding})=><div className="finding-comparisons">{finding.comparisons.map(item=><section className="finding-comparison" key={item.metricId}><h3>{item.metricLabel}</h3><div className="comparison-values"><div><MetricValueText display={item.beforeValue}/><small>{item.beforePeriod}</small></div><span aria-hidden="true">↓</span><div><MetricValueText display={item.afterValue}/><small>{item.afterPeriod}</small></div></div><b>{item.deltaLabel}</b><small>{item.geography}</small></section>)}</div>;
 
 export function WhatChangedView({filter,setFilter,selectedId,selectFinding,openEvidence,showOnWall}:Props){
   const all=useMemo(()=>getPublicFindings(),[]);const findings=all.filter(item=>filter==='all'||item.topicId===filter).slice(0,6);const selected=all.find(item=>item.id===selectedId);
