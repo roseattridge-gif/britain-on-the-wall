@@ -1,5 +1,33 @@
 # CODEX HANDOFF
 
+# BOTW V1 — PRIVATE TEST READY
+
+Feature scope frozen: YES
+
+National Wall production-ready: YES
+What Changed production-ready: YES
+Value/leakage production-ready: YES
+Ask Britain production-ready: YES
+Immigration journey production-ready: YES
+Health journey production-ready: YES
+Evidence experience production-ready: YES
+Mobile production-ready: YES
+Favicon installed: NO — the exact approved crowned-wall assets were not available; no substitute was invented.
+
+Tests: PASS — 13 files / 201 tests
+Typecheck: PASS
+Build: PASS
+Diff check: PASS
+GitHub Pages: PENDING FINAL DEPLOYMENT
+
+Placeholder headline numbers remaining in public mode: NONE FOUND
+Demo-only public content remaining: NONE ON PUBLIC ROUTES; `/legacy-wall` remains a separate development reference
+Broken controls: NONE FOUND IN LOCAL THREE-VIEWPORT QA; final production smoke test pending
+Known launch blockers: APPROVED FAVICON ASSET FILES NOT SUPPLIED; PRIVATE-TEST THRESHOLD NOT YET MEASURED
+
+Ready for 10–15-person private test: YES
+Ready for public launch if private test clears 4/5 threshold: NO — install and verify the exact approved favicon first.
+
 ## V1 launch candidate — 2026-09-04
 
 The bounded V1 is implemented: readable What Changed comparisons; official productivity, benefit fraud/error, tax-gap and debt-interest context; five Claim → Evidence checks; deterministic Ask Britain with an explicit unsupported state; two seven-step shareable journeys; a public trust/method section; and launch audit, data register, private-test plan and scorecard. The technical gate passes: 196 tests, type checking, production build, diff check, seven browser receipts and a 390px no-overflow check. Public-launch approval remains deliberately withheld until the documented 10–15-person private test is run and every scorecard dimension is at least 4/5. No generative chat, forecasts, accounts, payments, Justice or Education expansion was added.

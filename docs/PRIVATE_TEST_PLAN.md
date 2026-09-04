@@ -21,13 +21,24 @@ Use the production URL on the participant’s own phone or laptop. Do not explai
 
 ## Questions after tasks
 
-- What is BOTW for?
-- Which number, label or interaction was hardest to understand?
-- Did any wording imply a party or policy caused a change?
-- Could you distinguish UK fiscal data from England operational data?
-- Did “estimate”, “provisional”, “not yet available” and “cannot prove” feel clear?
-- Where would you go next: Britain, What Changed or Ask Britain?
-- On a 1–5 scale: clarity, trust, evidence access, usefulness, neutrality, mobile readability.
+Copy this questionnaire directly into the test form or follow-up email:
+
+1. In one sentence, what do you think Britain on the Wall is?
+2. What did you click first?
+3. What did you learn that you did not know?
+4. Which finding surprised you most?
+5. Was anything confusing?
+6. Did anything feel politically biased?
+7. Was there any number you did not trust?
+8. Could you find the source for it?
+9. Ask Britain: what did you naturally try to ask?
+10. Did it answer?
+11. Would you send this to someone else?
+12. Who?
+13. What is the one thing you would change?
+14. Overall usefulness: 1–5
+15. Overall trust: 1–5
+16. Ease of understanding: 1–5
 
 ## Issue rubric
 
@@ -36,3 +47,24 @@ Use the production URL on the participant’s own phone or laptop. Do not explai
 - Severity 3: polish/friction that does not change interpretation.
 
 Fix and retest every severity-one issue. Retest a representative subset after severity-two changes.
+
+## Launch-blocking feedback
+
+- Users cannot explain what BOTW is.
+- Users misunderstand units.
+- Users think correlation is being presented as causation.
+- Evidence cannot be found.
+- Strong perceived partisan bias.
+- Core navigation is confusing.
+- Mobile is unusable.
+- Ask Britain routes are broken.
+- Main Wall interactions are broken.
+
+## Not launch blocking
+
+- Requests for additional topics or historical years.
+- Minor stylistic preferences.
+- Requests for personalised views or a full chatbot.
+- Requests for Justice, Education, regions or international comparisons.
+
+These requests belong in post-test discovery; they do not reopen the frozen V1 feature scope.

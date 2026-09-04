@@ -2,7 +2,7 @@
 
 ## Automated
 
-- Vitest: 13 files, 196 tests passed.
+- Vitest: 13 files, 201 tests passed.
 - TypeScript project check: passed.
 - Vite production build: passed.
 - `git diff --check`: passed.
@@ -16,3 +16,12 @@
 - Final receipt filenames: `launch-national.png`, `launch-what-changed.png`, `launch-value-leakage.png`, `launch-ask.png`, `launch-immigration-journey.png`, `launch-health-journey.png`, `launch-mobile-390x844.png`.
 
 This evidence establishes technical launch-candidate readiness. It does not substitute for the private comprehension/trust test.
+
+## Final private-test preparation pass
+
+- Rechecked Britain, What Changed, value/leakage, Ask Britain, supported and unsupported answers, both guided journeys and the private-test entry at 1440×900, 1920×1080 and 390×844.
+- Every checked route measured `document scrollWidth = innerWidth`; no page-level horizontal overflow was found.
+- Clicked Sources and method, unit toggle, year selector, topic selector, What Changed finding/detail/Wall focus, Ask supported/unsupported/suggestion/evidence, and journey next/previous/evidence. All reached the intended state with no console warnings or errors.
+- National Ask answers now return to `#value-leakage`; story answers return to their metric focus.
+- Receipts: `private-test-1440x900.png`, `what-changed-1920x1080.png`, `health-journey-390x844.png`.
+- Favicon network/recognisability QA could not be run: the three exact approved crowned-wall asset files were not present. No replacement was generated.
