@@ -52,7 +52,23 @@ The spacing scale is `4, 8, 12, 16, 24, 32, 48, 64`. Shared shapes are `--radius
 
 ### National fiscal row
 
-Default state shows a functional outline icon, plain label, proportional £1 tokens, value, percentage and a `+` source affordance. Prior/base comparisons stay in the accessible label and hover title until interaction. Borrowing uses a restrained violet dashed treatment and explicit “not revenue” wording. Technical reconciliation is grey and says “not a service”.
+Default state shows a functional outline icon, plain label, proportional strip, value, visible prior-period movement and a `+` source affordance. Longer prior/base comparisons remain in the hover title and evidence interaction. Borrowing uses a restrained violet dashed treatment and explicit “not revenue” wording. Technical reconciliation is grey and says “not a service”.
+
+### Fiscal row hierarchy
+
+Every comparable row exposes four levels in a fixed order: the current monetary value; its share of total public money; cash movement from the previous comparable period in percent; and movement in share of total in percentage points. `%` always describes cash change and `pp` always describes share change. Direction is neutral `up`, `down` or `unchanged`, never a performance judgement. The first historical period says “First comparable period”. The three largest non-technical values in each column receive a restrained `major` treatment recalculated for the selected year.
+
+### Money typography
+
+Money is composed from separate `.currency-symbol`, `.money-value` and `.money-unit` elements. The number keeps the typographic emphasis; the pound sign is 0.78em, lighter and optically spaced, while `bn` or `tn` is 0.52em. This component is canonical for fiscal rows, the central £100, total public money and story money cards.
+
+### Flow behaviour
+
+All fiscal ribbons remain proportional but rest at low opacity. Hovering or keyboard-focusing a fiscal row raises its own ribbon to strong opacity and quietens every unrelated ribbon. Borrowing and technical paths retain their dashed semantics. Ribbons are hidden in stacked tablet/mobile layouts.
+
+### Proportional mark
+
+The canonical row mark is a continuous proportional strip with a quiet five-percent grid texture. It communicates share before individual units. Major rows use a slightly taller, clearer fill; standard and technical rows remain subordinate. The former field of individually rendered £1 squares is retired.
 
 ### Hero metric
 

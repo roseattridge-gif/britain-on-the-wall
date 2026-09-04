@@ -1,5 +1,20 @@
 # CODEX HANDOFF
 
+## Main Wall readability pass — 2026-09-04
+
+1. **Cash percentage change:** yes, it is visible on every row with a prior comparable period.
+2. **Share movement:** yes, percentage-point change is visible and separately labelled `pp share`.
+3. **First year:** every fiscal row says “First comparable period”; no zero or invented prior value is shown.
+4. **Pound sign:** a shared `MoneyDisplay` separates a lighter 0.78em symbol, the primary number and a smaller `bn`/`tn` unit.
+5. **Ribbons:** unchanged proportional widths now rest at 0.14 opacity; when one is active, unrelated paths fall to 0.055.
+6. **Flow focus:** pointer hover and keyboard focus set the same React flow state; the matching path rises to 0.82 opacity.
+7. **Tokens:** individual squares were replaced by one continuous proportional strip with a quiet five-percent texture.
+8. **Top three:** the three largest current values in each column are recalculated for the selected year and receive a slightly larger value and strip. Technical reconciliation is excluded.
+9. **Technical row:** yes, it remains grey, `NOT A SERVICE`, never `major`, and visually reduced.
+10. **Fiscal data:** NO fiscal data, taxonomy, evidence ID, historical period or derivation changed.
+11. **Public data mode:** YES, public mode remains `real` by default.
+12. **1440×900 QA:** the public total and top categories read first; low-opacity ribbons no longer dominate; £100 and £bn values remain aligned; all visible rows carry cash and share movement without collisions. Focused Health raises only its path. At 390×844 the page measured exactly 390px wide, the pool was reduced to reveal the Wall sooner, and row-level inspection confirmed clean label/value/change stacking. Receipts are under `docs/qa/main-wall-clean-*.png`.
+
 ## BOTW design-system / polish pass — 2026-09-04
 
 1. **Design tokens:** Introduced shared background/surface, primary/secondary/muted text, border, accent, success, warning, danger, technical and borrowing colours; 4/8/12/16/24/32/48/64 spacing; three radii; and one restrained shadow in `national.css`.
