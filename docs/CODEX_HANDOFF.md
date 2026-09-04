@@ -1,5 +1,41 @@
 # CODEX HANDOFF
 
+## BOTW design-system / polish pass — 2026-09-04
+
+1. **Design tokens:** Introduced shared background/surface, primary/secondary/muted text, border, accent, success, warning, danger, technical and borrowing colours; 4/8/12/16/24/32/48/64 spacing; three radii; and one restrained shadow in `national.css`.
+2. **Typography minimum:** Public text has an enforced 11px metadata floor. Newsreader is reserved for the masthead, chapter headings, major numbers and editorial signals; Libre Franklin handles data and interface text.
+3. **Simplified public labels:** “Substantive initial decisions” is now “Asylum decisions made”; “asylum backlog” is “People awaiting an asylum decision”; “completed RTT pathways” is “NHS treatments completed”; “waiting list” is “NHS waiting list”; “net additional dwellings” is “Homes added”; and TME is written as total spending. Stable IDs and official evidence definitions are unchanged.
+4. **National Wall:** The header now asks the product question directly, removes source/destination counts, and retains only the total, £100 frame, unit switch and help. Rows show label, value, percentage and physical share by default; detailed comparisons remain available in the accessible/hover description and source drawer. The medallion remains dominant.
+5. **Hero cards:** Every topic uses category → large value → plain label → comparable-period change/status → actual period. Cards share one surface, border, radius, type scale and source affordance.
+6. **Charts:** Primary and supporting trends now share one line/point/year-band grammar, readable 14px SVG labels, accessible names and a dedicated current-value footer. The primary chart remains materially larger.
+7. **Government context:** A neutral grey band and restrained 5 July 2024 boundary replace party-brand styling. Policy events use one subordinate marker/card style and open evidence.
+8. **Evidence drawer:** Reordered into metric/value, period/geography, confidence, source, definition, what it tells us, what it cannot tell us, collapsed technical detail and official link. It is a side sheet on desktop and full-width on mobile.
+9. **Dead/duplicate UI:** Removed the accumulated compact-story, old timeline, old summary and topic-specific density rules from `national.css`. `/legacy-wall` remains separate and unchanged.
+10. **390px:** Yes. Browser QA measured `innerWidth = scrollWidth = bodyScrollWidth = 390`; controls remain readable, rows stack, and the evidence drawer becomes a full-width sheet.
+11. **Remaining weakness:** The complete national taxonomy is intentionally taller than one 900px viewport once labels respect the 11px floor; lower categories require scrolling. This is preferable to shrinking the data. The next visual opportunity is chart-axis/value annotation refinement, not another layout system.
+12. **Intelligence readiness:** Yes. The front end now has shared topic/year/card/chart/signal/evidence primitives suitable for a separately designed intelligence consumer. No new intelligence UI or feature was added in this pass.
+
+Design contract: `docs/DESIGN_SYSTEM.md`. QA: `docs/qa/design-system-national-1440x900.png`, `design-system-health-1440x900.png`, `design-system-immigration-1440x900.png`, `design-system-housing-1440x900.png`, and `design-system-mobile-390x844.png`.
+
+## Intelligence primitives — 2026-09-04
+
+1. **Generic metric contract:** `IntelligenceMetricSeries` carries stable metric/topic IDs, definition, money/capacity/output/outcome/context dimension, unit, polarity, geography and measurement basis. Each point keeps its Wall period ID, actual measurement label/date, numeric-or-unavailable value, status, comparability and evidence IDs.
+2. **Inflection types:** Local peak, local trough, reversal up, reversal down, acceleration and deceleration, all requiring three consecutive eligible observations and material movement.
+3. **Materiality rule:** A 0–100 ranking combines 60% capped proportional delta and 40% capped delta relative to the full observed series range, then applies a 1.0 HIGH or 0.75 MEDIUM confidence weight. The deterministic eligibility threshold is 3. This is ranking, not statistical significance.
+4. **Registered contradictions:** Health: spend → waiting list/18-week performance, workforce → waiting list/18-week performance, completed pathways → waiting list. Immigration: substantive initial decisions → asylum backlog. Housing: spend → net additions, net additions → affordability/temporary accommodation. No unregistered pair is evaluated.
+5. **Polarity:** Higher-is-better and lower-is-better translate numeric direction into improved/deteriorated. Neutral-context metrics remain up/down/flat only; they never become performance claims.
+6. **Comparability:** HIGH-only inputs yield HIGH confidence; any eligible MEDIUM input yields MEDIUM confidence; any LOW or unavailable input blocks the candidate headline signal.
+7. **Period mismatch preservation:** `periodId` aligns existing story columns while every signal separately exposes the real left/right measurement labels and the relationship's alignment note. Fiscal years, calendar years, monthly totals and snapshots are never relabelled as one another.
+8. **Real Health signals:** The engine finds historical spend-up/performance-down and capacity-up/performance-down co-movements. It also detects the March 2024 waiting-list peak/reversal down and 18-week-performance trough/reversal up. These are numerical observations, not attribution.
+9. **Immigration inflections:** The asylum backlog produces its 2022 local peak/reversal down. Decision output's rise/easing/rebound is evaluated from the real calendar-year series. Net migration remains neutral and its unavailable first value prevents an unsupported local-peak calculation.
+10. **Housing signals:** The registered fiscal spend → supply pair produces spend-up/output-down observations where both movements are material. The 2025–26 supply point remains unavailable, so it cannot produce a current supply signal. Affordability and temporary-accommodation series remain eligible for their own deterministic shape signals.
+11. **Evidence resolution:** Yes. Every signal inherits the union of evidence IDs from all points used; candidates without evidence are not emitted by the registered data adapters.
+12. **Does government/policy context influence detection?** NO. It is absent from inflection, contradiction and materiality inputs.
+13. **Is generative AI involved?** NO. There are no model calls, embeddings, vector search or generated explanations.
+14. **Ready for public “What Changed?” UI?** The deterministic foundation and catalogue API are ready for Product Management review and UI design. This increment intentionally does not claim the public experience is ready: wording, signal selection and explanation presentation still require a separate consumer increment.
+
+Detailed contract and formula: `docs/INTELLIGENCE_ENGINE.md`. Public story workspace: unchanged from `d671cd0`.
+
 ## How We Got Here — Housing — 2026-09-02
 
 1. **Accepted/rejected metrics:** Accepted UK Housing and communities expenditure as context; England net additional dwellings as supply output; the ONS England median house-price-to-residence-based-earnings ratio as purchase affordability; and England households in temporary accommodation as the social outcome. New-build completions, planning permissions, raw house prices, mortgage rates, homelessness-duty flows and demand/population comparisons were rejected from the headline story. Affordable-housing delivery remains later evidence, not a hero series.
