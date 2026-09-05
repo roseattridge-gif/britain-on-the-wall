@@ -1,5 +1,25 @@
 # CODEX HANDOFF
 
+# Final V1 pre-test audit — 2026-09-05
+
+1. **How many P0 issues were found?** One.
+2. **What was it?** Production has no favicon link and the exact approved crowned-wall asset is unavailable. The isolated local recreation remains unpublished pending explicit approval.
+3. **How many P1 issues?** Three: broken Back/Forward state restoration, eight natural Ask Britain routing failures within the 30-question matrix, and a retired ONS national-receipts evidence URL.
+4. **What was fixed?** URL-driven `popstate` restoration and stale-parameter cleanup; bounded Ask aliases plus precise NHS-spend and non-causal migration answers; and the official receipts link. No data values or detection algorithms changed.
+5. **What remains P2 only?** No new audit finding met the threshold for a material P2 item. No polish work was added.
+6. **Did all 30 Ask Britain phrases pass?** Yes after repair. All 30 expected routes pass in the recorded matrix; the five required normative/forecast questions still decline safely.
+7. **Did all favicon/money-layout checks pass?** Money layout passed at rendered desktop, tablet and 390px sizes; the pound signs remain optically separated from the figures. Favicon failed because the approved asset is not live.
+8. **Are connector flow lines still absent?** Yes. Local and production DOM checks return zero `.editorial-flows`; the Wall retains 20 fiscal rows and proportional strips.
+9. **Did any public demo/illustrative numerical data remain?** No on ordinary public routes. Production defaults to `dataMode === real`; illustrative prototype material remains isolated behind `/legacy-wall` only.
+10. **Did any contentious claim fail the same-evidence-standard test?** No. Each of the five cards retains directly relevant evidence, an observation/causation boundary and a substantive limitation. The new Labour-causation question explicitly says BOTW cannot establish causation.
+11. **Did mobile pass?** Yes for layout: at 390×844, BRITAIN, WHAT CHANGED and ASK BRITAIN each measured `scrollWidth === innerWidth === 390`; navigation, money, rows, six findings and Ask input remained usable. The approved-favicon blocker is independent of layout.
+12. **Did URL/back/refresh behaviour pass?** Yes locally after repair. Back and Forward restore both view and URL; view switching clears stale state; direct Ask/finding/journey URLs and refresh remain covered by regressions.
+13. **Is the build now frozen?** Feature scope is frozen. Only the approved favicon decision remains open.
+14. **Is it ready for the 10–15 person private test?** No—not under the explicit V1 definition of done.
+15. **Exactly what blocks it?** Supply or explicit founder approval of the favicon asset, followed by commit, deployment and fresh-tab production verification. No other P0/P1 defect remains from this audit.
+
+Audit evidence: `docs/FINAL_V1_PUNCH_LIST.md`, `docs/qa/final-v1-audit-1440x900.png`, and `docs/qa/final-v1-audit-mobile-390x844.png`.
+
 # V1 regression repair — 2026-09-04
 
 1. **Why favicon was missing:** `index.html` had no favicon link and the repository contained no approved favicon files.

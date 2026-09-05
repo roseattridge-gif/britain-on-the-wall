@@ -6,7 +6,9 @@ Run with 10–15 UK adults who have not worked on BOTW. Do not call the public l
 
 ## Session
 
-Use the production URL on the participant’s own phone or laptop. Do not explain the interface before the first task. Record device, viewport, task completion, wrong turns, quoted interpretation and confidence; do not collect sensitive personal data.
+Do not explain Britain on the Wall before the participant starts.
+
+Give them only the production URL on their own phone or laptop. Record device, viewport, task completion, wrong turns, quoted interpretation and confidence; do not collect sensitive personal data.
 
 1. In 20 seconds, say what the main Wall is showing.
 2. Find how much of every £100 goes to Health and social care.
